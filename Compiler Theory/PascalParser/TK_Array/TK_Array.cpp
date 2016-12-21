@@ -174,20 +174,16 @@ void InitTree(Tree* & head, lexem t) {
 	
 void AddLeft(Tree* & head, lexem t)
 {
-	//head->Left = (Tree*)malloc(sizeof(Tree));
 	InitTree(head->Left, t);
 }
 
 void AddCenter(Tree* & head, lexem t)
 {
-	//head->Center = (Tree*)malloc(sizeof(Tree));
-
 	InitTree(head->Center, t);
 }
 
 void AddRight(Tree* & head, lexem t)
 {
-	//head->Right = (Tree*)malloc(sizeof(Tree));
 	InitTree(head->Right, t);
 }
 
@@ -209,105 +205,6 @@ void ProbPrint(Tree* & head, int n)
 		ProbPrint(head->Right, n + 2);
 	}
 }
-
-/*void AddLeft(Tree** head, Tree** right) {
-	(*head)->Left = *right;
-}
-
-void AddRight(Tree** head, Tree** right) {
-	(*head)->Right = *right;
-}
-
-void PrPrint(Tree** head)
-{
-	if (*head != NULL) {
-		printf("%c", (*head)->info);
-		PrPrint(&((*head)->Left));
-		PrPrint(&((*head)->Right));
-	}
-}
-
-void ObPrint(Tree** head)
-{
-	if (*head != NULL) {
-		ObPrint(&((*head)->Left));
-		ObPrint(&((*head)->Right));
-		printf("%c", (*head)->info);
-	}
-}
-
-void ProbPrint(Tree** head, int n)
-{
-	if (*head != NULL) {
-		for (int i = 0; i < n; i++) printf(" ");
-		printf("%c\n", (*head)->info);
-		ProbPrint(&((*head)->Left), n + 1);
-		ProbPrint(&((*head)->Right), n + 1);
-	}
-}
-
-void SymPrint(Tree** head)
-{
-	if (*head != NULL) {
-		SymPrint(&((*head)->Left));
-		printf("%c", (*head)->info);
-		SymPrint(&((*head)->Right));
-	}
-}
-
-
-int IsBasic(Tree** head) {
-	if (((*head)->Left == NULL) && ((*head)->Right == NULL))
-		return 1;
-	return 0;
-}
-
-Tree** TreeArr;
-/*string s;
-cin >> s;
-	cout << endl;
-	calc(s);
-	char *str = new char[OutString.length() + 1];
-	strcpy(str, OutString.c_str());
-
-	// str with symbols
-
-	TreeArr = (Tree**)malloc(sizeof(Tree*) * strlen(str));
-	countEl = strlen(str);
-
-	for (int i = 0; i < strlen(str); i++) {
-		InitTree(&(TreeArr[i]), str[i]);
-	}
-
-	i = 0;
-
-	while (countEl > 1) {
-		while ((!IsBasic(&(TreeArr[i])) || isalpha((TreeArr[i])->info)) && (i < countEl)) i++;
-		AddLeft(&(TreeArr[i]), &(TreeArr[i - 2]));
-		AddRight(&(TreeArr[i]), &(TreeArr[i - 1]));
-		for (int k = 0; k < 2; k++) {
-			for (int j = i - 2; j < countEl - 1; j++) {
-				TreeArr[j] = TreeArr[j + 1];
-			}
-			countEl--;
-		}
-		i = 0;
-	}
-
-	ProbPrint(&TreeArr[0], 0);
-
-	puts("\n\nPre: ");
-	PrPrint(&TreeArr[0]);
-	puts("\nPost: ");
-	ObPrint(&TreeArr[0]);
-	puts("\nIn: ");
-	SymPrint(&TreeArr[0]);
-	puts("\n\n");
-	system("pause");
-	return 0;
-}*/
-// ------------------------------------------------------------------------
-
 
 void Init()
 {
