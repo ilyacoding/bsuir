@@ -1,0 +1,6 @@
+program example3;
+var x,y,s: integer;
+begin
+  s := x * y;
+  y := s / y;
+end.
