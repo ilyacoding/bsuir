@@ -32,11 +32,12 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelSelect = new System.Windows.Forms.Panel();
+            this.panelColorSelect = new System.Windows.Forms.Panel();
+            this.buttonColorSelect = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.colorDialogSelect = new System.Windows.Forms.ColorDialog();
-            this.buttonColorSelect = new System.Windows.Forms.Button();
-            this.panelColorSelect = new System.Windows.Forms.Panel();
+            this.buttonClear = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panelSelect.SuspendLayout();
             this.SuspendLayout();
@@ -69,6 +70,7 @@
             // panelSelect
             // 
             this.panelSelect.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panelSelect.Controls.Add(this.buttonClear);
             this.panelSelect.Controls.Add(this.panelColorSelect);
             this.panelSelect.Controls.Add(this.buttonColorSelect);
             this.panelSelect.Controls.Add(this.button1);
@@ -77,15 +79,12 @@
             this.panelSelect.Size = new System.Drawing.Size(115, 391);
             this.panelSelect.TabIndex = 3;
             // 
-            // button1
+            // panelColorSelect
             // 
-            this.button1.Location = new System.Drawing.Point(22, 16);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Draw";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.panelColorSelect.Location = new System.Drawing.Point(3, 334);
+            this.panelColorSelect.Name = "panelColorSelect";
+            this.panelColorSelect.Size = new System.Drawing.Size(109, 20);
+            this.panelColorSelect.TabIndex = 2;
             // 
             // buttonColorSelect
             // 
@@ -99,14 +98,27 @@
             this.buttonColorSelect.UseVisualStyleBackColor = false;
             this.buttonColorSelect.Click += new System.EventHandler(this.buttonColorSelect_Click);
             // 
-            // panelColorSelect
+            // button1
             // 
-            this.panelColorSelect.Location = new System.Drawing.Point(3, 334);
-            this.panelColorSelect.Name = "panelColorSelect";
-            this.panelColorSelect.Size = new System.Drawing.Size(109, 20);
-            this.panelColorSelect.TabIndex = 2;
+            this.button1.Location = new System.Drawing.Point(22, 16);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Draw";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Form1
+            // buttonClear
+            // 
+            this.buttonClear.Location = new System.Drawing.Point(22, 45);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(75, 23);
+            this.buttonClear.TabIndex = 3;
+            this.buttonClear.Text = "Clear";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            // 
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -115,7 +127,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panelDraw);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "FormMain";
             this.Text = "Graphic editor";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -136,6 +148,7 @@
         private System.Windows.Forms.ColorDialog colorDialogSelect;
         private System.Windows.Forms.Button buttonColorSelect;
         private System.Windows.Forms.Panel panelColorSelect;
+        private System.Windows.Forms.Button buttonClear;
     }
 }
 

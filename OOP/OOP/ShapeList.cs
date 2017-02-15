@@ -23,9 +23,11 @@ namespace OOP
                 sh.Draw(form);
             }
         }
-        public void Clear()
+        public void Clear(FormMain form)
         {
             list.Clear();
+            System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
+            graphics.Clear(form.panelDraw.BackColor);
         }
         private List<Shape> list;
     }
