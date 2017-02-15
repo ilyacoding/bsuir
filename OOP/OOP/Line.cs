@@ -13,11 +13,9 @@ namespace OOP
         {
             Coordinate = new System.Drawing.Rectangle(x1, y1, x2, y2);
             Pen = new Pen(color);
-            //Pen.color = color;
         }
         public override void Draw(FormMain form)
         {
-            //Coordinate.X
             System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
             graphics.DrawLine(Pen, new Point(Coordinate.X, Coordinate.Y), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
         }
