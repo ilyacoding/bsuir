@@ -34,6 +34,9 @@
             this.panelSelect = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.colorDialogSelect = new System.Windows.Forms.ColorDialog();
+            this.buttonColorSelect = new System.Windows.Forms.Button();
+            this.panelColorSelect = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.panelSelect.SuspendLayout();
             this.SuspendLayout();
@@ -66,6 +69,8 @@
             // panelSelect
             // 
             this.panelSelect.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panelSelect.Controls.Add(this.panelColorSelect);
+            this.panelSelect.Controls.Add(this.buttonColorSelect);
             this.panelSelect.Controls.Add(this.button1);
             this.panelSelect.Location = new System.Drawing.Point(12, 37);
             this.panelSelect.Name = "panelSelect";
@@ -78,9 +83,28 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
+            this.button1.Text = "Draw";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // buttonColorSelect
+            // 
+            this.buttonColorSelect.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonColorSelect.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonColorSelect.Location = new System.Drawing.Point(3, 360);
+            this.buttonColorSelect.Name = "buttonColorSelect";
+            this.buttonColorSelect.Size = new System.Drawing.Size(109, 28);
+            this.buttonColorSelect.TabIndex = 1;
+            this.buttonColorSelect.Text = "Select color";
+            this.buttonColorSelect.UseVisualStyleBackColor = false;
+            this.buttonColorSelect.Click += new System.EventHandler(this.buttonColorSelect_Click);
+            // 
+            // panelColorSelect
+            // 
+            this.panelColorSelect.Location = new System.Drawing.Point(3, 334);
+            this.panelColorSelect.Name = "panelColorSelect";
+            this.panelColorSelect.Size = new System.Drawing.Size(109, 20);
+            this.panelColorSelect.TabIndex = 2;
             // 
             // Form1
             // 
@@ -109,6 +133,9 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ColorDialog colorDialogSelect;
+        private System.Windows.Forms.Button buttonColorSelect;
+        private System.Windows.Forms.Panel panelColorSelect;
     }
 }
 
