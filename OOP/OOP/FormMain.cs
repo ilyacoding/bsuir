@@ -21,18 +21,16 @@ namespace OOP
        
         private void button1_Click(object sender, EventArgs e)
         {
+            var Shapes = new ShapeList();
 
-            List<Shape> Shapes = new List<Shape>(1);
-            //Shapes.Add(new Rectangle(0, 0, 100, 100));
-            //Shapes.Add(new Ellipse(20, 20, 180, 90));
-            Shapes.Add(new Line(colorDialogSelect.Color, 0, 20, 90, 30));
-            //Shapes.Add(new Pie(0,0,10,10));
-            //Shapes.Add(new Triangle(0, 0, 100, 100));
-            //Shapes.Add(new Rhombus(0, 0, 100, 100));
-            foreach (Shape sh in Shapes)
-            {
-                sh.Draw(this);
-            }
+            Shapes.Add(new Line(colorDialogSelect.Color, 0, 0, 20, 180));
+            Shapes.Add(new Ellipse(colorDialogSelect.Color, 20, 0, 90, 180));
+            Shapes.Add(new Rectangle(colorDialogSelect.Color, 90, 10, 110, 19));
+            Shapes.Add(new Pie(colorDialogSelect.Color, 20, 0, 180, 220));
+            Shapes.Add(new Triangle(colorDialogSelect.Color, 220,10,290,200));
+            Shapes.Add(new Trapeze(colorDialogSelect.Color, 10,10,40,40));
+            Shapes.Draw(this);
+            Shapes.Clear();
         }
 
         private void buttonColorSelect_Click(object sender, EventArgs e)
