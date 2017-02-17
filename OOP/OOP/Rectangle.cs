@@ -17,7 +17,10 @@ namespace OOP
         public override void Draw(FormMain form)
         {
             System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
-            graphics.DrawRectangle(Pen, Coordinate);
+            graphics.DrawLine(Pen, new Point(Coordinate.X, Coordinate.Y), new Point(Coordinate.X + Coordinate.Width, Coordinate.Y));
+            graphics.DrawLine(Pen, new Point(Coordinate.X, Coordinate.Y), new Point(Coordinate.X, Coordinate.Bottom));
+            graphics.DrawLine(Pen, new Point(Coordinate.X + Coordinate.Width, Coordinate.Y), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
+            graphics.DrawLine(Pen, new Point(Coordinate.X, Coordinate.Bottom), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
         }
     }
 }
