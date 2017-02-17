@@ -31,36 +31,46 @@
             this.panelDraw = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonClear = new System.Windows.Forms.Button();
             this.panelColorSelect = new System.Windows.Forms.Panel();
             this.buttonColorSelect = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.colorDialogSelect = new System.Windows.Forms.ColorDialog();
             this.labelTextThickness = new System.Windows.Forms.Label();
             this.labelThickness = new System.Windows.Forms.Label();
             this.buttonThicknessMore = new System.Windows.Forms.Button();
             this.buttonThicknessLess = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.buttonBackgroundSelect = new System.Windows.Forms.Button();
             this.panelBackgroundSelect = new System.Windows.Forms.Panel();
+            this.buttonBackgroundSelect = new System.Windows.Forms.Button();
             this.colorDialogBackground = new System.Windows.Forms.ColorDialog();
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
+            this.groupBoxShape = new System.Windows.Forms.GroupBox();
+            this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.groupBoxShape.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelDraw
             // 
+            this.panelDraw.AutoSize = true;
             this.panelDraw.BackColor = System.Drawing.Color.White;
             this.panelDraw.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelDraw.Location = new System.Drawing.Point(12, 96);
+            this.panelDraw.Location = new System.Drawing.Point(130, 96);
             this.panelDraw.Name = "panelDraw";
-            this.panelDraw.Size = new System.Drawing.Size(860, 332);
+            this.panelDraw.Size = new System.Drawing.Size(836, 377);
             this.panelDraw.TabIndex = 0;
+            this.panelDraw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelDraw_MouseDown);
+            this.panelDraw.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelDraw_MouseMove);
             // 
             // menuStrip1
             // 
@@ -70,25 +80,18 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(879, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(978, 28);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.backToolStripMenuItem,
+            this.clearToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.fileToolStripMenuItem.Text = "File";
-            // 
-            // buttonClear
-            // 
-            this.buttonClear.Location = new System.Drawing.Point(19, 29);
-            this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(75, 23);
-            this.buttonClear.TabIndex = 3;
-            this.buttonClear.Text = "Clear";
-            this.buttonClear.UseVisualStyleBackColor = true;
-            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
             // panelColorSelect
             // 
@@ -108,16 +111,6 @@
             this.buttonColorSelect.Text = "Select color";
             this.buttonColorSelect.UseVisualStyleBackColor = false;
             this.buttonColorSelect.Click += new System.EventHandler(this.buttonColorSelect_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(19, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Draw";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // labelTextThickness
             // 
@@ -158,16 +151,6 @@
             this.buttonThicknessLess.UseVisualStyleBackColor = true;
             this.buttonThicknessLess.Click += new System.EventHandler(this.buttonThicknessLess_Click);
             // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.buttonClear);
-            this.panel1.Location = new System.Drawing.Point(12, 34);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(112, 59);
-            this.panel1.TabIndex = 4;
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -192,6 +175,13 @@
             this.panel3.Size = new System.Drawing.Size(233, 59);
             this.panel3.TabIndex = 6;
             // 
+            // panelBackgroundSelect
+            // 
+            this.panelBackgroundSelect.Location = new System.Drawing.Point(118, 6);
+            this.panelBackgroundSelect.Name = "panelBackgroundSelect";
+            this.panelBackgroundSelect.Size = new System.Drawing.Size(109, 16);
+            this.panelBackgroundSelect.TabIndex = 4;
+            // 
             // buttonBackgroundSelect
             // 
             this.buttonBackgroundSelect.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -204,33 +194,130 @@
             this.buttonBackgroundSelect.UseVisualStyleBackColor = false;
             this.buttonBackgroundSelect.Click += new System.EventHandler(this.buttonBackgroundSelect_Click);
             // 
-            // panelBackgroundSelect
+            // groupBoxShape
             // 
-            this.panelBackgroundSelect.Location = new System.Drawing.Point(118, 6);
-            this.panelBackgroundSelect.Name = "panelBackgroundSelect";
-            this.panelBackgroundSelect.Size = new System.Drawing.Size(109, 16);
-            this.panelBackgroundSelect.TabIndex = 4;
+            this.groupBoxShape.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.groupBoxShape.Controls.Add(this.radioButton6);
+            this.groupBoxShape.Controls.Add(this.radioButton5);
+            this.groupBoxShape.Controls.Add(this.radioButton4);
+            this.groupBoxShape.Controls.Add(this.radioButton3);
+            this.groupBoxShape.Controls.Add(this.radioButton2);
+            this.groupBoxShape.Controls.Add(this.radioButton1);
+            this.groupBoxShape.Location = new System.Drawing.Point(12, 34);
+            this.groupBoxShape.Name = "groupBoxShape";
+            this.groupBoxShape.Size = new System.Drawing.Size(112, 187);
+            this.groupBoxShape.TabIndex = 4;
+            this.groupBoxShape.TabStop = false;
+            this.groupBoxShape.Text = "Shape";
+            // 
+            // radioButton6
+            // 
+            this.radioButton6.AutoSize = true;
+            this.radioButton6.Location = new System.Drawing.Point(6, 156);
+            this.radioButton6.Name = "radioButton6";
+            this.radioButton6.Size = new System.Drawing.Size(82, 21);
+            this.radioButton6.TabIndex = 5;
+            this.radioButton6.TabStop = true;
+            this.radioButton6.Text = "Trapeze";
+            this.radioButton6.UseVisualStyleBackColor = true;
+            this.radioButton6.CheckedChanged += new System.EventHandler(this.radioButton6_CheckedChanged);
+            // 
+            // radioButton5
+            // 
+            this.radioButton5.AutoSize = true;
+            this.radioButton5.Location = new System.Drawing.Point(6, 129);
+            this.radioButton5.Name = "radioButton5";
+            this.radioButton5.Size = new System.Drawing.Size(99, 21);
+            this.radioButton5.TabIndex = 4;
+            this.radioButton5.TabStop = true;
+            this.radioButton5.Text = "IsoTriangle";
+            this.radioButton5.UseVisualStyleBackColor = true;
+            this.radioButton5.CheckedChanged += new System.EventHandler(this.radioButton5_CheckedChanged);
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(6, 102);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(81, 21);
+            this.radioButton4.TabIndex = 3;
+            this.radioButton4.TabStop = true;
+            this.radioButton4.Text = "Triangle";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            this.radioButton4.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(6, 75);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(70, 21);
+            this.radioButton3.TabIndex = 2;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "Ellipse";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(6, 48);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(93, 21);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Rectangle";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(6, 21);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(56, 21);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Line";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // backToolStripMenuItem
+            // 
+            this.backToolStripMenuItem.Name = "backToolStripMenuItem";
+            this.backToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.backToolStripMenuItem.Text = "Back";
+            this.backToolStripMenuItem.Click += new System.EventHandler(this.backToolStripMenuItem_Click);
+            // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(879, 435);
+            this.ClientSize = new System.Drawing.Size(978, 485);
+            this.Controls.Add(this.groupBoxShape);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panelDraw);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
             this.Text = "Graphic editor";
+            this.ResizeEnd += new System.EventHandler(this.FormMain_ResizeEnd);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
+            this.groupBoxShape.ResumeLayout(false);
+            this.groupBoxShape.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -242,21 +329,28 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ColorDialog colorDialogSelect;
         private System.Windows.Forms.Button buttonColorSelect;
         private System.Windows.Forms.Panel panelColorSelect;
-        private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonThicknessLess;
         private System.Windows.Forms.Button buttonThicknessMore;
         private System.Windows.Forms.Label labelThickness;
         private System.Windows.Forms.Label labelTextThickness;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panelBackgroundSelect;
         private System.Windows.Forms.Button buttonBackgroundSelect;
         private System.Windows.Forms.ColorDialog colorDialogBackground;
+        private System.Windows.Forms.HelpProvider helpProvider1;
+        private System.Windows.Forms.GroupBox groupBoxShape;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton6;
+        private System.Windows.Forms.RadioButton radioButton5;
+        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
     }
 }
 

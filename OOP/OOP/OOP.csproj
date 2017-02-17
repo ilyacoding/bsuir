@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="Ellipse.cs" />
     <Compile Include="Line.cs" />
-    <Compile Include="Pie.cs" />
+    <Compile Include="IsoTriangle.cs" />
     <Compile Include="Rectangle.cs" />
     <Compile Include="Trapeze.cs" />
     <Compile Include="Shape.cs" />

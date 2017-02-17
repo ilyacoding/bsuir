@@ -27,7 +27,7 @@ namespace Server
             }
             catch(Exception e)
             {
-                MessageBox.Show("Error initializing sockets.");
+                MessageBox.Show("Error initializing socket.");
             }
         }
        
