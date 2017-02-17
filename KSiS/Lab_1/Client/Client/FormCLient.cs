@@ -13,26 +13,34 @@ using System.Net.Sockets;
 namespace Client
 {
 
-    public partial class Form1 : Form
+    public partial class FormClient : Form
     {
         Socket sock;
-        public Form1()
+        public FormClient()
         {
             InitializeComponent();
             sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            IPEndPoint localIP = new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), 7777);
-            sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
-            sock.Bind(localIP);
+            try
+            {
+                IPEndPoint localIP = new IPEndPoint(GetLocalIP(), 7777);
+                labelIP.Text = GetLocalIP().ToString();
+                sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
+                sock.Bind(localIP);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
         }
 
-        public static string GetLocalIPAddress()
+        public static IPAddress GetLocalIP()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
-                    return ip.ToString();
+                    return ip;
                 }
             }
             throw new Exception("Local IP Address Not Found!");
@@ -48,7 +56,7 @@ namespace Client
 
             if (str.Length > 0)
             {
-                label1.Text = str;
+                labelDate.Text = str;
                 timer1.Enabled = true;
             }
         }
@@ -57,11 +65,6 @@ namespace Client
         {
             timer1.Enabled = false;
             button1_Click(sender, e);
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
