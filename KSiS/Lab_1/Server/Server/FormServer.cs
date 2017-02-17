@@ -12,26 +12,33 @@ using System.Net.Sockets;
 
 namespace Server
 {
-    public partial class Form1 : Form
+    public partial class FormServer : Form
     {
         Socket sock;
-        public Form1()
+        public FormServer()
         {
             InitializeComponent();
-
             sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, 1);
+            try
+            {
+                //sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, 1);
+                sock.DontFragment = true;
+                sock.EnableBroadcast = true;
+                sock.MulticastLoopback = false;
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Error initializing sockets.");
+            }
+
         }
        
-
         private void timer1_Tick(object sender, EventArgs e)
         {
-            label1.Text = DateTime.Now.ToString();
-            byte[] data = Encoding.ASCII.GetBytes(label1.Text);
+            labelDate.Text = DateTime.Now.ToString();
+            byte[] data = Encoding.ASCII.GetBytes(labelDate.Text);
             IPEndPoint toIP = new IPEndPoint(IPAddress.Broadcast, 7777);
-            //string IPBroad = "25.87.255.255";
-            //IPEndPoint toIP = new IPEndPoint(IPAddress.Parse(IPBroad), 7777);
-            label2.Text = IPAddress.Broadcast.ToString();
+            labelIP.Text = IPAddress.Broadcast.ToString();
             sock.SendTo(data, toIP);
         }
 
