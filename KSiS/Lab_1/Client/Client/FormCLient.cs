@@ -23,7 +23,7 @@ namespace Client
             try
             {
                 IPEndPoint localIP = new IPEndPoint(GetLocalIP(), 7777);
-                labelIP.Text = GetLocalIP().ToString();
+                labelIP.Text = "IP: " + GetLocalIP().ToString();
                 sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
                 sock.Bind(localIP);
             }
@@ -35,7 +35,7 @@ namespace Client
 
         public static IPAddress GetLocalIP()
         {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
+            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
@@ -45,26 +45,21 @@ namespace Client
             }
             throw new Exception("Local IP Address Not Found!");
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        
+        private void timer1_Tick(object sender, EventArgs e)
         {
             byte[] data = new byte[256];
             string str;
-
-            sock.Receive(data);
-            str = Encoding.ASCII.GetString(data);
-
-            if (str.Length > 0)
+            if (sock.Available > 0)
             {
-                labelDate.Text = str;
-                timer1.Enabled = true;
-            }
-        }
+                sock.Receive(data);
+                str = Encoding.ASCII.GetString(data);
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            timer1.Enabled = false;
-            button1_Click(sender, e);
+                if (str.Length > 0)
+                {
+                    labelDate.Text = str;
+                }
+            }
         }
     }
 }
