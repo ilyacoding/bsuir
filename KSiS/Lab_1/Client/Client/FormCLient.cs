@@ -7,58 +7,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Net;
-using System.Net.Sockets;
+using System.Threading;
 
 namespace Client
 {
-
     public partial class FormClient : Form
     {
-        Socket sock;
+        private UClient client { get; set; }
+
         public FormClient()
         {
             InitializeComponent();
-            sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            try
-            {
-                IPEndPoint localIP = new IPEndPoint(GetLocalIP(), 7777);
-                labelIP.Text = "IP: " + GetLocalIP().ToString();
-                sock.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
-                sock.Bind(localIP);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.ToString());
-            }
-        }
-
-        public static IPAddress GetLocalIP()
-        {
-            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    return ip;
-                }
-            }
-            throw new Exception("Local IP Address Not Found!");
+            client = new UClient(7777);
+            labelIP.Text = "IP: " + client.GetLocalIP().ToString();
         }
         
         private void timer1_Tick(object sender, EventArgs e)
         {
-            byte[] data = new byte[256];
-            string str;
-            if (sock.Available > 0)
-            {
-                sock.Receive(data);
-                str = Encoding.ASCII.GetString(data);
+            string str = client.Receive();
 
-                if (str.Length > 0)
-                {
-                    labelDate.Text = str;
-                }
+            if (str.Length > 0)
+            {
+                labelDate.Text = str;
             }
         }
     }

@@ -22,25 +22,6 @@ namespace OOP
             Shapes = new ShapeList();
         }
        
-        private void button1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Shapes.Add(new Line(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 10, 20, 20, 180));
-                Shapes.Add(new Ellipse(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 20, 0, 90, 180));
-                Shapes.Add(new Rectangle(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 90, 10, 110, 19));
-                Shapes.Add(new IsoTriangle(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 100, 100, 500, 200));
-                Shapes.Add(new Triangle(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 220, 10, 290, 240));
-                Shapes.Add(new Trapeze(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 10, 10, 40, 40));
-             
-                Shapes.Draw(this);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
         private void buttonColorSelect_Click(object sender, EventArgs e)
         {
             if (colorDialogSelect.ShowDialog() == DialogResult.OK)
@@ -82,7 +63,7 @@ namespace OOP
             {
                 Shapes.DrawingPoint = true;
                 Shapes.OldPoint = new Point(e.X, e.Y);
-            } else
+            }else
             {
                 Shapes.DrawingPoint = false;
                 Shapes.CurrentPoint = new Point(e.X, e.Y);    
@@ -147,5 +128,6 @@ namespace OOP
         {
             Shapes.Clear(this);
         }
+        
     }
 }

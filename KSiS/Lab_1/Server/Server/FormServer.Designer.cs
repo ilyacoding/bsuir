@@ -33,7 +33,7 @@
             this.buttonStop = new System.Windows.Forms.Button();
             this.buttonStart = new System.Windows.Forms.Button();
             this.labelDate = new System.Windows.Forms.Label();
-            this.labelIP = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // timer1
@@ -69,21 +69,21 @@
             this.labelDate.Size = new System.Drawing.Size(0, 17);
             this.labelDate.TabIndex = 3;
             // 
-            // labelIP
+            // label1
             // 
-            this.labelIP.AutoSize = true;
-            this.labelIP.Location = new System.Drawing.Point(170, 131);
-            this.labelIP.Name = "labelIP";
-            this.labelIP.Size = new System.Drawing.Size(20, 17);
-            this.labelIP.TabIndex = 4;
-            this.labelIP.Text = "IP";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(170, 131);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(136, 17);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "IP: 255.255.255.255";
             // 
             // FormServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(625, 350);
-            this.Controls.Add(this.labelIP);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.labelDate);
             this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.buttonStop);
@@ -100,7 +100,7 @@
         private System.Windows.Forms.Button buttonStop;
         private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.Label labelDate;
-        private System.Windows.Forms.Label labelIP;
+        private System.Windows.Forms.Label label1;
     }
 }
 
