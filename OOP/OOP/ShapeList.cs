@@ -9,6 +9,13 @@ namespace OOP
 {
     public class ShapeList
     {
+        public Point OldPoint { get; set; }
+        public Point CurrentPoint { get; set; }
+        public bool DrawingPoint { get; set; }
+        public Shape ShapeToDraw { get; set; }
+
+        private List<Shape> list;
+
         public ShapeList()
         {
             list = new List<Shape>();
@@ -16,6 +23,7 @@ namespace OOP
             CurrentPoint = new Point(0, 0);
             DrawingPoint = new bool();
             DrawingPoint = false;
+
         }
         public void Add(Shape shape)
         {
@@ -23,7 +31,7 @@ namespace OOP
         }
         public void Draw(FormMain form)
         {
-            foreach (Shape sh in list)
+            foreach (var sh in list)
             {
                 sh.Draw(form);
             }
@@ -59,12 +67,5 @@ namespace OOP
             }
         }
 
-        public Point OldPoint { get; set; }
-        public Point CurrentPoint { get; set; }
-        public bool DrawingPoint { get; set; }
-
-        public Shape ShapeToDraw { get; set; }
-        //public Type ShapeType { get; set; }
-        private List<Shape> list;
     }
 }

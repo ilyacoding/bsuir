@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace OOP
 {
-    public class Shape
+    public abstract class Shape
     {
         public System.Drawing.Rectangle Coordinate { get; set; }
         public System.Drawing.Pen Pen { get; set; }

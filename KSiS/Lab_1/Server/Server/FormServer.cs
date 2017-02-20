@@ -13,31 +13,20 @@ using System.Net.Sockets;
 namespace Server
 {
     public partial class FormServer : Form
-    {
-        Socket sock;
+    { 
+        private UServer serv { get; set; }
+
         public FormServer()
         {
             InitializeComponent();
-            sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            try
-            {
-                sock.DontFragment = true;
-                sock.EnableBroadcast = true;
-                sock.MulticastLoopback = false;
-            }
-            catch(Exception e)
-            {
-                MessageBox.Show("Error initializing socket.");
-            }
+            serv = new UServer(IPAddress.Broadcast, 7777);
         }
        
         private void timer1_Tick(object sender, EventArgs e)
         {
-            labelDate.Text = DateTime.Now.ToString();
-            byte[] data = Encoding.ASCII.GetBytes(labelDate.Text);
-            IPEndPoint toIP = new IPEndPoint(IPAddress.Broadcast, 7777);
-            labelIP.Text = "IP: " + IPAddress.Broadcast.ToString();
-            sock.SendTo(data, toIP);
+            var Date = DateTime.Now.ToString();
+            labelDate.Text = Date;
+            serv.Send(Date);
         }
 
         private void button2_Click(object sender, EventArgs e)
