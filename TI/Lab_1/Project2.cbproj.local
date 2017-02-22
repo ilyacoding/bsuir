@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.081,D:\BSUIR\Теория информации\лаба 1_Виженер\Lab\Unit1.h=C:\Users\Ilya\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.081,D:\BSUIR\Теория информации\лаба 1_Виженер\Lab\Unit1.fmx=C:\Users\Ilya\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.800,D:\BSUIR\Теория информации\лаба 1_Виженер\Lab\Project2.cbproj=C:\Users\Ilya\Documents\Embarcadero\Studio\Projects\Project2.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.612,=C:\Users\Ilya\Documents\Embarcadero\Studio\Projects\Project2PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.948,D:\BSUIR\Теория информации\лаба 1_Виженер\Lab\Project2PCH1.h=C:\Users\Ilya\Documents\Embarcadero\Studio\Projects\Project2PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.081,D:\BSUIR\Теория информации\лаба 1_Виженер\Lab\Unit1.cpp=C:\Users\Ilya\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.025,=C:\Users\Ilya\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+  </Transactions>
+</BorlandProject>
