@@ -1,0 +1,150 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = #1042#1080#1078#1077#1085#1077#1088' | '#1057#1072#1084#1086#1075#1077#1085#1077#1088#1080#1088#1091#1102#1097#1080#1081#1089#1103' '#1082#1083#1102#1095
+  ClientHeight = 488
+  ClientWidth = 729
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnCloseQuery = FormCloseQuery
+  OnResize = FormResize
+  DesignerMasterStyle = 0
+  object MemoM: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    Align = Left
+    Position.Y = 65.000000000000000000
+    Size.Width = 201.000000000000000000
+    Size.Height = 423.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    Viewport.Width = 197.000000000000000000
+    Viewport.Height = 419.000000000000000000
+  end
+  object ToolBarCentral: TToolBar
+    Size.Width = 729.000000000000000000
+    Size.Height = 65.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    object EditK: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Anchors = [akTop]
+      TabOrder = 0
+      Text = 'siamese'
+      Position.X = 280.000000000000000000
+      Size.Width = 169.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      OnKeyDown = EditKKeyDown
+    end
+    object ButtonLoadM: TButton
+      Position.X = 8.000000000000000000
+      Position.Y = 40.000000000000000000
+      TabOrder = 1
+      Text = 'LoadPlain'
+      OnClick = ButtonLoadMClick
+    end
+    object ButtonSaveM: TButton
+      Position.X = 96.000000000000000000
+      Position.Y = 40.000000000000000000
+      TabOrder = 2
+      Text = 'SavePlain'
+      OnClick = ButtonSaveMClick
+    end
+    object ButtonSaveC: TButton
+      Anchors = [akTop, akRight]
+      Position.X = 640.000000000000000000
+      Position.Y = 40.000000000000000000
+      TabOrder = 3
+      Text = 'SaveCrypt'
+      OnClick = ButtonSaveCClick
+    end
+    object ButtonLoadC: TButton
+      Anchors = [akTop, akRight]
+      Position.X = 552.000000000000000000
+      Position.Y = 40.000000000000000000
+      TabOrder = 4
+      Text = 'LoadCrypt'
+      OnClick = ButtonLoadCClick
+    end
+    object ButtonDecrypt: TButton
+      Anchors = [akTop, akRight]
+      Position.X = 456.000000000000000000
+      Position.Y = 40.000000000000000000
+      TabOrder = 5
+      Text = 'Decrypt'
+      OnClick = ButtonDecryptClick
+    end
+    object ButtonCrypt: TButton
+      Position.X = 192.000000000000000000
+      Position.Y = 40.000000000000000000
+      TabOrder = 6
+      Text = 'Encrypt'
+      OnClick = ButtonCryptClick
+    end
+    object ButtonTest: TButton
+      Anchors = [akTop]
+      Position.X = 328.000000000000000000
+      Position.Y = 32.000000000000000000
+      TabOrder = 7
+      Text = 'Kasiski'
+      OnClick = ButtonTestClick
+    end
+    object SwitchStat: TSwitch
+      IsChecked = False
+      Position.X = 8.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 78.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 8
+      OnSwitch = SwitchStatSwitch
+    end
+  end
+  object MemoC: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    Align = Right
+    Position.X = 488.000000000000000000
+    Position.Y = 65.000000000000000000
+    Size.Width = 241.000000000000000000
+    Size.Height = 423.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    Viewport.Width = 237.000000000000000000
+    Viewport.Height = 419.000000000000000000
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 576
+  end
+  object SaveDialog1: TSaveDialog
+    Left = 648
+  end
+  object MemoK: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    Align = Client
+    Size.Width = 287.000000000000000000
+    Size.Height = 423.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 8
+    Viewport.Width = 283.000000000000000000
+    Viewport.Height = 419.000000000000000000
+  end
+  object MemoS: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    Anchors = [akTop]
+    Position.X = 377.000000000000000000
+    Position.Y = 96.000000000000000000
+    Size.Width = 224.000000000000000000
+    Size.Height = 312.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 11
+    Visible = False
+    Viewport.Width = 220.000000000000000000
+    Viewport.Height = 308.000000000000000000
+  end
+end

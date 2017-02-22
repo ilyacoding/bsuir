@@ -11,17 +11,41 @@ namespace ServerAsync
 {
     class Program
     {
-        static TServer serv { get; set; }
+        static ServerSocket serv { get; set; }
         public static string data = null;
+
         static void Main(string[] args)
         {
             byte[] bytes = new Byte[1024];
 
-            serv = new TServer(7777);
-            serv.sock.Listen(100);
+            serv = new ServerSocket(7777);
+            while (true)
+            {
+                serv.Run();
+                if (serv.list.Count > 0)
+                {
+                    foreach (var client in serv.list.ToArray())
+                    {
+                        byte[] data = new byte[256];
+                        client.Receive(data);
+                        Console.WriteLine(Encoding.ASCII.GetString(data, 0, data.Length));
+                        string response = "good_string";// Reverse(Encoding.ASCII.GetString(data, 0, data.Length));
+                        byte[] sendData = Encoding.ASCII.GetBytes(response);
+                        Console.WriteLine(Encoding.ASCII.GetString(sendData));
+
+                        client.Send(sendData);
+
+                        client.Shutdown(SocketShutdown.Both);
+                        serv.list.Remove(serv.list.Last());
+                        client.Dispose();
+                    }
+                }
+
+                Console.WriteLine("Connected: " + serv.list.Count + " clients.");
+            }
 
             // Start listening for connections.
-            while (true)
+            /*while (true)
             {
                 Console.WriteLine("Waiting for a connection...");
                 Socket handler = serv.sock.Accept();
@@ -40,7 +64,14 @@ namespace ServerAsync
                 handler.Send(msg);
                 handler.Shutdown(SocketShutdown.Both);
                 handler.Close();
-            }
+            }*/
+        }
+
+        public static string Reverse(string text)
+        {
+            char[] array = text.ToCharArray();
+            Array.Reverse(array);
+            return new string(array);
         }
     }
 }

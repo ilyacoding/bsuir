@@ -9,6 +9,7 @@ using System.Net.Sockets;
 
 namespace ServerAsync
 {
+
     class TServer
     {
         public Socket sock { get; set; }
