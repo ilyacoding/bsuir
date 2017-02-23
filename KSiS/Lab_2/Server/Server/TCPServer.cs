@@ -13,6 +13,19 @@ namespace Server
 {
     class TCPServer
     {
+        //private System.Console cons;
 
+        public IPAddress GetLocalIP()
+        {
+            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip;
+                }
+            }
+            throw new Exception("Local IP Address Not Found!");
+        }
     }
 }
