@@ -21,8 +21,19 @@ namespace ServerAsync
             serv = new ServerSocket(7777);
             while (true)
             {
-                serv.Run();
-                if (serv.list.Count > 0)
+                //serv.Run();
+
+                Socket handler = serv.server.Accept();
+                byte[] data = new byte[256];
+                //handler.Receive(data);
+                Console.WriteLine(Encoding.ASCII.GetString(data, 0, data.Length));
+                string response = "hello";// Reverse(Encoding.ASCII.GetString(data, 0, data.Length));
+                byte[] sendData = Encoding.ASCII.GetBytes(response);
+                Console.WriteLine(Encoding.ASCII.GetString(sendData));
+
+                handler.Send(sendData);
+
+                /*if (serv.list.Count > 0)
                 {
                     foreach (var client in serv.list.ToArray())
                     {
@@ -39,7 +50,7 @@ namespace ServerAsync
                         serv.list.Remove(serv.list.Last());
                         client.Dispose();
                     }
-                }
+                }*/
 
                 Console.WriteLine("Connected: " + serv.list.Count + " clients.");
             }

@@ -5,35 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
-using System.Windows.Forms;
-using System.Threading;
 
-namespace Client
+namespace Server
 {
-    public class UClient
+    class UServer
     {
-        public IPEndPoint localIP { get; set; }
-        public IPEndPoint serverIP { get; set; }
         public Socket sock { get; set; }
-
-        public UClient(IPAddress remoteIP, int port)
+        public IPEndPoint toIP { get; set; }
+        
+        public UServer(int port)
         {
             sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPEndPoint serverIP = new IPEndPoint(remoteIP, port);
+            IPEndPoint localIP = new IPEndPoint(GetLocalIP(), port);
+            sock.Bind(localIP);
         }
-
-        public string Receive()
+        
+        public void Send(string Message)
         {
-            byte[] data = new byte[256];
-            string str = "";
-
-            if (sock.Available > 0)
-            {
-                sock.Receive(data);
-                str += Encoding.ASCII.GetString(data);
-            }
-
-            return str;
+            if (sock.Connected)
+                sock.Send(Encoding.ASCII.GetBytes(Message));
         }
 
         public IPAddress GetLocalIP()

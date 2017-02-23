@@ -37,6 +37,7 @@
             this.textBoxResponse = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonClose = new System.Windows.Forms.Button();
+            this.labelConnected = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonConnect
@@ -118,11 +119,20 @@
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
+            // labelConnected
+            // 
+            this.labelConnected.AutoSize = true;
+            this.labelConnected.Location = new System.Drawing.Point(12, 9);
+            this.labelConnected.Name = "labelConnected";
+            this.labelConnected.Size = new System.Drawing.Size(0, 17);
+            this.labelConnected.TabIndex = 12;
+            // 
             // FormClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(603, 322);
+            this.Controls.Add(this.labelConnected);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBoxResponse);
@@ -149,6 +159,7 @@
         private System.Windows.Forms.TextBox textBoxResponse;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.Label labelConnected;
     }
 }
 
