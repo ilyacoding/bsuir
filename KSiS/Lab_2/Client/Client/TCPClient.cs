@@ -58,7 +58,7 @@ namespace Client
         {
             if (Connected)
             {
-                byte[] bytes = new byte[256];
+                byte[] bytes = new byte[1024];
                 int bts = sock.Receive(bytes);
                 return Encoding.ASCII.GetString(bytes);
             }
