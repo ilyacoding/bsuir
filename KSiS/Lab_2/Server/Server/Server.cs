@@ -18,7 +18,7 @@ namespace Server
         public static string data = null;
         public static int ClientCount = 0;
         
-        public void StartListening()
+        public static void StartListening()
         {
             IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[0];
@@ -48,16 +48,15 @@ namespace Server
 
             Console.WriteLine("\nPress ENTER to continue...");
             Console.Read();
-
         }
 
-        public void RunBackground(Socket handler)
+        public static void RunBackground(Socket handler)
         {
             Thread newThread = new Thread(HandleClient);
             newThread.Start(handler);
         }
 
-        public void HandleClient(Object obj)
+        public static void HandleClient(Object obj)
         {
             Socket handler = (Socket)obj;
             while (true)

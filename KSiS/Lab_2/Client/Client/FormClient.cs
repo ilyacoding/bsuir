@@ -15,40 +15,36 @@ namespace Client
 {
     public partial class FormClient : Form
     {
-        private UClient client { get; set; }
+        private TCPClient client { get; set; }
 
         public FormClient()
         {
             InitializeComponent();
-            //labelIP.Text = "IP: " + client.GetLocalIP().ToString();
+            client = new TCPClient(IPAddress.Parse(textBoxIP.Text), 17777);
         }      
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonConnect_Click(object sender, EventArgs e)
         {
-            client = new UClient(IPAddress.Parse(textBoxIP.Text), 17777);
-            client.sock.Connect(new IPEndPoint(IPAddress.Parse(textBoxIP.Text), 17777));
-            labelConnected.Text = "Connected to " + client.sock.RemoteEndPoint.ToString();
+            client = new TCPClient(IPAddress.Parse(textBoxIP.Text), 17777);
+            if (client.Connect())
+            {
+                labelConnected.Text = "Connected to " + client.GetIE().ToString();
+            }
+            else
+            {
+                MessageBox.Show("Can't connect to server.");
+            }
         }
 
         private void buttonSend_Click(object sender, EventArgs e)
         {
-            client.sock.Send(Encoding.ASCII.GetBytes(textBoxMessage.Text));
-            byte[] bytes = new byte[256];
-            int bts = client.sock.Receive(bytes);
-            if (bts > 0)
-            {
-                textBoxResponse.Text = Encoding.ASCII.GetString(bytes);
-            }
-            else
-            {
-                MessageBox.Show("Received nothing");
-            }
-
+            client.Send(textBoxMessage.Text);
+            textBoxResponse.Text = client.Receive();
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
         {
-            client.sock.Close();
+            client.Close();
         }
         
     }
