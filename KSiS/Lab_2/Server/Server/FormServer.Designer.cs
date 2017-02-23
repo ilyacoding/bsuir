@@ -31,48 +31,59 @@
             this.components = new System.ComponentModel.Container();
             this.buttonStart = new System.Windows.Forms.Button();
             this.labelIP = new System.Windows.Forms.Label();
-            this.richTextBoxConsole = new System.Windows.Forms.RichTextBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.labelOnline = new System.Windows.Forms.Label();
+            this.timerClients = new System.Windows.Forms.Timer(this.components);
+            this.labelConnected = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonStart
             // 
-            this.buttonStart.Location = new System.Drawing.Point(154, 6);
+            this.buttonStart.Location = new System.Drawing.Point(159, 6);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(75, 23);
             this.buttonStart.TabIndex = 2;
             this.buttonStart.Text = "Start";
             this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.button2_Click);
+            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
             // labelIP
             // 
             this.labelIP.AutoSize = true;
-            this.labelIP.Location = new System.Drawing.Point(12, 9);
+            this.labelIP.Location = new System.Drawing.Point(12, 45);
             this.labelIP.Name = "labelIP";
             this.labelIP.Size = new System.Drawing.Size(136, 17);
             this.labelIP.TabIndex = 4;
             this.labelIP.Text = "IP: 255.255.255.255";
             // 
-            // richTextBoxConsole
+            // labelOnline
             // 
-            this.richTextBoxConsole.Location = new System.Drawing.Point(15, 35);
-            this.richTextBoxConsole.Name = "richTextBoxConsole";
-            this.richTextBoxConsole.Size = new System.Drawing.Size(598, 96);
-            this.richTextBoxConsole.TabIndex = 5;
-            this.richTextBoxConsole.Text = "";
+            this.labelOnline.AutoSize = true;
+            this.labelOnline.Location = new System.Drawing.Point(156, 45);
+            this.labelOnline.Name = "labelOnline";
+            this.labelOnline.Size = new System.Drawing.Size(99, 17);
+            this.labelOnline.TabIndex = 6;
+            this.labelOnline.Text = "Server: Offline";
             // 
-            // timer1
+            // timerClients
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timerClients.Tick += new System.EventHandler(this.timerClients_Tick);
+            // 
+            // labelConnected
+            // 
+            this.labelConnected.AutoSize = true;
+            this.labelConnected.Location = new System.Drawing.Point(12, 12);
+            this.labelConnected.Name = "labelConnected";
+            this.labelConnected.Size = new System.Drawing.Size(141, 17);
+            this.labelConnected.TabIndex = 7;
+            this.labelConnected.Text = "Connected: OFFLINE";
             // 
             // FormServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(625, 350);
-            this.Controls.Add(this.richTextBoxConsole);
+            this.ClientSize = new System.Drawing.Size(270, 77);
+            this.Controls.Add(this.labelConnected);
+            this.Controls.Add(this.labelOnline);
             this.Controls.Add(this.labelIP);
             this.Controls.Add(this.buttonStart);
             this.Name = "FormServer";
@@ -85,8 +96,9 @@
         #endregion
         private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.Label labelIP;
-        private System.Windows.Forms.RichTextBox richTextBoxConsole;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label labelOnline;
+        private System.Windows.Forms.Timer timerClients;
+        private System.Windows.Forms.Label labelConnected;
     }
 }
 
