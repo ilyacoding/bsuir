@@ -10,13 +10,14 @@ namespace ServerAsync
 {
     class ServerSocket
     {
-        private Socket server { get; set; }
+        public Socket server { get; set; }
         public List<Socket> list { get; set; }
 
         public ServerSocket(int port)
         {
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             server.Bind(new IPEndPoint(GetLocalIP(), port));
+            //server.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), port));
             server.Listen(20);
             list = new List<Socket>(0);
         }

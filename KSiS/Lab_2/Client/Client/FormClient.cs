@@ -25,8 +25,9 @@ namespace Client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            client = new UClient(IPAddress.Parse(textBoxIP.Text), 7777);
-            client.sock.Connect(new IPEndPoint(IPAddress.Parse(textBoxIP.Text), 7777));
+            client = new UClient(IPAddress.Parse(textBoxIP.Text), 17777);
+            client.sock.Connect(new IPEndPoint(IPAddress.Parse(textBoxIP.Text), 17777));
+            labelConnected.Text = "Connected to " + client.sock.RemoteEndPoint.ToString();
         }
 
         private void buttonSend_Click(object sender, EventArgs e)

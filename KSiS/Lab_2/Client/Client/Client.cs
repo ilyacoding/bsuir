@@ -19,9 +19,7 @@ namespace Client
         public UClient(IPAddress remoteIP, int port)
         {
             sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            //IPEndPoint localIP = new IPEndPoint(GetLocalIP(), port);
             IPEndPoint serverIP = new IPEndPoint(remoteIP, port);
-            //sock.Bind(localIP);
         }
 
         public string Receive()
