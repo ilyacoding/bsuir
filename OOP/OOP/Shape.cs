@@ -11,6 +11,6 @@ namespace OOP
     {
         public System.Drawing.Rectangle Coordinate { get; set; }
         public System.Drawing.Pen Pen { get; set; }
-        public virtual void Draw(FormMain form) { }
+        public virtual void Draw(System.Drawing.Graphics graphics) { }
     }
 }

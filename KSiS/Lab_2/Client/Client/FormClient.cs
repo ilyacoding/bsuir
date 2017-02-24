@@ -41,11 +41,6 @@ namespace Client
             client.Send(textBoxMessage.Text);
             textBoxResponse.Text = client.Receive();
         }
-
-        private void buttonClose_Click(object sender, EventArgs e)
-        {
-            client.Close();
-        }
         
     }
 }

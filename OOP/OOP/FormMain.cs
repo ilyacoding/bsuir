@@ -51,27 +51,6 @@ namespace OOP
             }
         }
 
-        private void panelDraw_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (Shapes.ShapeToDraw == null)
-            {
-                MessageBox.Show("Please, select shape to draw.");
-                return;
-            }
-
-            if (!Shapes.DrawingPoint)
-            {
-                Shapes.DrawingPoint = true;
-                Shapes.OldPoint = new Point(e.X, e.Y);
-            }else
-            {
-                Shapes.DrawingPoint = false;
-                Shapes.CurrentPoint = new Point(e.X, e.Y);    
-                Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToDraw.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y }));
-                Shapes.Draw(this);
-            }
-        }
-
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             Shapes.ShapeToDraw = new Line(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0);
@@ -102,32 +81,53 @@ namespace OOP
             Shapes.ShapeToDraw = new Trapeze(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0);
         }
 
+        private void FormMain_ResizeEnd(object sender, EventArgs e)
+        {
+            panelDraw.Width += 10;
+        }
+        
+        private void backToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Shapes.Back(this.panelDraw.CreateGraphics(), this.panelDraw.BackColor);
+        }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Shapes.Clear(this.panelDraw.CreateGraphics());
+        }
+
+        private void panelDraw_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (Shapes.ShapeToDraw == null)
+            {
+                MessageBox.Show("Please, select shape to draw.");
+                return;
+            }
+
+            if (!Shapes.DrawingPoint)
+            {
+                Shapes.DrawingPoint = true;
+                Shapes.OldPoint = new Point(e.X, e.Y);
+            }
+            else
+            {
+                Shapes.DrawingPoint = false;
+                Shapes.CurrentPoint = new Point(e.X, e.Y);
+                Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToDraw.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y }));
+                Shapes.Draw(this.panelDraw.CreateGraphics());
+            }
+
+        }
+
         private void panelDraw_MouseMove(object sender, MouseEventArgs e)
         {
             if (Shapes.DrawingPoint)
             {
                 Shapes.CurrentPoint = new Point(e.X, e.Y);
                 Shapes.ShapeToDraw = (Shape)Activator.CreateInstance(Shapes.ShapeToDraw.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y });
-                Shapes.ReDraw(this);
-                Shapes.DrawTmp(this);
+                Shapes.ReDraw(this.panelDraw.CreateGraphics(), this.panelDraw.BackColor);
+                Shapes.DrawTmp(this.panelDraw.CreateGraphics());
             }
         }
-
-        private void FormMain_ResizeEnd(object sender, EventArgs e)
-        {
-            panelDraw.Width += 10;
-        }
-        
-
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Shapes.Back(this);
-        }
-
-        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Shapes.Clear(this);
-        }
-        
     }
 }

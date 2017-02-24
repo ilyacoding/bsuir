@@ -46,7 +46,7 @@ namespace Client
         {
             if (Connected)
             {
-                return sock.Send(Encoding.ASCII.GetBytes(msg));
+                return sock.Send(Encoding.UTF8.GetBytes(msg));
             }
             else
             {
@@ -60,7 +60,7 @@ namespace Client
             {
                 byte[] bytes = new byte[1024];
                 int bts = sock.Receive(bytes);
-                return Encoding.ASCII.GetString(bytes);
+                return Encoding.UTF8.GetString(bytes);
             }
 
             return "";

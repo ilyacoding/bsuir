@@ -14,19 +14,26 @@ namespace Server
         public int ClientsConnected = 0;
         public Socket sock { get; set; }
         private IPEndPoint localIP { get; set; }
+        private Thread Tasker { get; set; }
         
         public TCPServer(int port)
         {
             sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             localIP = new IPEndPoint(GetLocalIP(), port);
+            Tasker = new Thread(AcceptBackground);
             sock.Bind(localIP);
             sock.Listen(10);
         }
 
         public void StartAccepting()
         {
-            Thread newThread = new Thread(AcceptBackground);
-            newThread.Start();
+            Tasker = new Thread(AcceptBackground);
+            Tasker.Start();
+        }
+
+        public void EndAccepting()
+        {
+            Tasker.Suspend();
         }
 
         public void AcceptBackground()
@@ -55,13 +62,13 @@ namespace Server
                     string data;
 
                     int bytesRec = handler.Receive(bytes);
-                    data = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                    data = Encoding.UTF8.GetString(bytes, 0, bytesRec);
 
                     char[] array = data.ToCharArray();
                     Array.Reverse(array);
                     data = new string(array);
 
-                    byte[] msg = Encoding.ASCII.GetBytes(data);
+                    byte[] msg = Encoding.UTF8.GetBytes(data);
 
                     handler.Send(msg);
                 }
@@ -78,7 +85,7 @@ namespace Server
         public void Send(string Message)
         {
             if (sock.Connected)
-                sock.Send(Encoding.ASCII.GetBytes(Message));
+                sock.Send(Encoding.UTF8.GetBytes(Message));
         }
 
         public IPAddress GetIP()

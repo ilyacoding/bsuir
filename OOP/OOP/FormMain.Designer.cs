@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelDraw = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,7 +45,6 @@
             this.panelBackgroundSelect = new System.Windows.Forms.Panel();
             this.buttonBackgroundSelect = new System.Windows.Forms.Button();
             this.colorDialogBackground = new System.Windows.Forms.ColorDialog();
-            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             this.groupBoxShape = new System.Windows.Forms.GroupBox();
             this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
@@ -54,23 +52,12 @@
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.panelDraw = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBoxShape.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panelDraw
-            // 
-            this.panelDraw.AutoSize = true;
-            this.panelDraw.BackColor = System.Drawing.Color.White;
-            this.panelDraw.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelDraw.Location = new System.Drawing.Point(130, 96);
-            this.panelDraw.Name = "panelDraw";
-            this.panelDraw.Size = new System.Drawing.Size(836, 377);
-            this.panelDraw.TabIndex = 0;
-            this.panelDraw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelDraw_MouseDown);
-            this.panelDraw.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelDraw_MouseMove);
             // 
             // menuStrip1
             // 
@@ -296,17 +283,28 @@
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
+            // panelDraw
+            // 
+            this.panelDraw.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.panelDraw.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelDraw.Location = new System.Drawing.Point(130, 99);
+            this.panelDraw.Name = "panelDraw";
+            this.panelDraw.Size = new System.Drawing.Size(836, 374);
+            this.panelDraw.TabIndex = 8;
+            this.panelDraw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelDraw_MouseDown);
+            this.panelDraw.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelDraw_MouseMove);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(978, 485);
+            this.Controls.Add(this.panelDraw);
             this.Controls.Add(this.groupBoxShape);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.panelDraw);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
             this.Text = "Graphic editor";
@@ -324,8 +322,6 @@
         }
 
         #endregion
-
-        public System.Windows.Forms.Panel panelDraw;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -341,7 +337,6 @@
         private System.Windows.Forms.Panel panelBackgroundSelect;
         private System.Windows.Forms.Button buttonBackgroundSelect;
         private System.Windows.Forms.ColorDialog colorDialogBackground;
-        private System.Windows.Forms.HelpProvider helpProvider1;
         private System.Windows.Forms.GroupBox groupBoxShape;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
@@ -351,6 +346,7 @@
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        private System.Windows.Forms.Panel panelDraw;
     }
 }
 
