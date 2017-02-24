@@ -23,47 +23,48 @@ namespace OOP
             CurrentPoint = new Point(0, 0);
             DrawingPoint = new bool();
             DrawingPoint = false;
-
         }
+
         public void Add(Shape shape)
         {
             list.Add(shape);
         }
-        public void Draw(FormMain form)
+
+        public void Draw(Graphics graphics)
         {
             foreach (var sh in list)
             {
-                sh.Draw(form);
+                sh.Draw(graphics);
             }
         }
 
-        public void Clear(FormMain form)
+        public void Clear(Graphics graphics)
         {
             list.Clear();
-            System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
-            graphics.Clear(form.panelDraw.BackColor);
+            //System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
+            //graphics.Clear(form.panelDraw.BackColor);
         }
 
-        public void ReDraw(FormMain form)
+        public void ReDraw(Graphics graphics, Color color)
         {
-            System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
-            graphics.Clear(form.panelDraw.BackColor);
-            this.Draw(form);
+            //System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
+            graphics.Clear(color);
+            this.Draw(graphics);
         }
 
-        public void DrawTmp(FormMain form)
+        public void DrawTmp(Graphics graphics)
         {
-            ShapeToDraw.Draw(form);
+            ShapeToDraw.Draw(graphics);
         }
 
-        public void Back(FormMain form)
+        public void Back(Graphics graphics, Color color)
         {
             if (list.Count > 0)
             {
-                System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
-                graphics.Clear(form.panelDraw.BackColor);
+                //System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
+                graphics.Clear(color);
                 list.Remove(list.Last());
-                this.Draw(form);
+                this.Draw(graphics);
             }
         }
 

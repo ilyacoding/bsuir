@@ -34,6 +34,7 @@
             this.labelOnline = new System.Windows.Forms.Label();
             this.timerClients = new System.Windows.Forms.Timer(this.components);
             this.labelConnected = new System.Windows.Forms.Label();
+            this.buttonStop = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonStart
@@ -49,7 +50,7 @@
             // labelIP
             // 
             this.labelIP.AutoSize = true;
-            this.labelIP.Location = new System.Drawing.Point(12, 45);
+            this.labelIP.Location = new System.Drawing.Point(12, 38);
             this.labelIP.Name = "labelIP";
             this.labelIP.Size = new System.Drawing.Size(136, 17);
             this.labelIP.TabIndex = 4;
@@ -58,7 +59,7 @@
             // labelOnline
             // 
             this.labelOnline.AutoSize = true;
-            this.labelOnline.Location = new System.Drawing.Point(156, 45);
+            this.labelOnline.Location = new System.Drawing.Point(135, 61);
             this.labelOnline.Name = "labelOnline";
             this.labelOnline.Size = new System.Drawing.Size(99, 17);
             this.labelOnline.TabIndex = 6;
@@ -77,11 +78,22 @@
             this.labelConnected.TabIndex = 7;
             this.labelConnected.Text = "Connected: OFFLINE";
             // 
+            // buttonStop
+            // 
+            this.buttonStop.Location = new System.Drawing.Point(159, 35);
+            this.buttonStop.Name = "buttonStop";
+            this.buttonStop.Size = new System.Drawing.Size(75, 23);
+            this.buttonStop.TabIndex = 8;
+            this.buttonStop.Text = "Stop";
+            this.buttonStop.UseVisualStyleBackColor = true;
+            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
+            // 
             // FormServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(270, 77);
+            this.ClientSize = new System.Drawing.Size(236, 82);
+            this.Controls.Add(this.buttonStop);
             this.Controls.Add(this.labelConnected);
             this.Controls.Add(this.labelOnline);
             this.Controls.Add(this.labelIP);
@@ -99,6 +111,7 @@
         private System.Windows.Forms.Label labelOnline;
         private System.Windows.Forms.Timer timerClients;
         private System.Windows.Forms.Label labelConnected;
+        private System.Windows.Forms.Button buttonStop;
     }
 }
 

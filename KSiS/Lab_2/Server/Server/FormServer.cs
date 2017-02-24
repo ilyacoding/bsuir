@@ -35,5 +35,14 @@ namespace Server
         {
             labelConnected.Text = "Connected: " + server.ClientsConnected;
         }
+
+        private void buttonStop_Click(object sender, EventArgs e)
+        {
+            server.EndAccepting(); labelOnline.Text = "Server: Offline";
+            labelIP.Text = "IP: 255.255.255.255";
+            timerClients.Enabled = false;
+            labelConnected.Text = "Connected: OFFLINE";
+
+        }
     }
 }
