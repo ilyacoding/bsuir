@@ -4,10 +4,41 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
+
+/*
+        public string SerializeObjectToString<T>(this T objectToSerialize)
+        {
+            StringWriter outStream = new StringWriter();
+            string value;
+            try
+            {
+                XmlSerializer s = new XmlSerializer(objectToSerialize.GetType());
+                s.Serialize(outStream, objectToSerialize);
+                value = outStream.ToString();
+
+MemoryStream ms = new MemoryStream();
+                using (BsonWriter writer = new BsonWriter(ms))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+serializer.Serialize(writer, objectToSerialize);
+                }
+
+                value = Convert.ToString(ms.ToArray());
+            }
+            finally
+            {
+                outStream.Close();
+            }
+            return value;
+        }
+*/
 
 namespace OOP
 {
@@ -85,16 +116,6 @@ namespace OOP
         {
             panelDraw.Width += 10;
         }
-        
-        private void backToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Shapes.Back(this.panelDraw.CreateGraphics(), this.panelDraw.BackColor);
-        }
-
-        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Shapes.Clear(this.panelDraw.CreateGraphics());
-        }
 
         private void panelDraw_MouseDown(object sender, MouseEventArgs e)
         {
@@ -128,6 +149,32 @@ namespace OOP
                 Shapes.ReDraw(this.panelDraw.CreateGraphics(), this.panelDraw.BackColor);
                 Shapes.DrawTmp(this.panelDraw.CreateGraphics());
             }
+        }
+
+        private void backToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Shapes.Back(this.panelDraw.CreateGraphics(), this.panelDraw.BackColor);
+        }
+
+        private void clearToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Shapes.Clear(this.panelDraw.CreateGraphics());
+
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //var sh = new Trapeze(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0);
+
+            MemoryStream ms = new MemoryStream();
+            using(BsonWriter writer = new BsonWriter(ms))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(writer, Shapes);
+            }
+            string s = Convert.ToBase64String(ms.ToArray());
+            MessageBox.Show(s);
+            
         }
     }
 }
