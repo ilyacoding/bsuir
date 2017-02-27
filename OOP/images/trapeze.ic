@@ -1,30 +1,43 @@
 {
   "$type": "OOP.ShapeList, OOP",
-  "OldPoint": "170, 97",
-  "CurrentPoint": "520, 233",
+  "OldPoint": "230, 45",
+  "CurrentPoint": "576, 222",
   "DrawingPoint": false,
   "ShapeToDraw": {
-    "$type": "OOP.Trapeze, OOP",
-    "Coordinate": "170, 97, 350, 136",
-    "PenColor": "0, 255, 64",
-    "PenWidth": 5.0
+    "$type": "OOP.IsoTriangle, OOP",
+    "Coordinate": "230, 45, 346, 177",
+    "PenColor": "Black",
+    "PenWidth": 1.0
   },
-  "BackColor": "Teal",
+  "BackColor": "White",
   "list": {
     "$type": "System.Collections.Generic.List`1[[OOP.Shape, OOP]], mscorlib",
     "$values": [
       {
-        "$type": "OOP.IsoTriangle, OOP",
-        "Coordinate": "243, 39, 214, 196",
+        "$type": "OOP.Line, OOP",
+        "Coordinate": "142, 92, 262, 90",
         "PenColor": "Black",
         "PenWidth": 1.0
       },
       {
-        "$type": "OOP.Trapeze, OOP",
-        "Coordinate": "170, 97, 350, 136",
-        "PenColor": "0, 255, 64",
-        "PenWidth": 5.0
+        "$type": "OOP.Triangle, OOP",
+        "Coordinate": "205, 85, 329, 39",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "OOP.Triangle, OOP",
+        "Coordinate": "242, 187, -189, -135",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "OOP.IsoTriangle, OOP",
+        "Coordinate": "230, 45, 346, 177",
+        "PenColor": "Black",
+        "PenWidth": 1.0
       }
     ]
-  }
+  },
+  "listHistory": null
 }
