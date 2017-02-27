@@ -265,14 +265,9 @@
             // 
             this.listBoxShapes.FormattingEnabled = true;
             this.listBoxShapes.ItemHeight = 16;
-            this.listBoxShapes.Items.AddRange(new object[] {
-            "Line",
-            "Shape",
-            "Triangle",
-            "Trapeze"});
-            this.listBoxShapes.Location = new System.Drawing.Point(12, 376);
+            this.listBoxShapes.Location = new System.Drawing.Point(12, 248);
             this.listBoxShapes.Name = "listBoxShapes";
-            this.listBoxShapes.Size = new System.Drawing.Size(112, 68);
+            this.listBoxShapes.Size = new System.Drawing.Size(112, 196);
             this.listBoxShapes.TabIndex = 9;
             this.listBoxShapes.SelectedIndexChanged += new System.EventHandler(this.listBoxShapes_SelectedIndexChanged);
             // 
@@ -284,6 +279,7 @@
             this.buttonEditShape.TabIndex = 10;
             this.buttonEditShape.Text = "Edit";
             this.buttonEditShape.UseVisualStyleBackColor = true;
+            this.buttonEditShape.Click += new System.EventHandler(this.buttonEditShape_Click);
             // 
             // FormMain
             // 

@@ -54,7 +54,7 @@ namespace OOP
             panelColorSelect.BackColor = Color.Black;
             panelBackgroundSelect.BackColor = Color.White;
             panelDraw.BackColor = Color.White;
-            Shapes = new ShapeList(Color.White);
+            Shapes = new ShapeList(Color.White, listBoxShapes);
 
             Type ClassType = typeof(Shape);
             int y = 1;
@@ -192,6 +192,7 @@ namespace OOP
                 {
                     string json = File.ReadAllText(openFileDialog.FileName);
                     Shapes = JsonConvert.DeserializeObject<ShapeList>(json, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+                    Shapes.SetListBox(listBoxShapes);
                     Shapes.ReDraw(panelDraw.CreateGraphics());
                     panelBackgroundSelect.BackColor = Shapes.BackColor;
                 }
@@ -204,7 +205,39 @@ namespace OOP
 
         private void listBoxShapes_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int index = listBoxShapes.SelectedIndex;
+           
+            if (!(Shapes[index] is ISelectable))
+            {
+                listBoxShapes.ClearSelected();
+                //MessageBox.Show("You can't select this shape type.");
+            }
+            else
+            {
+                Shapes.Select(index);
+                Shapes.ReDraw(panelDraw.CreateGraphics());
+            }
 
+        }
+
+        private void buttonEditShape_Click(object sender, EventArgs e)
+        {
+            var Shape = listBoxShapes.SelectedItem;
+            if (Shape != null)
+            {
+                if (Shape is IEditable)
+                {
+                    
+                }
+                else
+                {
+                    MessageBox.Show("You can't edit this shape type.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nothing selected.");
+            }
         }
     }
 }
