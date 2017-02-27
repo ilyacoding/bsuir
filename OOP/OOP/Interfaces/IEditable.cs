@@ -8,6 +8,6 @@ namespace OOP
 {
     interface IEditable
     {
-        bool Selected { get; set; }
+        bool Editing { get; set; }
     }
 }

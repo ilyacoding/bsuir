@@ -8,16 +8,21 @@ using System.Windows.Forms;
 
 namespace OOP
 {
+    public enum EState
+    {
+        ReadyDrawing, Drawing, Editing, Moving, None
+    }
+
     public class ShapeList
     {
+        public Color BackColor { get; set; }
+
         public Point OldPoint { get; set; }
         public Point CurrentPoint { get; set; }
-        public bool DrawingPoint { get; set; }
-        public Shape ShapeToDraw { get; set; }
-        public Color BackColor { get; set; }
-        
+        public EState State { get; set; }
+        public Shape ShapeToWork { get; set; }
+
         public List<Shape> list { get; set; }
-        public List<Shape> listHistory { get; set; }
 
         private ListBox lb { get; set; }
 
@@ -26,8 +31,8 @@ namespace OOP
             list = new List<Shape>();
             OldPoint = new Point(0, 0);
             CurrentPoint = new Point(0, 0);
-            DrawingPoint = new bool();
-            DrawingPoint = false;
+            State = new EState();
+            State = EState.None;
             BackColor = color;
             lb = listBox;
         }
@@ -62,10 +67,19 @@ namespace OOP
             RefreshListBox();
         }
 
-        public void Select(int index)
+        public void Select(int index, Graphics graphics)
         {
             if (index >= 0 && index < list.Count)
             {
+                UnSelect(graphics);
+                (list[index] as ISelectable).Selected = true;
+                ShapeToWork = list[index];
+                list.RemoveAt(index);
+            }
+        }
+
+        public void UnSelect(Graphics graphics)
+        {
                 foreach (var sh in list)
                 {
                     if (sh is ISelectable)
@@ -73,8 +87,7 @@ namespace OOP
                         (sh as ISelectable).Selected = false;
                     }
                 }
-                (list[index] as ISelectable).Selected = true;
-            }
+            ReDraw(graphics);
         }
 
         public void ReDraw(Graphics graphics)
@@ -86,7 +99,7 @@ namespace OOP
 
         public void DrawTmp(Graphics graphics)
         {
-            ShapeToDraw.Draw(graphics);
+            ShapeToWork.Draw(graphics);
         }
 
         private void RefreshListBox()

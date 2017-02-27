@@ -54,10 +54,14 @@
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.listBoxShapes = new System.Windows.Forms.ListBox();
+            this.panelEditShapes = new System.Windows.Forms.Panel();
             this.buttonEditShape = new System.Windows.Forms.Button();
+            this.buttonMoveShape = new System.Windows.Forms.Button();
+            this.buttonUnSelect = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panelEditShapes.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -247,7 +251,7 @@
             this.panelDraw.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelDraw.Location = new System.Drawing.Point(130, 99);
             this.panelDraw.Name = "panelDraw";
-            this.panelDraw.Size = new System.Drawing.Size(836, 374);
+            this.panelDraw.Size = new System.Drawing.Size(836, 393);
             this.panelDraw.TabIndex = 8;
             this.panelDraw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelDraw_MouseDown);
             this.panelDraw.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelDraw_MouseMove);
@@ -267,27 +271,58 @@
             this.listBoxShapes.ItemHeight = 16;
             this.listBoxShapes.Location = new System.Drawing.Point(12, 248);
             this.listBoxShapes.Name = "listBoxShapes";
-            this.listBoxShapes.Size = new System.Drawing.Size(112, 196);
+            this.listBoxShapes.Size = new System.Drawing.Size(112, 212);
             this.listBoxShapes.TabIndex = 9;
             this.listBoxShapes.SelectedIndexChanged += new System.EventHandler(this.listBoxShapes_SelectedIndexChanged);
             // 
+            // panelEditShapes
+            // 
+            this.panelEditShapes.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panelEditShapes.Controls.Add(this.buttonMoveShape);
+            this.panelEditShapes.Controls.Add(this.buttonEditShape);
+            this.panelEditShapes.Location = new System.Drawing.Point(485, 34);
+            this.panelEditShapes.Name = "panelEditShapes";
+            this.panelEditShapes.Size = new System.Drawing.Size(174, 59);
+            this.panelEditShapes.TabIndex = 11;
+            // 
             // buttonEditShape
             // 
-            this.buttonEditShape.Location = new System.Drawing.Point(12, 450);
+            this.buttonEditShape.Location = new System.Drawing.Point(14, 32);
             this.buttonEditShape.Name = "buttonEditShape";
-            this.buttonEditShape.Size = new System.Drawing.Size(112, 23);
-            this.buttonEditShape.TabIndex = 10;
+            this.buttonEditShape.Size = new System.Drawing.Size(75, 23);
+            this.buttonEditShape.TabIndex = 0;
             this.buttonEditShape.Text = "Edit";
             this.buttonEditShape.UseVisualStyleBackColor = true;
             this.buttonEditShape.Click += new System.EventHandler(this.buttonEditShape_Click);
+            // 
+            // buttonMoveShape
+            // 
+            this.buttonMoveShape.Location = new System.Drawing.Point(14, 3);
+            this.buttonMoveShape.Name = "buttonMoveShape";
+            this.buttonMoveShape.Size = new System.Drawing.Size(75, 23);
+            this.buttonMoveShape.TabIndex = 1;
+            this.buttonMoveShape.Text = "Move";
+            this.buttonMoveShape.UseVisualStyleBackColor = true;
+            this.buttonMoveShape.Click += new System.EventHandler(this.buttonMoveShape_Click);
+            // 
+            // buttonUnSelect
+            // 
+            this.buttonUnSelect.Location = new System.Drawing.Point(12, 469);
+            this.buttonUnSelect.Name = "buttonUnSelect";
+            this.buttonUnSelect.Size = new System.Drawing.Size(112, 23);
+            this.buttonUnSelect.TabIndex = 12;
+            this.buttonUnSelect.Text = "Unselect";
+            this.buttonUnSelect.UseVisualStyleBackColor = true;
+            this.buttonUnSelect.Click += new System.EventHandler(this.buttonUnSelect_Click);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(978, 485);
-            this.Controls.Add(this.buttonEditShape);
+            this.ClientSize = new System.Drawing.Size(978, 499);
+            this.Controls.Add(this.buttonUnSelect);
+            this.Controls.Add(this.panelEditShapes);
             this.Controls.Add(this.listBoxShapes);
             this.Controls.Add(this.panelDraw);
             this.Controls.Add(this.groupBoxShape);
@@ -302,6 +337,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
+            this.panelEditShapes.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -334,7 +370,10 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.ListBox listBoxShapes;
+        private System.Windows.Forms.Panel panelEditShapes;
+        private System.Windows.Forms.Button buttonMoveShape;
         private System.Windows.Forms.Button buttonEditShape;
+        private System.Windows.Forms.Button buttonUnSelect;
     }
 }
 
