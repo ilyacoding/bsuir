@@ -9,8 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using Newtonsoft;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
+using MongoDB.Bson;
+using System.Reflection;
 
 /*
         public string SerializeObjectToString<T>(this T objectToSerialize)
@@ -48,9 +51,23 @@ namespace OOP
         public FormMain()
         {
             InitializeComponent();
-            panelColorSelect.BackColor = colorDialogSelect.Color;
-            panelBackgroundSelect.BackColor = panelDraw.BackColor;
-            Shapes = new ShapeList();
+            panelColorSelect.BackColor = Color.Black;
+            panelBackgroundSelect.BackColor = Color.White;
+            panelDraw.BackColor = Color.White;
+            Shapes = new ShapeList(Color.White);
+
+            Type ClassType = typeof(Shape);
+            int y = 1;
+            IEnumerable<Type> list = Assembly.GetAssembly(ClassType).GetTypes().Where(type => type.IsSubclassOf(ClassType)); 
+            foreach (Type itm in list)
+            {
+                ShapeButton btn = new ShapeButton();
+                btn.Text = itm.Name;
+                btn.Location = new Point(5, 22*(y++));
+                btn.TypeOfShape = itm;
+                btn.Click += new EventHandler(ShapeButton_Click);
+                this.groupBoxShape.Controls.Add(btn);
+            }
         }
        
         private void buttonColorSelect_Click(object sender, EventArgs e)
@@ -58,6 +75,16 @@ namespace OOP
             if (colorDialogSelect.ShowDialog() == DialogResult.OK)
             {
                 panelColorSelect.BackColor = colorDialogSelect.Color;
+            }
+        }
+
+        private void buttonBackgroundSelect_Click(object sender, EventArgs e)
+        {
+            if (colorDialogBackground.ShowDialog() == DialogResult.OK)
+            {
+                panelBackgroundSelect.BackColor = colorDialogBackground.Color;
+                Shapes.BackColor = colorDialogBackground.Color;
+                Shapes.ReDraw(panelDraw.CreateGraphics());
             }
         }
 
@@ -73,48 +100,10 @@ namespace OOP
                 labelThickness.Text = (currentThickness - 1).ToString();
         }
 
-        private void buttonBackgroundSelect_Click(object sender, EventArgs e)
+        private void ShapeButton_Click(object sender, EventArgs e)
         {
-            if (colorDialogBackground.ShowDialog() == DialogResult.OK)
-            {
-                panelBackgroundSelect.BackColor = colorDialogBackground.Color;
-                panelDraw.BackColor = panelBackgroundSelect.BackColor;
-            }
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            Shapes.ShapeToDraw = new Line(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0);
-        }
-
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            Shapes.ShapeToDraw = new Rectangle(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0);
-        }
-
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
-        {
-            Shapes.ShapeToDraw = new Ellipse(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0);
-        }
-
-        private void radioButton4_CheckedChanged(object sender, EventArgs e)
-        {
-            Shapes.ShapeToDraw = new Triangle(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0);
-        }
-
-        private void radioButton5_CheckedChanged(object sender, EventArgs e)
-        {
-            Shapes.ShapeToDraw = new IsoTriangle(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0);
-        }
-
-        private void radioButton6_CheckedChanged(object sender, EventArgs e)
-        {
-            Shapes.ShapeToDraw = new Trapeze(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0);
-        }
-
-        private void FormMain_ResizeEnd(object sender, EventArgs e)
-        {
-            panelDraw.Width += 10;
+            ShapeButton btn = (ShapeButton)sender;
+            Shapes.ShapeToDraw = (Shape)Activator.CreateInstance(btn.TypeOfShape, new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0 });
         }
 
         private void panelDraw_MouseDown(object sender, MouseEventArgs e)
@@ -137,7 +126,6 @@ namespace OOP
                 Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToDraw.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y }));
                 Shapes.Draw(this.panelDraw.CreateGraphics());
             }
-
         }
 
         private void panelDraw_MouseMove(object sender, MouseEventArgs e)
@@ -146,35 +134,77 @@ namespace OOP
             {
                 Shapes.CurrentPoint = new Point(e.X, e.Y);
                 Shapes.ShapeToDraw = (Shape)Activator.CreateInstance(Shapes.ShapeToDraw.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y });
-                Shapes.ReDraw(this.panelDraw.CreateGraphics(), this.panelDraw.BackColor);
+                Shapes.ReDraw(this.panelDraw.CreateGraphics());
                 Shapes.DrawTmp(this.panelDraw.CreateGraphics());
             }
         }
 
         private void backToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Shapes.Back(this.panelDraw.CreateGraphics(), this.panelDraw.BackColor);
+            Shapes.Back(this.panelDraw.CreateGraphics());
         }
 
         private void clearToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Shapes.Clear(this.panelDraw.CreateGraphics());
-
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //var sh = new Trapeze(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0);
+            //MessageBox.Show(json);
+            //var x = BsonDocument.Create(Shapes.ToBsonDocument());
+            //var y = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<ShapeList>(x);
+            //var x = MongoDB.Bson.Serialization.BsonSerializer.Serialize(Shapes, Formatting.Indented);
+            //var x = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(json);
+            //MessageBox.Show(json);            
+            //ShapeList ls = JsonConvert.DeserializeObject<ShapeList>(json, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+            //Shapes.Clear(panelDraw.CreateGraphics(), panelDraw.BackColor);
+            //Shapes = ls;
+            //Shapes.Draw(panelDraw.CreateGraphics());
 
-            MemoryStream ms = new MemoryStream();
-            using(BsonWriter writer = new BsonWriter(ms))
+            /*                byte[] data = Bson.Serialize(Shapes.list);
+
+                Shapes.Clear(panelDraw.CreateGraphics(), panelDraw.BackColor);
+
+                Shapes = new ShapeList();
+                Shapes.list = Bson.DeSerialize(data);*/
+
+            if (saveFileDialog.ShowDialog() != DialogResult.Cancel)
             {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(writer, Shapes);
+                try
+                {
+                    string json = JsonConvert.SerializeObject(Shapes, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+                    File.WriteAllText(saveFileDialog.FileName, json);
+                    Shapes.Clear(panelDraw.CreateGraphics());
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show("Error while writing to file. Err: " + err.ToString());
+                }
             }
-            string s = Convert.ToBase64String(ms.ToArray());
-            MessageBox.Show(s);
-            
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() != DialogResult.Cancel)
+            {
+                try
+                {
+                    string json = File.ReadAllText(openFileDialog.FileName);
+                    Shapes = JsonConvert.DeserializeObject<ShapeList>(json, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+                    Shapes.ReDraw(panelDraw.CreateGraphics());
+                    panelBackgroundSelect.BackColor = Shapes.BackColor;
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show("Error while reading file. Err: " + err.ToString());
+                }
+            }
+        }
+
+        private void listBoxShapes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

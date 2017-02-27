@@ -1,0 +1,30 @@
+{
+  "$type": "OOP.ShapeList, OOP",
+  "OldPoint": "170, 97",
+  "CurrentPoint": "520, 233",
+  "DrawingPoint": false,
+  "ShapeToDraw": {
+    "$type": "OOP.Trapeze, OOP",
+    "Coordinate": "170, 97, 350, 136",
+    "PenColor": "0, 255, 64",
+    "PenWidth": 5.0
+  },
+  "BackColor": "Teal",
+  "list": {
+    "$type": "System.Collections.Generic.List`1[[OOP.Shape, OOP]], mscorlib",
+    "$values": [
+      {
+        "$type": "OOP.IsoTriangle, OOP",
+        "Coordinate": "243, 39, 214, 196",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "OOP.Trapeze, OOP",
+        "Coordinate": "170, 97, 350, 136",
+        "PenColor": "0, 255, 64",
+        "PenWidth": 5.0
+      }
+    ]
+  }
+}
