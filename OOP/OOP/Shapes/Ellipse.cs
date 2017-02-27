@@ -15,9 +15,9 @@ namespace OOP
             PenColor = color;
             PenWidth = width;
         }
+
         public override void Draw(Graphics graphics)
         {
-            //System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
             var pen = new Pen(PenColor, PenWidth);
             graphics.DrawEllipse(pen, Coordinate);
         }

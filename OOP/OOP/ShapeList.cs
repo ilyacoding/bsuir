@@ -13,16 +13,19 @@ namespace OOP
         public Point CurrentPoint { get; set; }
         public bool DrawingPoint { get; set; }
         public Shape ShapeToDraw { get; set; }
+        public Color BackColor { get; set; }
 
-        private List<Shape> list;
+        public List<Shape> list { get; set; }
+        public List<Shape> listHistory { get; set; }
 
-        public ShapeList()
+        public ShapeList(Color color)
         {
             list = new List<Shape>();
             OldPoint = new Point(0, 0);
             CurrentPoint = new Point(0, 0);
             DrawingPoint = new bool();
             DrawingPoint = false;
+            BackColor = color;
         }
 
         public void Add(Shape shape)
@@ -41,14 +44,12 @@ namespace OOP
         public void Clear(Graphics graphics)
         {
             list.Clear();
-            //System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
-            //graphics.Clear(form.panelDraw.BackColor);
+            graphics.Clear(BackColor);
         }
 
-        public void ReDraw(Graphics graphics, Color color)
+        public void ReDraw(Graphics graphics)
         {
-            //System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
-            graphics.Clear(color);
+            graphics.Clear(BackColor);
             this.Draw(graphics);
         }
 
@@ -57,16 +58,14 @@ namespace OOP
             ShapeToDraw.Draw(graphics);
         }
 
-        public void Back(Graphics graphics, Color color)
+        public void Back(Graphics graphics)
         {
             if (list.Count > 0)
             {
-                //System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
-                graphics.Clear(color);
+                graphics.Clear(BackColor);
                 list.Remove(list.Last());
                 this.Draw(graphics);
             }
         }
-
     }
 }
