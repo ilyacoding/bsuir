@@ -8,9 +8,10 @@ using System.ComponentModel;
 
 namespace OOP
 {
-    public class Line : Shape, ISelectable
+    public class Line : Shape, ISelectable, IEditable
     {
         public bool Selected { get; set; }
+        public bool Editing { get; set; }
         public Line(Color color, float width, int x1, int y1, int x2, int y2)
         {
             Coordinate = new System.Drawing.Rectangle(x1, y1, x2 - x1, y2 - y1);

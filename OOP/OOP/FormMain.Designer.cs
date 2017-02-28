@@ -271,18 +271,19 @@
             this.listBoxShapes.ItemHeight = 16;
             this.listBoxShapes.Location = new System.Drawing.Point(12, 248);
             this.listBoxShapes.Name = "listBoxShapes";
-            this.listBoxShapes.Size = new System.Drawing.Size(112, 212);
+            this.listBoxShapes.Size = new System.Drawing.Size(112, 244);
             this.listBoxShapes.TabIndex = 9;
             this.listBoxShapes.SelectedIndexChanged += new System.EventHandler(this.listBoxShapes_SelectedIndexChanged);
             // 
             // panelEditShapes
             // 
             this.panelEditShapes.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panelEditShapes.Controls.Add(this.buttonUnSelect);
             this.panelEditShapes.Controls.Add(this.buttonMoveShape);
             this.panelEditShapes.Controls.Add(this.buttonEditShape);
             this.panelEditShapes.Location = new System.Drawing.Point(485, 34);
             this.panelEditShapes.Name = "panelEditShapes";
-            this.panelEditShapes.Size = new System.Drawing.Size(174, 59);
+            this.panelEditShapes.Size = new System.Drawing.Size(197, 59);
             this.panelEditShapes.TabIndex = 11;
             // 
             // buttonEditShape
@@ -307,11 +308,11 @@
             // 
             // buttonUnSelect
             // 
-            this.buttonUnSelect.Location = new System.Drawing.Point(12, 469);
+            this.buttonUnSelect.Location = new System.Drawing.Point(95, 3);
             this.buttonUnSelect.Name = "buttonUnSelect";
-            this.buttonUnSelect.Size = new System.Drawing.Size(112, 23);
+            this.buttonUnSelect.Size = new System.Drawing.Size(96, 52);
             this.buttonUnSelect.TabIndex = 12;
-            this.buttonUnSelect.Text = "Unselect";
+            this.buttonUnSelect.Text = "End edit";
             this.buttonUnSelect.UseVisualStyleBackColor = true;
             this.buttonUnSelect.Click += new System.EventHandler(this.buttonUnSelect_Click);
             // 
@@ -321,7 +322,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(978, 499);
-            this.Controls.Add(this.buttonUnSelect);
             this.Controls.Add(this.panelEditShapes);
             this.Controls.Add(this.listBoxShapes);
             this.Controls.Add(this.panelDraw);
