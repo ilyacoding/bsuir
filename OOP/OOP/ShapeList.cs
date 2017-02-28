@@ -10,7 +10,7 @@ namespace OOP
 {
     public enum EState
     {
-        ReadyDrawing, Drawing, Editing, Moving, None
+        ReadyDrawing, Drawing, ReadyEditing, Editing, Moving, None
     }
 
     public class ShapeList

@@ -15,34 +15,6 @@ using Newtonsoft.Json.Bson;
 using MongoDB.Bson;
 using System.Reflection;
 
-/*
-        public string SerializeObjectToString<T>(this T objectToSerialize)
-        {
-            StringWriter outStream = new StringWriter();
-            string value;
-            try
-            {
-                XmlSerializer s = new XmlSerializer(objectToSerialize.GetType());
-                s.Serialize(outStream, objectToSerialize);
-                value = outStream.ToString();
-
-MemoryStream ms = new MemoryStream();
-                using (BsonWriter writer = new BsonWriter(ms))
-                {
-                    JsonSerializer serializer = new JsonSerializer();
-serializer.Serialize(writer, objectToSerialize);
-                }
-
-                value = Convert.ToString(ms.ToArray());
-            }
-            finally
-            {
-                outStream.Close();
-            }
-            return value;
-        }
-*/
-
 namespace OOP
 {
     public partial class FormMain : Form
@@ -102,8 +74,12 @@ namespace OOP
 
         private void ShapeButton_Click(object sender, EventArgs e)
         {
-            ShapeButton btn = (ShapeButton)sender;
-            Shapes.ShapeToWork = (Shape)Activator.CreateInstance(btn.TypeOfShape, new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0 });
+            if (Shapes.State == EState.None)
+            {
+                Shapes.State = EState.ReadyDrawing;
+                ShapeButton btn = (ShapeButton)sender;
+                Shapes.ShapeToWork = (Shape)Activator.CreateInstance(btn.TypeOfShape, new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0 });
+            }
         }
 
         private void panelDraw_MouseDown(object sender, MouseEventArgs e)
@@ -114,7 +90,7 @@ namespace OOP
                 return;
             }
 
-            if (Shapes.State == EState.None)
+            if (Shapes.State == EState.ReadyDrawing)
             {
                 Shapes.State = EState.Drawing;
                 Shapes.OldPoint = new Point(e.X, e.Y);
@@ -124,14 +100,15 @@ namespace OOP
                 Shapes.State = EState.None;
                 Shapes.CurrentPoint = new Point(e.X, e.Y);
                 Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y }));
+                Shapes.ShapeToWork = null;
                 Shapes.Draw(this.panelDraw.CreateGraphics());
             }
             else if (Shapes.State == EState.Moving)
             {
                 Shapes.State = EState.None;
-                Shapes.CurrentPoint = new Point(e.X, e.Y);
-                Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), e.X, e.Y, e.X + Shapes.ShapeToWork.Coordinate.Width, e.Y + Shapes.ShapeToWork.Coordinate.Height }));
-                Shapes.Draw(this.panelDraw.CreateGraphics());
+                Shapes.Add(Shapes.ShapeToWork);
+                Shapes.ShapeToWork = null;
+                Shapes.ReDraw(this.panelDraw.CreateGraphics());
             }
         }
 
@@ -201,34 +178,70 @@ namespace OOP
 
         private void listBoxShapes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int index = listBoxShapes.SelectedIndex;
-           
-            if (Shapes[index] is ISelectable)
+            if (Shapes.State == EState.None || Shapes.State == EState.ReadyEditing)
             {
-                if (Shapes.ShapeToWork != null)
+                int index = listBoxShapes.SelectedIndex;
+                if (Shapes[index] is ISelectable)
                 {
-                    Shapes.Add(Shapes.ShapeToWork);
-                    Shapes.ShapeToWork = null;
+                    Shapes.State = EState.ReadyEditing;
+                    if (Shapes.ShapeToWork != null)
+                    {
+                        Shapes.Add(Shapes.ShapeToWork);
+                        Shapes.ShapeToWork = null;
+                        Shapes.ReDraw(panelDraw.CreateGraphics());
+                    }
+                    Shapes.Select(index, panelDraw.CreateGraphics());
                     Shapes.ReDraw(panelDraw.CreateGraphics());
+                    Shapes.DrawTmp(panelDraw.CreateGraphics());
                 }
-                Shapes.Select(index, panelDraw.CreateGraphics());
-                Shapes.ReDraw(panelDraw.CreateGraphics());
-                Shapes.DrawTmp(panelDraw.CreateGraphics());
-            }
-            else
-            {
-                //Shapes.UnSelect(panelDraw.CreateGraphics());
+                else
+                {
+                    if (Shapes.ShapeToWork != null)
+                    {
+                        Shapes.Add(Shapes.ShapeToWork);
+                    Shapes.ShapeToWork = null;
+                        }
+                    Shapes.UnSelect(panelDraw.CreateGraphics());
+                }
             }
         }
 
         private void buttonEditShape_Click(object sender, EventArgs e)
         {
-
+            if (Shapes.ShapeToWork != null)
+            {
+                if (Shapes.ShapeToWork is IEditable)
+                {
+                    Shapes.State = EState.Drawing;
+                    Shapes.OldPoint = new Point(Shapes.ShapeToWork.Coordinate.X, Shapes.ShapeToWork.Coordinate.Y);
+                }
+                else
+                {
+                    Shapes.Add(Shapes.ShapeToWork);
+                    Shapes.UnSelect(panelDraw.CreateGraphics());
+                    Shapes.ShapeToWork = null;
+                    Shapes.State = EState.None;
+                    MessageBox.Show("You can't edit this shape type.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nothing selected.");
+            }
         }
 
         private void buttonUnSelect_Click(object sender, EventArgs e)
         {
-            Shapes.UnSelect(panelDraw.CreateGraphics());
+            if (Shapes.State == EState.ReadyEditing || Shapes.State == EState.Moving || Shapes.State == EState.Moving)
+            {
+                if (Shapes.ShapeToWork != null)
+                {
+                    Shapes.Add(Shapes.ShapeToWork);
+                    Shapes.ShapeToWork = null;
+                }
+                Shapes.UnSelect(panelDraw.CreateGraphics());
+                Shapes.State = EState.None;
+            }
         }
 
         private void buttonMoveShape_Click(object sender, EventArgs e)
@@ -243,6 +256,8 @@ namespace OOP
                 else
                 {
                     Shapes.Add(Shapes.ShapeToWork);
+                    Shapes.UnSelect(panelDraw.CreateGraphics());
+                    Shapes.ShapeToWork = null;
                     Shapes.State = EState.None;
                     MessageBox.Show("You can't edit this shape type.");
                 }
