@@ -20,16 +20,21 @@ namespace OOP
     public partial class FormMain : Form
     {
         ShapeList Shapes;
+        Layer Layers;
+        
         public FormMain()
         {
             InitializeComponent();
             panelColorSelect.BackColor = Color.Black;
             panelBackgroundSelect.BackColor = Color.White;
-            panelDraw.BackColor = Color.White;
-            Shapes = new ShapeList(Color.White, listBoxShapes);
+            pictureBoxDraw.BackColor = Color.White;
+            DoubleBuffered = true;
 
-            Type ClassType = typeof(Shape);
+            Shapes = new ShapeList(Color.White, listBoxShapes);
+            Layers = new Layer(pictureBoxDraw.Width, pictureBoxDraw.Height, Shapes);
+
             int y = 1;
+            Type ClassType = typeof(Shape);
             IEnumerable<Type> list = Assembly.GetAssembly(ClassType).GetTypes().Where(type => type.IsSubclassOf(ClassType)); 
             foreach (Type itm in list)
             {
@@ -38,7 +43,7 @@ namespace OOP
                 btn.Location = new Point(5, 22*(y++));
                 btn.TypeOfShape = itm;
                 btn.Click += new EventHandler(ShapeButton_Click);
-                this.groupBoxShape.Controls.Add(btn);
+                groupBoxShape.Controls.Add(btn);
             }
         }
        
@@ -56,7 +61,9 @@ namespace OOP
             {
                 panelBackgroundSelect.BackColor = colorDialogBackground.Color;
                 Shapes.BackColor = colorDialogBackground.Color;
-                Shapes.ReDraw(panelDraw.CreateGraphics());
+                
+                Layers.UpdateStatic();
+                pictureBoxDraw.Image = Layers.DynamicLayer;
             }
         }
 
@@ -82,62 +89,14 @@ namespace OOP
             }
         }
 
-        private void panelDraw_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (Shapes.ShapeToWork == null)
-            {
-                MessageBox.Show("Please, select shape to draw.");
-                return;
-            }
-
-            if (Shapes.State == EState.ReadyDrawing)
-            {
-                Shapes.State = EState.Drawing;
-                Shapes.OldPoint = new Point(e.X, e.Y);
-            }
-            else if (Shapes.State == EState.Drawing)
-            {
-                Shapes.State = EState.None;
-                Shapes.CurrentPoint = new Point(e.X, e.Y);
-                Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y }));
-                Shapes.ShapeToWork = null;
-                Shapes.Draw(this.panelDraw.CreateGraphics());
-            }
-            else if (Shapes.State == EState.Moving)
-            {
-                Shapes.State = EState.None;
-                Shapes.Add(Shapes.ShapeToWork);
-                Shapes.ShapeToWork = null;
-                Shapes.ReDraw(this.panelDraw.CreateGraphics());
-            }
-        }
-
-        private void panelDraw_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (Shapes.State == EState.Drawing)
-            {
-                Shapes.CurrentPoint = new Point(e.X, e.Y);
-                Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y });
-                Shapes.ReDraw(this.panelDraw.CreateGraphics());
-                Shapes.DrawTmp(this.panelDraw.CreateGraphics());
-            }
-            else if (Shapes.State == EState.Moving)
-            {
-                Shapes.CurrentPoint = new Point(e.X, e.Y);
-                Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), e.X, e.Y, e.X + Shapes.ShapeToWork.Coordinate.Width, e.Y + Shapes.ShapeToWork.Coordinate.Height });
-                Shapes.ReDraw(this.panelDraw.CreateGraphics());
-                Shapes.DrawTmp(this.panelDraw.CreateGraphics());
-            }
-        }
-
         private void backToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Shapes.Back(this.panelDraw.CreateGraphics());
+            //Shapes.Back(this.panelDraw.CreateGraphics());
         }
 
         private void clearToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Shapes.Clear(this.panelDraw.CreateGraphics());
+            //Shapes.Clear(this.panelDraw.CreateGraphics());
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -148,7 +107,7 @@ namespace OOP
                 {
                     string json = JsonConvert.SerializeObject(Shapes, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
                     File.WriteAllText(saveFileDialog.FileName, json);
-                    Shapes.Clear(panelDraw.CreateGraphics());
+                    //Shapes.Clear(panelDraw.CreateGraphics());
                 }
                 catch (Exception err)
                 {
@@ -166,7 +125,7 @@ namespace OOP
                     string json = File.ReadAllText(openFileDialog.FileName);
                     Shapes = JsonConvert.DeserializeObject<ShapeList>(json, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
                     Shapes.SetListBox(listBoxShapes);
-                    Shapes.ReDraw(panelDraw.CreateGraphics());
+                    //Shapes.ReDraw(panelDraw.CreateGraphics());
                     panelBackgroundSelect.BackColor = Shapes.BackColor;
                 }
                 catch (Exception err)
@@ -188,20 +147,23 @@ namespace OOP
                     {
                         Shapes.Add(Shapes.ShapeToWork);
                         Shapes.ShapeToWork = null;
-                        Shapes.ReDraw(panelDraw.CreateGraphics());
+                        Layers.UpdateStatic();
                     }
-                    Shapes.Select(index, panelDraw.CreateGraphics());
-                    Shapes.ReDraw(panelDraw.CreateGraphics());
-                    Shapes.DrawTmp(panelDraw.CreateGraphics());
+                    Shapes.UnSelect();
+                    Shapes.Select(index);
+                    Layers.UpdateStatic();
+                    pictureBoxDraw.Image = Layers.DynamicLayer;
                 }
                 else
                 {
                     if (Shapes.ShapeToWork != null)
                     {
                         Shapes.Add(Shapes.ShapeToWork);
-                    Shapes.ShapeToWork = null;
-                        }
-                    Shapes.UnSelect(panelDraw.CreateGraphics());
+                        Shapes.ShapeToWork = null;
+                    }
+                    Shapes.UnSelect();
+                    Layers.UpdateStatic();
+                    pictureBoxDraw.Image = Layers.DynamicLayer;
                 }
             }
         }
@@ -218,7 +180,9 @@ namespace OOP
                 else
                 {
                     Shapes.Add(Shapes.ShapeToWork);
-                    Shapes.UnSelect(panelDraw.CreateGraphics());
+                    Shapes.UnSelect();
+                    Layers.UpdateStatic();
+                    pictureBoxDraw.Image = Layers.DynamicLayer;
                     Shapes.ShapeToWork = null;
                     Shapes.State = EState.None;
                     MessageBox.Show("You can't edit this shape type.");
@@ -239,7 +203,9 @@ namespace OOP
                     Shapes.Add(Shapes.ShapeToWork);
                     Shapes.ShapeToWork = null;
                 }
-                Shapes.UnSelect(panelDraw.CreateGraphics());
+                Shapes.UnSelect();
+                Layers.UpdateStatic();
+                pictureBoxDraw.Image = Layers.DynamicLayer;
                 Shapes.State = EState.None;
             }
         }
@@ -251,12 +217,13 @@ namespace OOP
                 if (Shapes.ShapeToWork is IEditable)
                 {
                     Shapes.State = EState.Moving;
-                    
                 }
                 else
                 {
                     Shapes.Add(Shapes.ShapeToWork);
-                    Shapes.UnSelect(panelDraw.CreateGraphics());
+                    Shapes.UnSelect();
+                    Layers.UpdateStatic();
+                    pictureBoxDraw.Image = Layers.DynamicLayer;
                     Shapes.ShapeToWork = null;
                     Shapes.State = EState.None;
                     MessageBox.Show("You can't edit this shape type.");
@@ -265,6 +232,58 @@ namespace OOP
             else
             {
                 MessageBox.Show("Nothing selected.");
+            }
+        }
+
+        private void pictureBoxDraw_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (Shapes.State == EState.Drawing)
+            {
+                Shapes.CurrentPoint = new Point(e.X, e.Y);
+                Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y });
+                Layers.UpdateDynamic();
+                pictureBoxDraw.Image = Layers.DynamicLayer;
+            }
+            else if (Shapes.State == EState.Moving)
+            {
+                Shapes.CurrentPoint = new Point(e.X, e.Y);
+                Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), e.X, e.Y, e.X + Shapes.ShapeToWork.Coordinate.Width, e.Y + Shapes.ShapeToWork.Coordinate.Height });
+                Layers.UpdateDynamic();
+                pictureBoxDraw.Image = Layers.DynamicLayer;
+            }
+        }
+
+        private void pictureBoxDraw_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (Shapes.ShapeToWork == null)
+            {
+                MessageBox.Show("Please, select shape to draw.");
+                return;
+            }
+
+            if (Shapes.State == EState.ReadyDrawing)
+            {
+                Shapes.State = EState.Drawing;
+                Shapes.OldPoint = new Point(e.X, e.Y);
+                Layers.UpdateStatic();
+                pictureBoxDraw.Image = Layers.DynamicLayer;
+            }
+            else if (Shapes.State == EState.Drawing)
+            {
+                Shapes.State = EState.None;
+                Shapes.CurrentPoint = new Point(e.X, e.Y);
+                Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y }));
+                Shapes.ShapeToWork = null;
+                Layers.UpdateStatic();
+                pictureBoxDraw.Image = Layers.DynamicLayer;
+            }
+            else if (Shapes.State == EState.Moving)
+            {
+                Shapes.State = EState.None;
+                Shapes.Add(Shapes.ShapeToWork);
+                Shapes.ShapeToWork = null;
+                Layers.UpdateStatic();
+                pictureBoxDraw.Image = Layers.DynamicLayer;
             }
         }
     }

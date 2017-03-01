@@ -67,27 +67,25 @@ namespace OOP
             RefreshListBox();
         }
 
-        public void Select(int index, Graphics graphics)
+        public void Select(int index)
         {
             if (index >= 0 && index < list.Count)
             {
-                UnSelect(graphics);
                 (list[index] as ISelectable).Selected = true;
                 ShapeToWork = list[index];
                 list.RemoveAt(index);
             }
         }
 
-        public void UnSelect(Graphics graphics)
+        public void UnSelect()
         {
-                foreach (var sh in list)
+            foreach (var sh in list)
+            {
+                if (sh is ISelectable)
                 {
-                    if (sh is ISelectable)
-                    {
-                        (sh as ISelectable).Selected = false;
-                    }
+                    (sh as ISelectable).Selected = false;
                 }
-            ReDraw(graphics);
+            }
         }
 
         public void ReDraw(Graphics graphics)
@@ -99,10 +97,13 @@ namespace OOP
 
         public void DrawTmp(Graphics graphics)
         {
-            ShapeToWork.Draw(graphics);
+            if (ShapeToWork != null)
+            {
+                ShapeToWork.Draw(graphics);
+            }
         }
 
-        private void RefreshListBox()
+        public void RefreshListBox()
         {
             lb.Items.Clear();
             foreach (var Shape in list)

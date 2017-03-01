@@ -78,8 +78,6 @@ namespace Server
                     break;
                 }
             }
-            //handler.Shutdown(SocketShutdown.Both);
-            //handler.Close();
         }
 
         public void Send(string Message)

@@ -50,18 +50,19 @@
             this.buttonBackgroundSelect = new System.Windows.Forms.Button();
             this.colorDialogBackground = new System.Windows.Forms.ColorDialog();
             this.groupBoxShape = new System.Windows.Forms.GroupBox();
-            this.panelDraw = new System.Windows.Forms.Panel();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.listBoxShapes = new System.Windows.Forms.ListBox();
             this.panelEditShapes = new System.Windows.Forms.Panel();
-            this.buttonEditShape = new System.Windows.Forms.Button();
-            this.buttonMoveShape = new System.Windows.Forms.Button();
             this.buttonUnSelect = new System.Windows.Forms.Button();
+            this.buttonMoveShape = new System.Windows.Forms.Button();
+            this.buttonEditShape = new System.Windows.Forms.Button();
+            this.pictureBoxDraw = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panelEditShapes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDraw)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -245,17 +246,6 @@
             this.groupBoxShape.TabStop = false;
             this.groupBoxShape.Text = "Shape";
             // 
-            // panelDraw
-            // 
-            this.panelDraw.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.panelDraw.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelDraw.Location = new System.Drawing.Point(130, 99);
-            this.panelDraw.Name = "panelDraw";
-            this.panelDraw.Size = new System.Drawing.Size(836, 393);
-            this.panelDraw.TabIndex = 8;
-            this.panelDraw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelDraw_MouseDown);
-            this.panelDraw.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelDraw_MouseMove);
-            // 
             // saveFileDialog
             // 
             this.saveFileDialog.DefaultExt = "ic";
@@ -267,11 +257,12 @@
             // 
             // listBoxShapes
             // 
+            this.listBoxShapes.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.listBoxShapes.FormattingEnabled = true;
             this.listBoxShapes.ItemHeight = 16;
             this.listBoxShapes.Location = new System.Drawing.Point(12, 248);
             this.listBoxShapes.Name = "listBoxShapes";
-            this.listBoxShapes.Size = new System.Drawing.Size(112, 244);
+            this.listBoxShapes.Size = new System.Drawing.Size(112, 468);
             this.listBoxShapes.TabIndex = 9;
             this.listBoxShapes.SelectedIndexChanged += new System.EventHandler(this.listBoxShapes_SelectedIndexChanged);
             // 
@@ -286,15 +277,15 @@
             this.panelEditShapes.Size = new System.Drawing.Size(197, 59);
             this.panelEditShapes.TabIndex = 11;
             // 
-            // buttonEditShape
+            // buttonUnSelect
             // 
-            this.buttonEditShape.Location = new System.Drawing.Point(14, 32);
-            this.buttonEditShape.Name = "buttonEditShape";
-            this.buttonEditShape.Size = new System.Drawing.Size(75, 23);
-            this.buttonEditShape.TabIndex = 0;
-            this.buttonEditShape.Text = "Edit";
-            this.buttonEditShape.UseVisualStyleBackColor = true;
-            this.buttonEditShape.Click += new System.EventHandler(this.buttonEditShape_Click);
+            this.buttonUnSelect.Location = new System.Drawing.Point(95, 3);
+            this.buttonUnSelect.Name = "buttonUnSelect";
+            this.buttonUnSelect.Size = new System.Drawing.Size(96, 52);
+            this.buttonUnSelect.TabIndex = 12;
+            this.buttonUnSelect.Text = "End edit";
+            this.buttonUnSelect.UseVisualStyleBackColor = true;
+            this.buttonUnSelect.Click += new System.EventHandler(this.buttonUnSelect_Click);
             // 
             // buttonMoveShape
             // 
@@ -306,15 +297,27 @@
             this.buttonMoveShape.UseVisualStyleBackColor = true;
             this.buttonMoveShape.Click += new System.EventHandler(this.buttonMoveShape_Click);
             // 
-            // buttonUnSelect
+            // buttonEditShape
             // 
-            this.buttonUnSelect.Location = new System.Drawing.Point(95, 3);
-            this.buttonUnSelect.Name = "buttonUnSelect";
-            this.buttonUnSelect.Size = new System.Drawing.Size(96, 52);
-            this.buttonUnSelect.TabIndex = 12;
-            this.buttonUnSelect.Text = "End edit";
-            this.buttonUnSelect.UseVisualStyleBackColor = true;
-            this.buttonUnSelect.Click += new System.EventHandler(this.buttonUnSelect_Click);
+            this.buttonEditShape.Location = new System.Drawing.Point(14, 32);
+            this.buttonEditShape.Name = "buttonEditShape";
+            this.buttonEditShape.Size = new System.Drawing.Size(75, 23);
+            this.buttonEditShape.TabIndex = 0;
+            this.buttonEditShape.Text = "Edit";
+            this.buttonEditShape.UseVisualStyleBackColor = true;
+            this.buttonEditShape.Click += new System.EventHandler(this.buttonEditShape_Click);
+            // 
+            // pictureBoxDraw
+            // 
+            this.pictureBoxDraw.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.pictureBoxDraw.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBoxDraw.Location = new System.Drawing.Point(130, 99);
+            this.pictureBoxDraw.Name = "pictureBoxDraw";
+            this.pictureBoxDraw.Size = new System.Drawing.Size(836, 393);
+            this.pictureBoxDraw.TabIndex = 12;
+            this.pictureBoxDraw.TabStop = false;
+            this.pictureBoxDraw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxDraw_MouseDown);
+            this.pictureBoxDraw.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxDraw_MouseMove);
             // 
             // FormMain
             // 
@@ -322,9 +325,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(978, 499);
+            this.Controls.Add(this.pictureBoxDraw);
             this.Controls.Add(this.panelEditShapes);
             this.Controls.Add(this.listBoxShapes);
-            this.Controls.Add(this.panelDraw);
             this.Controls.Add(this.groupBoxShape);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -338,6 +341,7 @@
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panelEditShapes.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDraw)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -360,7 +364,6 @@
         private System.Windows.Forms.Button buttonBackgroundSelect;
         private System.Windows.Forms.ColorDialog colorDialogBackground;
         private System.Windows.Forms.GroupBox groupBoxShape;
-        private System.Windows.Forms.Panel panelDraw;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem forwardToolStripMenuItem;
@@ -374,6 +377,7 @@
         private System.Windows.Forms.Button buttonMoveShape;
         private System.Windows.Forms.Button buttonEditShape;
         private System.Windows.Forms.Button buttonUnSelect;
+        private System.Windows.Forms.PictureBox pictureBoxDraw;
     }
 }
 
