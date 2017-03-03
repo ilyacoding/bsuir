@@ -7,23 +7,34 @@ using System.Drawing;
 using System.ComponentModel.Composition;
 using ShapeContract;
 
-namespace OOP
+namespace Triangle
 {
-    /*public class Ellipse : Shape, ISelectable, IEditable
+    [Export(typeof(Shape))]
+    public class Triangle : Shape, ISelectable
     {
         public bool Selected { get; set; }
-        public bool Editing { get; set; }
-        public Ellipse(Color color, float width, int x1, int y1, int x2, int y2)
+
+        public Triangle(System.Drawing.Color color, float width, int x1, int y1, int x2, int y2)
         {
             Coordinate = new System.Drawing.Rectangle(x1, y1, x2 - x1, y2 - y1);
             PenColor = color;
             PenWidth = width;
         }
 
-        public override void Draw(Graphics graphics)
+        public Triangle()
         {
+            Coordinate = new System.Drawing.Rectangle(0, 0, 0, 0);
+            PenColor = Color.Black;
+            PenWidth = 1;
+        }
+
+        public override void Draw(System.Drawing.Graphics graphics)
+        {
+            //System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
             var pen = new Pen(PenColor, PenWidth);
-            graphics.DrawEllipse(pen, Coordinate);
+            graphics.DrawLine(pen, new Point(Coordinate.X, Coordinate.Y), new Point(Coordinate.X, Coordinate.Bottom));
+            graphics.DrawLine(pen, new Point(Coordinate.X, Coordinate.Y), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
+            graphics.DrawLine(pen, new Point(Coordinate.X, Coordinate.Bottom), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
 
             if (Selected)
             {
@@ -35,5 +46,5 @@ namespace OOP
                 graphics.DrawLine(penBack, new Point(Coordinate.X - 2, Coordinate.Bottom + 2), new Point(Coordinate.X + Coordinate.Width + 2, Coordinate.Bottom + 2));
             }
         }
-    }*/
+    }
 }

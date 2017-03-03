@@ -4,21 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-using System.ComponentModel;
+using System.ComponentModel.Composition;
 using ShapeContract;
 
-namespace OOP
+namespace Line
 {
-    public class Line : Shape, ISelectable, IEditable
+    [Export(typeof(Shape))]
+    public partial class Line : Shape, ISelectable, IEditable
     {
         public bool Selected { get; set; }
         public bool Editing { get; set; }
+
         public Line(Color color, float width, int x1, int y1, int x2, int y2)
         {
             Coordinate = new System.Drawing.Rectangle(x1, y1, x2 - x1, y2 - y1);
             PenColor = color;
             PenWidth = width;
         }
+
+        public Line()
+        {
+            Coordinate = new Rectangle(0, 0, 0, 0);
+            PenColor = Color.Black;
+            PenWidth = 1;
+        }
+
         public override void Draw(Graphics graphics)
         {
             var pen = new Pen(PenColor, PenWidth);

@@ -79,12 +79,6 @@
     <Compile Include="ShapeButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Shapes\Ellipse.cs" />
-    <Compile Include="Shapes\Line.cs" />
-    <Compile Include="Shapes\IsoTriangle.cs" />
-    <Compile Include="Shapes\Rectangle.cs" />
-    <Compile Include="Shapes\Trapeze.cs" />
-    <Compile Include="Shapes\Shape.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,7 +88,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShapeList.cs" />
-    <Compile Include="Shapes\Triangle.cs" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>

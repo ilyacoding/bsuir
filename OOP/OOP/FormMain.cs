@@ -318,7 +318,7 @@ namespace OOP
             foreach (var extension in imports.readerExtCollection)
             {
                 ShapeButton btn = new ShapeButton();
-                btn.Text = extension.Value.GetType().ToString();
+                btn.Text = extension.Value.GetType().ToString().Split('.')[0];
                 btn.Location = new Point(5, 22 * (y++));
                 btn.TypeOfShape = extension.Value.GetType();
                 btn.Click += new EventHandler(ShapeButton_Click);
