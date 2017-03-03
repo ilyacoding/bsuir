@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OOP
+namespace MEF_Practice
 {
-    interface IEditable
+    class Program
     {
-        bool Editing { get; set; }
+        static void Main(string[] args)
+        {
+        }
     }
 }

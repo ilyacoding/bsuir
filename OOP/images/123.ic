@@ -1,8 +1,8 @@
 {
   "$type": "OOP.ShapeList, OOP",
   "BackColor": "255, 128, 192",
-  "OldPoint": "78, 40",
-  "CurrentPoint": "339, 164",
+  "OldPoint": "612, 2",
+  "CurrentPoint": "14, 298",
   "State": 5,
   "ShapeToWork": null,
   "list": {
@@ -36,29 +36,6 @@
         "PenWidth": 1.0
       },
       {
-        "$type": "OOP.Line, OOP",
-        "Selected": false,
-        "Editing": false,
-        "Coordinate": "360, 60, 156, -46",
-        "PenColor": "Black",
-        "PenWidth": 1.0
-      },
-      {
-        "$type": "OOP.Line, OOP",
-        "Selected": false,
-        "Editing": false,
-        "Coordinate": "612, 2, -88, 146",
-        "PenColor": "Black",
-        "PenWidth": 1.0
-      },
-      {
-        "$type": "OOP.Rectangle, OOP",
-        "Selected": false,
-        "Coordinate": "43, 200, 72, 54",
-        "PenColor": "Black",
-        "PenWidth": 1.0
-      },
-      {
         "$type": "OOP.Ellipse, OOP",
         "Selected": false,
         "Editing": false,
@@ -80,13 +57,6 @@
         "Coordinate": "226, 64, 182, 186",
         "PenColor": "Aqua",
         "PenWidth": 8.0
-      },
-      {
-        "$type": "OOP.Rectangle, OOP",
-        "Selected": false,
-        "Coordinate": "78, 40, 261, 124",
-        "PenColor": "0, 64, 128",
-        "PenWidth": 6.0
       }
     ]
   }

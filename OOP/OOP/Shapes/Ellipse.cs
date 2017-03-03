@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.ComponentModel.Composition;
+using ShapeContract;
 
 namespace OOP
 {
-    public class Ellipse : Shape, ISelectable, IEditable
+    /*public class Ellipse : Shape, ISelectable, IEditable
     {
         public bool Selected { get; set; }
         public bool Editing { get; set; }
@@ -33,5 +35,5 @@ namespace OOP
                 graphics.DrawLine(penBack, new Point(Coordinate.X - 2, Coordinate.Bottom + 2), new Point(Coordinate.X + Coordinate.Width + 2, Coordinate.Bottom + 2));
             }
         }
-    }
+    }*/
 }
