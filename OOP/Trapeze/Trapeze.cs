@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-using System.IO;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Bson;
+using System.ComponentModel.Composition;
 using ShapeContract;
 
-namespace OOP
+namespace Trapeze
 {
+    [Export(typeof(Shape))]
     public class Trapeze : Shape
     {
         public Trapeze(System.Drawing.Color color, float width, int x1, int y1, int x2, int y2)
@@ -19,6 +18,14 @@ namespace OOP
             PenColor = color;
             PenWidth = width;
         }
+
+        public Trapeze()
+        {
+            Coordinate = new System.Drawing.Rectangle(0, 0, 0, 0);
+            PenColor = Color.Black;
+            PenWidth = 1;
+        }
+
         public override void Draw(System.Drawing.Graphics graphics)
         {
             //System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();

@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.ComponentModel.Composition;
 using ShapeContract;
 
-namespace OOP
+namespace IsoTriangle
 {
-    public class IsoTriangle : Shape
+    [Export(typeof(Shape))]
+    public partial class IsoTriangle : Shape
     {
         public IsoTriangle(Color color, float width, int x1, int y1, int x2, int y2)
         {
@@ -16,15 +18,20 @@ namespace OOP
             PenColor = color;
             PenWidth = width;
         }
+
+        public IsoTriangle()
+        {
+            Coordinate = new Rectangle(0, 0, 0, 0);
+            PenColor = Color.Black;
+            PenWidth = 1;
+        }
+
         public override void Draw(Graphics graphics)
         {
-            //System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
             var pen = new Pen(PenColor, PenWidth);
             graphics.DrawLine(pen, new Point(Coordinate.X + Coordinate.Width / 2, Coordinate.Y), new Point(Coordinate.X, Coordinate.Bottom));
             graphics.DrawLine(pen, new Point(Coordinate.X + Coordinate.Width / 2, Coordinate.Y), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
             graphics.DrawLine(pen, new Point(Coordinate.X, Coordinate.Bottom), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
-            //graphics.DrawLine(Pen, new Point(Coordinate.X, Coordinate.Y), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
-            //graphics.DrawLine(Pen, new Point(Coordinate.X, Coordinate.Bottom), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
         }
     }
 }
