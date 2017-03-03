@@ -34,6 +34,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MefContrib, Version=1.2.0.0, Culture=neutral, PublicKeyToken=61319b4ffd6fe6d3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MefContrib.1.2.0.0\lib\MefContrib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MefContrib.Integration.Autofac, Version=1.2.2.0, Culture=neutral, PublicKeyToken=61319b4ffd6fe6d3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MefContrib.Integration.Autofac.1.2.2.1\lib\net40-Client\MefContrib.Integration.Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MongoDB.Bson, Version=2.4.2.27, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Bson.2.4.2\lib\net45\MongoDB.Bson.dll</HintPath>
       <Private>True</Private>

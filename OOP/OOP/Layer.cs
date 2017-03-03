@@ -10,8 +10,8 @@ namespace OOP
     public class Layer
     {
         public Bitmap DynamicLayer { get; set; }
-
         public ShapeList Shapes { get; set; }
+
         private Bitmap StaticLayer { get; set; }
         private int Width { get; set; }
         private int Height { get; set; }

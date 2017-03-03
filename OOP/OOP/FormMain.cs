@@ -11,28 +11,50 @@ using System.Windows;
 using System.Windows.Forms;
 using Newtonsoft;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Bson;
-using MongoDB.Bson;
+using Newtonsoft.Json.Serialization;
 using System.Reflection;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using ShapeContract;
 
+using Autofac;
+using Autofac.Core;
+
 namespace OOP
 {
+    public class AutofacContractResolver : DefaultContractResolver
+    {
+        private readonly Autofac.IContainer _container;
+        private ImportManager imports;
+
+        public AutofacContractResolver(Autofac.IContainer container)
+        {
+            _container = container;
+        }
+ 
+        protected override JsonObjectContract CreateObjectContract(Type objectType)
+        {
+            JsonObjectContract contract = base.CreateObjectContract(objectType);
+            
+            if (_container.IsRegistered(objectType))
+            {
+                contract.DefaultCreator = () => _container.Resolve(objectType);
+            }
+            return contract;
+        }
+    }
+
     public partial class FormMain : Form
     {
         ShapeList Shapes;
         Layer Layers;
-
-        DirectoryCatalog dirCatalog;
         CompositionContainer container;
-        ImportManager imports;
+        static ImportManager imports;
 
         public FormMain()
         {
             InitializeComponent();
-            InitializeImport();
             panelColorSelect.BackColor = Color.Black;
             panelBackgroundSelect.BackColor = Color.White;
             pictureBoxDraw.BackColor = Color.White;
@@ -40,24 +62,11 @@ namespace OOP
 
             Shapes = new ShapeList(Color.White, listBoxShapes);
             Layers = new Layer(pictureBoxDraw.Width, pictureBoxDraw.Height, Shapes);
-            /*
-            int y = 1;
-            Type ClassType = typeof(Shape);
-            IEnumerable<Type> list = Assembly.GetAssembly(ClassType).GetTypes().Where(type => type.IsSubclassOf(ClassType)); 
-            foreach (Type itm in list)
-            {
-                ShapeButton btn = new ShapeButton();
-                btn.Text = itm.Name;
-                btn.Location = new Point(5, 22*(y++));
-                btn.TypeOfShape = itm;
-                btn.Click += new EventHandler(ShapeButton_Click);
-                groupBoxShape.Controls.Add(btn);
-            }*/
         }
 
         private void InitializeImport()
         {
-            dirCatalog = new DirectoryCatalog(Properties.Settings.Default.AddInDirectory);
+            DirectoryCatalog dirCatalog = new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Plugins");
             container = new CompositionContainer(dirCatalog);
             imports = new ImportManager();
             container.ComposeParts(this, imports);
@@ -145,7 +154,19 @@ namespace OOP
                 try
                 {
                     string json = File.ReadAllText(openFileDialog.FileName);
-                    Shapes = JsonConvert.DeserializeObject<ShapeList>(json, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+
+                    ContainerBuilder builder = new ContainerBuilder();
+                    foreach (var extension in imports.readerExtCollection)
+                    {
+                        builder.RegisterType(extension.Value.GetType());
+                    }
+                    Autofac.IContainer _container = builder.Build();
+
+                    AutofacContractResolver contractResolver = new AutofacContractResolver(_container);
+
+                    Shapes = JsonConvert.DeserializeObject<ShapeList>(json, new JsonSerializerSettings {
+                        TypeNameHandling = TypeNameHandling.All
+                    });
                     Shapes.SetListBox(listBoxShapes);
                     Layers = new Layer(pictureBoxDraw.Width, pictureBoxDraw.Height, Shapes);
                     Shapes.RefreshListBox();
@@ -314,15 +335,30 @@ namespace OOP
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int y = 1;
-            foreach (var extension in imports.readerExtCollection)
+            try
             {
-                ShapeButton btn = new ShapeButton();
-                btn.Text = extension.Value.GetType().ToString().Split('.')[0];
-                btn.Location = new Point(5, 22 * (y++));
-                btn.TypeOfShape = extension.Value.GetType();
-                btn.Click += new EventHandler(ShapeButton_Click);
-                groupBoxShape.Controls.Add(btn);
+                InitializeImport();
+                int y = 1;
+                foreach (var extension in imports.readerExtCollection)
+                {
+                    try
+                    {
+                        ShapeButton btn = new ShapeButton();
+                        btn.Text = extension.Value.GetType().ToString().Split('.')[0];
+                        btn.Location = new Point(5, 22 * (y++));
+                        btn.TypeOfShape = extension.Value.GetType();
+                        btn.Click += new EventHandler(ShapeButton_Click);
+                        groupBoxShape.Controls.Add(btn);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
     }

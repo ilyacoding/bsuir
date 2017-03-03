@@ -11,7 +11,7 @@ namespace OOP
 {
     public enum EState
     {
-        ReadyDrawing, Drawing, ReadyEditing, Editing, Moving, None
+        ReadyDrawing, Drawing, ReadyEditing, Moving, None
     }
 
     public class ShapeList
@@ -86,13 +86,6 @@ namespace OOP
                     (sh as ISelectable).Selected = false;
                 }
             }
-        }
-
-        public void ReDraw(Graphics graphics)
-        {
-            graphics.Clear(BackColor);
-            this.Draw(graphics);
-            RefreshListBox();
         }
 
         public void DrawTmp(Graphics graphics)
