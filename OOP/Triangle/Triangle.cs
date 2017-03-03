@@ -10,9 +10,10 @@ using ShapeContract;
 namespace Triangle
 {
     [Export(typeof(Shape))]
-    public class Triangle : Shape, ISelectable
+    public class Triangle : Shape, ISelectable, IEditable
     {
         public bool Selected { get; set; }
+        public bool Editing { get; set; }
 
         public Triangle(System.Drawing.Color color, float width, int x1, int y1, int x2, int y2)
         {
@@ -30,7 +31,6 @@ namespace Triangle
 
         public override void Draw(System.Drawing.Graphics graphics)
         {
-            //System.Drawing.Graphics graphics = form.panelDraw.CreateGraphics();
             var pen = new Pen(PenColor, PenWidth);
             graphics.DrawLine(pen, new Point(Coordinate.X, Coordinate.Y), new Point(Coordinate.X, Coordinate.Bottom));
             graphics.DrawLine(pen, new Point(Coordinate.X, Coordinate.Y), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
