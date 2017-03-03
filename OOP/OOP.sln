@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOP", "OOP\OOP.csproj", "{D6E0BDD9-5B9A-46B1-8B9D-62ABF560487A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ellipse", "Ellipse\Ellipse.csproj", "{90634FDE-BB41-4B70-A886-B8E2E723D9EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShapeContract", "ShapeContract\ShapeContract.csproj", "{2468E476-9B30-4736-8DD1-B85179D82C19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{D6E0BDD9-5B9A-46B1-8B9D-62ABF560487A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6E0BDD9-5B9A-46B1-8B9D-62ABF560487A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6E0BDD9-5B9A-46B1-8B9D-62ABF560487A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90634FDE-BB41-4B70-A886-B8E2E723D9EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90634FDE-BB41-4B70-A886-B8E2E723D9EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90634FDE-BB41-4B70-A886-B8E2E723D9EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90634FDE-BB41-4B70-A886-B8E2E723D9EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2468E476-9B30-4736-8DD1-B85179D82C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2468E476-9B30-4736-8DD1-B85179D82C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2468E476-9B30-4736-8DD1-B85179D82C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2468E476-9B30-4736-8DD1-B85179D82C19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

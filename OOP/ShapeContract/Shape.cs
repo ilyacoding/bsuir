@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace OOP
+namespace ShapeContract
 {
-    /*public abstract class Shape
+    public abstract class Shape
     {
-        public System.Drawing.Rectangle Coordinate { get; set; }
+        public Rectangle Coordinate { get; set; }
         public Color PenColor { get; set; }
         public float PenWidth { get; set; }
 
         public abstract void Draw(Graphics graphics);
-    }*/
+    }
 }

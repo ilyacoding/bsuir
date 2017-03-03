@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
+using ShapeContract;
 
 namespace OOP
 {
@@ -60,10 +61,9 @@ namespace OOP
             }
         }
 
-        public void Clear(Graphics graphics)
+        public void Clear()
         {
             list.Clear();
-            graphics.Clear(BackColor);
             RefreshListBox();
         }
 
@@ -117,13 +117,11 @@ namespace OOP
             lb = listBox;
         }
 
-        public void Back(Graphics graphics)
+        public void Back()
         {
             if (list.Count > 0)
             {
-                graphics.Clear(BackColor);
                 list.Remove(list.Last());
-                this.Draw(graphics);
                 RefreshListBox();
             }
         }

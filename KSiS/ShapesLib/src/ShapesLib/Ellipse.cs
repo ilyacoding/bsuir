@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
-using System.ComponentModel.Composition;
-using ShapeContract;
+using System.Windows;
+using System.Text;
 
-namespace OOP
+namespace ShapesLib
 {
-    /*public class Ellipse : Shape, ISelectable, IEditable
+    // This project can output the Class library as a NuGet Package.
+    // To enable this option, right-click on the project and select the Properties menu item. In the Build tab select "Produce outputs on build".
+    public class Ellipse : Shape, ISelectable, IEditable
     {
         public bool Selected { get; set; }
         public bool Editing { get; set; }
@@ -35,5 +35,5 @@ namespace OOP
                 graphics.DrawLine(penBack, new Point(Coordinate.X - 2, Coordinate.Bottom + 2), new Point(Coordinate.X + Coordinate.Width + 2, Coordinate.Bottom + 2));
             }
         }
-    }*/
+    }
 }

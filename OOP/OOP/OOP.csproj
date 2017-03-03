@@ -55,6 +55,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Composition.registration" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
@@ -71,17 +74,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IEditable.cs" />
+    <Compile Include="ImportManager.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="ShapeButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Shapes\Ellipse.cs" />
-    <Compile Include="Interfaces\ISelectable.cs" />
     <Compile Include="Shapes\Line.cs" />
     <Compile Include="Shapes\IsoTriangle.cs" />
     <Compile Include="Shapes\Rectangle.cs" />
-    <Compile Include="Bson.cs" />
     <Compile Include="Shapes\Trapeze.cs" />
     <Compile Include="Shapes\Shape.cs" />
     <Compile Include="FormMain.cs">
@@ -119,6 +120,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShapeContract\ShapeContract.csproj">
+      <Project>{2468e476-9b30-4736-8dd1-b85179d82c19}</Project>
+      <Name>ShapeContract</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

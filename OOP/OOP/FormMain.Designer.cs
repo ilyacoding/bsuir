@@ -58,6 +58,8 @@
             this.buttonMoveShape = new System.Windows.Forms.Button();
             this.buttonEditShape = new System.Windows.Forms.Button();
             this.pictureBoxDraw = new System.Windows.Forms.PictureBox();
+            this.shapesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -71,7 +73,8 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.editToolStripMenuItem});
+            this.editToolStripMenuItem,
+            this.shapesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(978, 28);
@@ -319,6 +322,21 @@
             this.pictureBoxDraw.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxDraw_MouseDown);
             this.pictureBoxDraw.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxDraw_MouseMove);
             // 
+            // shapesToolStripMenuItem
+            // 
+            this.shapesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importToolStripMenuItem});
+            this.shapesToolStripMenuItem.Name = "shapesToolStripMenuItem";
+            this.shapesToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
+            this.shapesToolStripMenuItem.Text = "Shapes";
+            // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.importToolStripMenuItem.Text = "Import";
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -378,6 +396,8 @@
         private System.Windows.Forms.Button buttonEditShape;
         private System.Windows.Forms.Button buttonUnSelect;
         private System.Windows.Forms.PictureBox pictureBoxDraw;
+        private System.Windows.Forms.ToolStripMenuItem shapesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
     }
 }
 

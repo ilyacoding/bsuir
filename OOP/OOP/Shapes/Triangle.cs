@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using ShapeContract;
 
 namespace OOP
 {
-    public class Triangle : Shape, ISelectable
+    public class Triangle : ShapeContract.Shape, ISelectable
     {
         public bool Selected { get; set; }
         public Triangle(System.Drawing.Color color, float width, int x1, int y1, int x2, int y2)

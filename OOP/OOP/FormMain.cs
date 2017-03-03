@@ -14,6 +14,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using MongoDB.Bson;
 using System.Reflection;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using ShapeContract;
 
 namespace OOP
 {
@@ -21,10 +24,15 @@ namespace OOP
     {
         ShapeList Shapes;
         Layer Layers;
-        
+
+        DirectoryCatalog dirCatalog;
+        CompositionContainer container;
+        ImportManager imports;
+
         public FormMain()
         {
             InitializeComponent();
+            InitializeImport();
             panelColorSelect.BackColor = Color.Black;
             panelBackgroundSelect.BackColor = Color.White;
             pictureBoxDraw.BackColor = Color.White;
@@ -32,7 +40,7 @@ namespace OOP
 
             Shapes = new ShapeList(Color.White, listBoxShapes);
             Layers = new Layer(pictureBoxDraw.Width, pictureBoxDraw.Height, Shapes);
-
+            /*
             int y = 1;
             Type ClassType = typeof(Shape);
             IEnumerable<Type> list = Assembly.GetAssembly(ClassType).GetTypes().Where(type => type.IsSubclassOf(ClassType)); 
@@ -44,9 +52,17 @@ namespace OOP
                 btn.TypeOfShape = itm;
                 btn.Click += new EventHandler(ShapeButton_Click);
                 groupBoxShape.Controls.Add(btn);
-            }
+            }*/
         }
-       
+
+        private void InitializeImport()
+        {
+            dirCatalog = new DirectoryCatalog(Properties.Settings.Default.AddInDirectory);
+            container = new CompositionContainer(dirCatalog);
+            imports = new ImportManager();
+            container.ComposeParts(this, imports);
+        }
+
         private void buttonColorSelect_Click(object sender, EventArgs e)
         {
             if (colorDialogSelect.ShowDialog() == DialogResult.OK)
@@ -91,12 +107,16 @@ namespace OOP
 
         private void backToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            //Shapes.Back(this.panelDraw.CreateGraphics());
+            Shapes.Back();
+            Layers.UpdateStatic();
+            pictureBoxDraw.Image = Layers.DynamicLayer;
         }
 
         private void clearToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            //Shapes.Clear(this.panelDraw.CreateGraphics());
+            Shapes.Clear();
+            Layers.UpdateStatic();
+            pictureBoxDraw.Image = Layers.DynamicLayer;
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -107,7 +127,9 @@ namespace OOP
                 {
                     string json = JsonConvert.SerializeObject(Shapes, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
                     File.WriteAllText(saveFileDialog.FileName, json);
-                    //Shapes.Clear(panelDraw.CreateGraphics());
+                    Shapes.Clear();
+                    Layers.UpdateStatic();
+                    pictureBoxDraw.Image = Layers.DynamicLayer;
                 }
                 catch (Exception err)
                 {
@@ -125,8 +147,11 @@ namespace OOP
                     string json = File.ReadAllText(openFileDialog.FileName);
                     Shapes = JsonConvert.DeserializeObject<ShapeList>(json, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
                     Shapes.SetListBox(listBoxShapes);
-                    //Shapes.ReDraw(panelDraw.CreateGraphics());
+                    Layers = new Layer(pictureBoxDraw.Width, pictureBoxDraw.Height, Shapes);
+                    Shapes.RefreshListBox();
                     panelBackgroundSelect.BackColor = Shapes.BackColor;
+                    Layers.UpdateStatic();
+                    pictureBoxDraw.Image = Layers.DynamicLayer;
                 }
                 catch (Exception err)
                 {
@@ -284,6 +309,20 @@ namespace OOP
                 Shapes.ShapeToWork = null;
                 Layers.UpdateStatic();
                 pictureBoxDraw.Image = Layers.DynamicLayer;
+            }
+        }
+
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int y = 1;
+            foreach (var extension in imports.readerExtCollection)
+            {
+                ShapeButton btn = new ShapeButton();
+                btn.Text = extension.Value.GetType().ToString();
+                btn.Location = new Point(5, 22 * (y++));
+                btn.TypeOfShape = extension.Value.GetType();
+                btn.Click += new EventHandler(ShapeButton_Click);
+                groupBoxShape.Controls.Add(btn);
             }
         }
     }

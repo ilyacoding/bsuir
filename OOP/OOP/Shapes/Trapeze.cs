@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
+using ShapeContract;
 
 namespace OOP
 {
