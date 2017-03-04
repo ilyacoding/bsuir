@@ -1,56 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Forms;
-using Newtonsoft;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System.Reflection;
-using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using ShapeContract;
 
-using Autofac;
-using Autofac.Core;
-
 namespace OOP
 {
-    public class AutofacContractResolver : DefaultContractResolver
-    {
-        private readonly Autofac.IContainer _container;
-        private ImportManager imports;
-
-        public AutofacContractResolver(Autofac.IContainer container)
-        {
-            _container = container;
-        }
- 
-        protected override JsonObjectContract CreateObjectContract(Type objectType)
-        {
-            JsonObjectContract contract = base.CreateObjectContract(objectType);
-            
-            if (_container.IsRegistered(objectType))
-            {
-                contract.DefaultCreator = () => _container.Resolve(objectType);
-            }
-            return contract;
-        }
-    }
-
     public partial class FormMain : Form
     {
         ShapeList Shapes;
         Layer Layers;
         CompositionContainer container;
-        static ImportManager imports;
+        ImportManager imports;
+        KnownTypesBinder kBinder;
 
         public FormMain()
         {
@@ -62,6 +30,7 @@ namespace OOP
 
             Shapes = new ShapeList(Color.White, listBoxShapes);
             Layers = new Layer(pictureBoxDraw.Width, pictureBoxDraw.Height, Shapes);
+            kBinder = new KnownTypesBinder();
         }
 
         private void InitializeImport()
@@ -134,7 +103,10 @@ namespace OOP
             {
                 try
                 {
-                    string json = JsonConvert.SerializeObject(Shapes, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
+                    string json = JsonConvert.SerializeObject(Shapes, new JsonSerializerSettings {
+                        TypeNameHandling = TypeNameHandling.All,
+                        Binder = kBinder
+                    });
                     File.WriteAllText(saveFileDialog.FileName, json);
                     Shapes.Clear();
                     Layers.UpdateStatic();
@@ -155,17 +127,9 @@ namespace OOP
                 {
                     string json = File.ReadAllText(openFileDialog.FileName);
 
-                    ContainerBuilder builder = new ContainerBuilder();
-                    foreach (var extension in imports.readerExtCollection)
-                    {
-                        builder.RegisterType(extension.Value.GetType());
-                    }
-                    Autofac.IContainer _container = builder.Build();
-
-                    AutofacContractResolver contractResolver = new AutofacContractResolver(_container);
-
                     Shapes = JsonConvert.DeserializeObject<ShapeList>(json, new JsonSerializerSettings {
-                        TypeNameHandling = TypeNameHandling.All
+                        TypeNameHandling = TypeNameHandling.All,
+                        Binder = kBinder
                     });
                     Shapes.SetListBox(listBoxShapes);
                     Layers = new Layer(pictureBoxDraw.Width, pictureBoxDraw.Height, Shapes);
@@ -174,9 +138,13 @@ namespace OOP
                     Layers.UpdateStatic();
                     pictureBoxDraw.Image = Layers.DynamicLayer;
                 }
+                catch (JsonSerializationException err)
+                {
+                    MessageBox.Show("Can't find some shapes, contained in image. Please, load them.");
+                }
                 catch (Exception err)
                 {
-                    MessageBox.Show("Error while reading file. Err: " + err.ToString());
+                    MessageBox.Show("Error while reading file.");
                 }
             }
         }
@@ -338,7 +306,9 @@ namespace OOP
             try
             {
                 InitializeImport();
+
                 int y = 1;
+                List<Type> runtimeTypes = new List<Type>();
                 foreach (var extension in imports.readerExtCollection)
                 {
                     try
@@ -349,12 +319,18 @@ namespace OOP
                         btn.TypeOfShape = extension.Value.GetType();
                         btn.Click += new EventHandler(ShapeButton_Click);
                         groupBoxShape.Controls.Add(btn);
+
+                        runtimeTypes.Add(extension.Value.GetType());
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.ToString());
                     }
                 }
+                runtimeTypes.Add(Shapes.GetType());
+                runtimeTypes.Add(Shapes.list.GetType());
+
+                kBinder.KnownTypes = runtimeTypes;
             }
             catch (Exception ex)
             {
@@ -363,3 +339,4 @@ namespace OOP
         }
     }
 }
+

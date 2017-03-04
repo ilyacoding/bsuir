@@ -1,0 +1,51 @@
+        private void pictureBoxDraw_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (Shapes.State == EState.Drawing)
+            {
+                Shapes.CurrentPoint = new Point(e.X, e.Y);
+                Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y });
+                Layers.UpdateDynamic();
+                pictureBoxDraw.Image = Layers.DynamicLayer;
+            }
+            else if (Shapes.State == EState.Moving)
+            {
+                Shapes.CurrentPoint = new Point(e.X, e.Y);
+                Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), e.X, e.Y, e.X + Shapes.ShapeToWork.Coordinate.Width, e.Y + Shapes.ShapeToWork.Coordinate.Height });
+                Layers.UpdateDynamic();
+                pictureBoxDraw.Image = Layers.DynamicLayer;
+            }
+        }
+
+        private void pictureBoxDraw_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (Shapes.ShapeToWork == null)
+            {
+                MessageBox.Show("Please, select shape to draw.");
+                return;
+            }
+
+            if (Shapes.State == EState.ReadyDrawing)
+            {
+                Shapes.State = EState.Drawing;
+                Shapes.OldPoint = new Point(e.X, e.Y);
+                Layers.UpdateStatic();
+                pictureBoxDraw.Image = Layers.DynamicLayer;
+            }
+            else if (Shapes.State == EState.Drawing)
+            {
+                Shapes.State = EState.None;
+                Shapes.CurrentPoint = new Point(e.X, e.Y);
+                Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y }));
+                Shapes.ShapeToWork = null;
+                Layers.UpdateStatic();
+                pictureBoxDraw.Image = Layers.DynamicLayer;
+            }
+            else if (Shapes.State == EState.Moving)
+            {
+                Shapes.State = EState.None;
+                Shapes.Add(Shapes.ShapeToWork);
+                Shapes.ShapeToWork = null;
+                Layers.UpdateStatic();
+                pictureBoxDraw.Image = Layers.DynamicLayer;
+            }
+        }
