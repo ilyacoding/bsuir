@@ -9,9 +9,9 @@ using ShapeContract;
 
 namespace OOP
 {
-    class ImportManager
+    public class ImportManager
     {
-        [ImportMany(typeof(Shape))]
+        [ImportMany(typeof(Shape), AllowRecomposition = false)]
         public IEnumerable<Lazy<Shape>> readerExtCollection { get; set; }
     }
 }

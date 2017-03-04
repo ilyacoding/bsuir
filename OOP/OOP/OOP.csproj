@@ -38,6 +38,10 @@
       <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Autofac.Integration.Mef, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mef.4.0.0\lib\net45\Autofac.Integration.Mef.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MefContrib, Version=1.2.0.0, Culture=neutral, PublicKeyToken=61319b4ffd6fe6d3, processorArchitecture=MSIL">
       <HintPath>..\packages\MefContrib.1.2.0.0\lib\MefContrib.dll</HintPath>
       <Private>True</Private>
@@ -87,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImportManager.cs" />
+    <Compile Include="KnownTypesBinder.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="ShapeButton.cs">
       <SubType>Component</SubType>
