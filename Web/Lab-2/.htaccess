@@ -1,0 +1,6 @@
+DirectoryIndex index.php
+
+RewriteEngine On
+
+RewriteRule ^category/(.*)$ index.php?cat=$1 [L]
+RewriteRule ^vehicle/(.*)$ index.php?p=$1 [L]
