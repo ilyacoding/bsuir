@@ -1,11 +1,11 @@
 <?php
 $db_name = 'mil_db';
 $db_user = 'mil_db';
-$db_pass = 'DDKBCvxyiZVadrnC';
+$db_pass = 'k8EX06o84SHQ6fc5';
 $db_host = 'localhost';
 
-$table_news = 'mil_news';
-$table_categories = 'mil_categories';
+$table_items = 'mil_items';
+$table_cats = 'mil_cats';
 
 $site_title = 'Сайт сравнения вооружений';
 

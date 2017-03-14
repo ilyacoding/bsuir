@@ -127,6 +127,11 @@ footer {
 
 }
 
+.shortstory-link {
+    text-decoration: none;
+    color:#FFE956;
+}
+
 .shortstory-bar {
     color: #FFE956;
 }
