@@ -1,41 +1,31 @@
-<form action="" method="post">
-    <?php
-    include("./config.php");
+<?php
+    include("./include/config.php");
     include("./include/Template.php");
 
     $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
-    if (isset($_REQUEST['id']))
+    if (isset($_POST['title']))
     {
-        $q = "INSERT INTO `mil_news`(`cat`, `title`, `date`, `img`, `short_desc`, `full_desc`, `tank_mass`, `tank_crew`, `length`, `width`, `gun`, `gun_type`, `gun_speed`, `gun_load`, `gun_ammunation`, `gun_ammunation_type`, `gun_penetration`, `gun_stabilizer`, `gun_coupled`, `gun_antiaircraft`, `gun_controlled`, `firecontrol_rangefinder`, `firecontrol_measurement`, `protection_type`, `protection_smoke`, `protection_optoelectronics`, `engine`, `engine_type`, `engine_cooling`, `engine_power`, `engine_temperature_range`, `mobility_transmission`, `mobility_suspension`, `mobility_absorbers`) VALUES (";
-        $first = true;
-        unset($_POST['id']);
-        foreach ($_POST as $key => $value)
-        {
-            if ($first)
-            {
-                $q = $q . "'" . $value . "'";
-                $first = false;
-                continue;
-            }
-            $q = $q . ", '" . $value . "'";
-        }
-        $q = $q . ")";
+        $title = mysqli_real_escape_string($conn, $_POST['title']);
+        $date = mysqli_real_escape_string($conn, $_POST['date']);
+        $cat_id = mysqli_real_escape_string($conn, $_POST['cat_id']);
+        $img = mysqli_real_escape_string($conn, $_POST['img']);
+        $short_desc = mysqli_real_escape_string($conn, $_POST['short_desc']);
+        $full_desc = mysqli_real_escape_string($conn, $_POST['full_desc']);
+        $fields = mysqli_real_escape_string($conn, $_POST['fields']);
+        $q = "INSERT INTO `$table_items`(`title`, `date`, `cat_id`, `img`, `short_desc`, `full_desc`, `fields`) VALUES ('$title', '$date', '$cat_id', '$img', '$short_desc', '$full_desc', '$fields')";
         echo $q;
         $result = mysqli_query($conn, $q);
     }
+?>
+    <form action="" method="post">
+    <p>Название <input name="title" width='500' required></p>
+    <p>Дата <input name="date" width='500' value="<?php echo date("Y-m-d"); ?>"></p>
+    <p>ID категории <input name="cat_id" width='500' required></p>
+    <p>Адрес картинки <input name="img" width='500' required></p>
+    <p>Краткое описание <textarea rows="10" cols="45" name="short_desc"></textarea></p>
+    <p>Полное описание <textarea rows="10" cols="45" name="full_desc"></textarea></p>
+    <p><textarea rows="10" cols="45" name="fields">main_mass| ||main_crew| ||main_length| ||main_width| ||gun| ||gun_type| ||gun_load| ||gun_ammunation| ||gun_stabilizer| ||gun_coupled| ||gun_antiaircraft| ||gun_addition| ||protection_type| ||protection_smoke| ||protection_addition| ||engine| ||engine_type| ||engine_cooling| ||engine_power| ||mobility_suspension| ||country|</textarea></p>
 
-
-    $result = mysqli_query($conn, "SELECT * FROM $table_news LIMIT 1");
-
-
-    while($row = mysqli_fetch_array($result))
-    {
-        foreach ($row as $key => $value) {
-            if (!is_numeric($key))
-                echo "<p>$key: <input name=\"$key\" width='500' required></p>";
-        }
-    }
-    ?>
     <p><input type="submit" value="Отправить"></p>
 </form>
