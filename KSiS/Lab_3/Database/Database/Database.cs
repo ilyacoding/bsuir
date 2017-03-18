@@ -165,9 +165,12 @@ namespace Database
         {
             try
             {
-                data.UserList.Find(x => x.Id == UserId).CategoryList.Remove(CatId);
-                Save();
-                return true;
+                if (data.UserList.Find(x => x.Id == UserId).CategoryList.Remove(CatId))
+                {
+                    Save();
+                    return true;
+                }
+                return false;
             }
             catch (Exception)
             {
@@ -179,9 +182,12 @@ namespace Database
         {
             try
             {
-                data.UserList.Find(x => x.Id == UserId).GoodList.Remove(GoodId);
-                Save();
-                return true;
+                if (data.UserList.Find(x => x.Id == UserId).GoodList.Remove(GoodId))
+                {
+                    Save();
+                    return true;
+                }
+                return false;
             }
             catch (Exception)
             {
@@ -193,9 +199,12 @@ namespace Database
         {
             try
             {
-                data.CategoryList.Find(x => x.Id == CatId).GoodList.Remove(GoodId);
-                Save();
-                return true;
+                if (data.CategoryList.Find(x => x.Id == CatId).GoodList.Remove(GoodId))
+                {
+                    Save();
+                    return true;
+                }
+                return false;
             }
             catch (Exception)
             {
@@ -207,9 +216,12 @@ namespace Database
         {
             try
             {
-                data.GoodList.Find(x => x.Id == GoodId).CategoryList.Remove(CatId);
-                Save();
-                return true;
+                if (data.GoodList.Find(x => x.Id == GoodId).CategoryList.Remove(CatId))
+                {
+                    Save();
+                    return true;
+                }
+                return false;
             }
             catch (Exception)
             {
