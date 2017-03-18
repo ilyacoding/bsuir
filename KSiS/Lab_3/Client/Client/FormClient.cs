@@ -264,7 +264,7 @@ namespace Client
                 int CatId = Convert.ToInt32(Interaction.InputBox("Category Id:", "Category", ""));
                 if (client.RemoveCatFromUser(UserId, CatId))
                 {
-                    MessageBox.Show("Link UserId: " + UserId.ToString() + " | CatId: " + CatId.ToString() + " created succesfully.");
+                    MessageBox.Show("Link UserId: " + UserId.ToString() + " | CatId: " + CatId.ToString() + " deleted succesfully.");
                 }
                 else
                 {
@@ -285,7 +285,7 @@ namespace Client
                 int GoodId = Convert.ToInt32(Interaction.InputBox("Good Id:", "Good", ""));
                 if (client.RemoveGoodFromUser(UserId, GoodId))
                 {
-                    MessageBox.Show("Link UserId: " + UserId.ToString() + " | GoodId: " + GoodId.ToString() + " created succesfully.");
+                    MessageBox.Show("Link UserId: " + UserId.ToString() + " | GoodId: " + GoodId.ToString() + " deleted succesfully.");
                 }
                 else
                 {
@@ -306,7 +306,7 @@ namespace Client
                 int GoodId = Convert.ToInt32(Interaction.InputBox("Good Id:", "Good", ""));
                 if (client.RemoveGoodFromCat(CatId, GoodId))
                 {
-                    MessageBox.Show("Link CatId: " + CatId.ToString() + " | GoodId: " + GoodId.ToString() + " created succesfully.");
+                    MessageBox.Show("Link CatId: " + CatId.ToString() + " | GoodId: " + GoodId.ToString() + " deleted succesfully.");
                 }
                 else
                 {
@@ -327,7 +327,7 @@ namespace Client
                 int CatId = Convert.ToInt32(Interaction.InputBox("Category Id:", "Category", ""));
                 if (client.RemoveCatFromGood(GoodId, CatId))
                 {
-                    MessageBox.Show("Link GoodId: " + GoodId.ToString() + " | CatId: " + CatId.ToString() + " created succesfully.");
+                    MessageBox.Show("Link GoodId: " + GoodId.ToString() + " | CatId: " + CatId.ToString() + " deleted succesfully.");
                 }
                 else
                 {

@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 using Data;
 
-namespace Database
+namespace TCPDatabase
 {
-    public class Database : IDatabase
+    public class Database
     {
         public Data.Data data;
         public string path;
 
         public Database()
         {
-            data = new Data.Data();
             path = "db.txt";
             Load();
         }
@@ -86,7 +84,9 @@ namespace Database
                 data.RemoveCategory(data.CategoryList.Find(x => x.Id == CatId));
                 Save();
                 return true;
-            } else {
+            }
+            else
+            {
                 return false;
             }
         }
@@ -160,7 +160,7 @@ namespace Database
                 return false;
             }
         }
-       
+
         public bool RemoveCatFromUser(int UserId, int CatId)
         {
             try

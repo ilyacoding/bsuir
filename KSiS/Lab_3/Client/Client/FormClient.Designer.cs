@@ -31,9 +31,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.richTextBoxUser = new System.Windows.Forms.RichTextBox();
-            this.richTextBoxGood = new System.Windows.Forms.RichTextBox();
-            this.richTextBoxCategory = new System.Windows.Forms.RichTextBox();
             this.itemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +49,12 @@
             this.goodFromUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goodFromCatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.catFromGoodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.richTextBoxUser = new System.Windows.Forms.RichTextBox();
+            this.richTextBoxGood = new System.Windows.Forms.RichTextBox();
+            this.richTextBoxCategory = new System.Windows.Forms.RichTextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,33 +84,9 @@
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(117, 26);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
-            // 
-            // richTextBoxUser
-            // 
-            this.richTextBoxUser.Location = new System.Drawing.Point(12, 31);
-            this.richTextBoxUser.Name = "richTextBoxUser";
-            this.richTextBoxUser.Size = new System.Drawing.Size(382, 164);
-            this.richTextBoxUser.TabIndex = 3;
-            this.richTextBoxUser.Text = "";
-            // 
-            // richTextBoxGood
-            // 
-            this.richTextBoxGood.Location = new System.Drawing.Point(12, 201);
-            this.richTextBoxGood.Name = "richTextBoxGood";
-            this.richTextBoxGood.Size = new System.Drawing.Size(382, 164);
-            this.richTextBoxGood.TabIndex = 4;
-            this.richTextBoxGood.Text = "";
-            // 
-            // richTextBoxCategory
-            // 
-            this.richTextBoxCategory.Location = new System.Drawing.Point(12, 371);
-            this.richTextBoxCategory.Name = "richTextBoxCategory";
-            this.richTextBoxCategory.Size = new System.Drawing.Size(382, 164);
-            this.richTextBoxCategory.TabIndex = 5;
-            this.richTextBoxCategory.Text = "";
             // 
             // itemToolStripMenuItem
             // 
@@ -122,21 +101,21 @@
             // userToolStripMenuItem
             // 
             this.userToolStripMenuItem.Name = "userToolStripMenuItem";
-            this.userToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.userToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.userToolStripMenuItem.Text = "User";
             this.userToolStripMenuItem.Click += new System.EventHandler(this.userToolStripMenuItem_Click);
             // 
             // goodToolStripMenuItem
             // 
             this.goodToolStripMenuItem.Name = "goodToolStripMenuItem";
-            this.goodToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.goodToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.goodToolStripMenuItem.Text = "Good";
             this.goodToolStripMenuItem.Click += new System.EventHandler(this.goodToolStripMenuItem_Click);
             // 
             // categoryToolStripMenuItem
             // 
             this.categoryToolStripMenuItem.Name = "categoryToolStripMenuItem";
-            this.categoryToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.categoryToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.categoryToolStripMenuItem.Text = "Category";
             this.categoryToolStripMenuItem.Click += new System.EventHandler(this.categoryToolStripMenuItem_Click);
             // 
@@ -153,21 +132,21 @@
             // userToolStripMenuItem1
             // 
             this.userToolStripMenuItem1.Name = "userToolStripMenuItem1";
-            this.userToolStripMenuItem1.Size = new System.Drawing.Size(181, 26);
+            this.userToolStripMenuItem1.Size = new System.Drawing.Size(144, 26);
             this.userToolStripMenuItem1.Text = "User";
             this.userToolStripMenuItem1.Click += new System.EventHandler(this.userToolStripMenuItem1_Click);
             // 
             // goodToolStripMenuItem1
             // 
             this.goodToolStripMenuItem1.Name = "goodToolStripMenuItem1";
-            this.goodToolStripMenuItem1.Size = new System.Drawing.Size(181, 26);
+            this.goodToolStripMenuItem1.Size = new System.Drawing.Size(144, 26);
             this.goodToolStripMenuItem1.Text = "Good";
             this.goodToolStripMenuItem1.Click += new System.EventHandler(this.goodToolStripMenuItem1_Click);
             // 
             // categoryToolStripMenuItem1
             // 
             this.categoryToolStripMenuItem1.Name = "categoryToolStripMenuItem1";
-            this.categoryToolStripMenuItem1.Size = new System.Drawing.Size(181, 26);
+            this.categoryToolStripMenuItem1.Size = new System.Drawing.Size(144, 26);
             this.categoryToolStripMenuItem1.Text = "Category";
             this.categoryToolStripMenuItem1.Click += new System.EventHandler(this.categoryToolStripMenuItem1_Click);
             // 
@@ -185,28 +164,28 @@
             // addCatToUserToolStripMenuItem
             // 
             this.addCatToUserToolStripMenuItem.Name = "addCatToUserToolStripMenuItem";
-            this.addCatToUserToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.addCatToUserToolStripMenuItem.Size = new System.Drawing.Size(166, 26);
             this.addCatToUserToolStripMenuItem.Text = "CatToUser";
             this.addCatToUserToolStripMenuItem.Click += new System.EventHandler(this.addCatToUserToolStripMenuItem_Click);
             // 
             // addGoodToUserToolStripMenuItem
             // 
             this.addGoodToUserToolStripMenuItem.Name = "addGoodToUserToolStripMenuItem";
-            this.addGoodToUserToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.addGoodToUserToolStripMenuItem.Size = new System.Drawing.Size(166, 26);
             this.addGoodToUserToolStripMenuItem.Text = "GoodToUser";
             this.addGoodToUserToolStripMenuItem.Click += new System.EventHandler(this.addGoodToUserToolStripMenuItem_Click);
             // 
             // addGoodToCarToolStripMenuItem
             // 
             this.addGoodToCarToolStripMenuItem.Name = "addGoodToCarToolStripMenuItem";
-            this.addGoodToCarToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.addGoodToCarToolStripMenuItem.Size = new System.Drawing.Size(166, 26);
             this.addGoodToCarToolStripMenuItem.Text = "GoodToCat";
             this.addGoodToCarToolStripMenuItem.Click += new System.EventHandler(this.addGoodToCarToolStripMenuItem_Click);
             // 
             // addCatToGoodToolStripMenuItem
             // 
             this.addCatToGoodToolStripMenuItem.Name = "addCatToGoodToolStripMenuItem";
-            this.addCatToGoodToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.addCatToGoodToolStripMenuItem.Size = new System.Drawing.Size(166, 26);
             this.addCatToGoodToolStripMenuItem.Text = "CatToGood";
             this.addCatToGoodToolStripMenuItem.Click += new System.EventHandler(this.addCatToGoodToolStripMenuItem_Click);
             // 
@@ -249,11 +228,65 @@
             this.catFromGoodToolStripMenuItem.Text = "CatFromGood";
             this.catFromGoodToolStripMenuItem.Click += new System.EventHandler(this.catFromGoodToolStripMenuItem_Click);
             // 
+            // richTextBoxUser
+            // 
+            this.richTextBoxUser.Location = new System.Drawing.Point(489, 51);
+            this.richTextBoxUser.Name = "richTextBoxUser";
+            this.richTextBoxUser.Size = new System.Drawing.Size(469, 218);
+            this.richTextBoxUser.TabIndex = 3;
+            this.richTextBoxUser.Text = "";
+            // 
+            // richTextBoxGood
+            // 
+            this.richTextBoxGood.Location = new System.Drawing.Point(12, 51);
+            this.richTextBoxGood.Name = "richTextBoxGood";
+            this.richTextBoxGood.Size = new System.Drawing.Size(471, 218);
+            this.richTextBoxGood.TabIndex = 4;
+            this.richTextBoxGood.Text = "";
+            // 
+            // richTextBoxCategory
+            // 
+            this.richTextBoxCategory.Location = new System.Drawing.Point(257, 297);
+            this.richTextBoxCategory.Name = "richTextBoxCategory";
+            this.richTextBoxCategory.Size = new System.Drawing.Size(471, 218);
+            this.richTextBoxCategory.TabIndex = 5;
+            this.richTextBoxCategory.Text = "";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 17);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Goods";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(489, 31);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(45, 17);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Users";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(254, 277);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(76, 17);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Categories";
+            // 
             // FormClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(970, 546);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.richTextBoxCategory);
             this.Controls.Add(this.richTextBoxGood);
             this.Controls.Add(this.richTextBoxUser);
@@ -294,6 +327,9 @@
         private System.Windows.Forms.ToolStripMenuItem goodFromUserToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem goodFromCatToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem catFromGoodToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 
