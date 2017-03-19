@@ -41,8 +41,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\AddCategory.cs" />
+    <Compile Include="Commands\AddCatToGood.cs" />
+    <Compile Include="Commands\AddCatToUser.cs" />
     <Compile Include="Commands\AddGood.cs" />
+    <Compile Include="Commands\AddGoodToCat.cs" />
+    <Compile Include="Commands\AddGoodToUser.cs" />
     <Compile Include="Commands\AddUser.cs" />
+    <Compile Include="Commands\GetData.cs" />
+    <Compile Include="Commands\RemoveCategory.cs" />
+    <Compile Include="Commands\RemoveCatFromGood.cs" />
+    <Compile Include="Commands\RemoveCatFromUser.cs" />
+    <Compile Include="Commands\RemoveGood.cs" />
+    <Compile Include="Commands\RemoveGoodFromCat.cs" />
+    <Compile Include="Commands\RemoveGoodFromUser.cs" />
+    <Compile Include="Commands\RemoveUser.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Response.cs" />
