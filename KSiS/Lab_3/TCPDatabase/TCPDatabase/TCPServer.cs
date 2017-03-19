@@ -29,7 +29,7 @@ namespace TCPDatabase
             db = new Database();
             sock.Bind(localIP);
             sock.Listen(10);
-            Console.WriteLine(localIP.ToString());
+            Console.WriteLine("Server started at " + localIP.ToString());
             StartAccepting();
         }
 
@@ -49,6 +49,7 @@ namespace TCPDatabase
             while (true)
             {
                 Socket handler = sock.Accept();
+                Console.WriteLine("Client " + handler.RemoteEndPoint.ToString() + " connected.");
                 RunBackground(handler);
             }
         }
@@ -68,36 +69,48 @@ namespace TCPDatabase
                 try
                 {
                     byte[] bytes = new byte[1024];
-                    string data = "";
-                    int BytesReceived;
                     var response = new Response();
 
-                    BytesReceived = handler.Receive(bytes, bytes.Length, 0);
-                    data += Encoding.UTF8.GetString(bytes, 0, BytesReceived);
+                    int BytesReceived = handler.Receive(bytes, bytes.Length, 0);
+                    string data = Encoding.UTF8.GetString(bytes, 0, BytesReceived);
 
-                    ICommand cmd = JsonConvert.DeserializeObject<ICommand>(data, new JsonSerializerSettings
+                    try
                     {
-                        TypeNameHandling = TypeNameHandling.All
-                    });
+                        ICommand cmd = JsonConvert.DeserializeObject<ICommand>(data, new JsonSerializerSettings
+                        {
+                            TypeNameHandling = TypeNameHandling.All
+                        });
 
-                    Console.WriteLine(cmd.GetType().ToString());
 
-                    string TypeMethod = cmd.GetType().ToString().Split('.')[1];
-                    MethodInfo method = db.GetType().GetMethod(TypeMethod);
+                        string TypeMethod = cmd.GetType().ToString().Split('.')[1];
+                        Console.WriteLine(TypeMethod);
+                        MethodInfo method = db.GetType().GetMethod(TypeMethod);
+                        response.value = method.Invoke(db, cmd.array);
 
-                    response.value = method.Invoke(data, cmd.array);
+                        string json = JsonConvert.SerializeObject(response, new JsonSerializerSettings
+                        {
+                            TypeNameHandling = TypeNameHandling.All,
+                            Formatting = Formatting.Indented
+                        });
 
-                    string json = JsonConvert.SerializeObject(response, new JsonSerializerSettings
+                        handler.Send(Encoding.UTF8.GetBytes(json));
+                    }
+                    catch (Exception)
                     {
-                        TypeNameHandling = TypeNameHandling.All,
-                        Formatting = Formatting.Indented
-                    });
+                        response.value = "error";
+                        Console.WriteLine(response.value);
 
-                    handler.Send(Encoding.UTF8.GetBytes(json));
+                        string json = JsonConvert.SerializeObject(response, new JsonSerializerSettings
+                        {
+                            TypeNameHandling = TypeNameHandling.All,
+                            Formatting = Formatting.Indented
+                        });
+                        handler.Send(Encoding.UTF8.GetBytes(json));
+                    }
                 }
                 catch (Exception)
                 {
-                    ClientsConnected--;
+                    Console.WriteLine("Client " + handler.RemoteEndPoint.ToString() + " disconnected.");
                     break;
                 }
             }

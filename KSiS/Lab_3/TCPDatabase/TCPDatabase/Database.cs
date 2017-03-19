@@ -63,7 +63,7 @@ namespace TCPDatabase
             return good.Id;
         }
 
-        public bool RemoveUser(int UserId)
+        public bool RemoveUser(Int64 UserId)
         {
             if (data.UserList.Exists(x => x.Id == UserId))
             {
@@ -73,11 +73,11 @@ namespace TCPDatabase
             }
             else
             {
-                return false;
+                throw new Exception();
             }
         }
 
-        public bool RemoveCategory(int CatId)
+        public bool RemoveCategory(Int64 CatId)
         {
             if (data.CategoryList.Exists(x => x.Id == CatId))
             {
@@ -87,11 +87,11 @@ namespace TCPDatabase
             }
             else
             {
-                return false;
+                throw new Exception();
             }
         }
 
-        public bool RemoveGood(int GoodId)
+        public bool RemoveGood(Int64 GoodId)
         {
             if (data.GoodList.Exists(x => x.Id == GoodId))
             {
@@ -101,141 +101,109 @@ namespace TCPDatabase
             }
             else
             {
-                return false;
+                throw new Exception();
             }
         }
 
-        public bool AddCatToUser(int UserId, int CatId)
+        public bool AddCatToUser(Int64 UserId, Int64 CatId)
         {
-            if (data.UserList.Exists(x => x.Id == UserId) && data.CategoryList.Exists(x => x.Id == CatId))
+            if (data.UserList.Exists(x => x.Id == UserId) && data.CategoryList.Exists(x => x.Id == (Int32)CatId) && (!data.UserList.Find(x => x.Id == UserId).CategoryList.Exists(x => x == (Int32)CatId)))
             {
-                data.UserList.Find(x => x.Id == UserId).CategoryList.Add(CatId);
+                data.UserList.Find(x => x.Id == UserId).CategoryList.Add((Int32)CatId);
                 Save();
                 return true;
             }
             else
             {
-                return false;
+                throw new Exception();
             }
         }
 
-        public bool AddGoodToUser(int UserId, int GoodId)
+        public bool AddGoodToUser(Int64 UserId, Int64 GoodId)
         {
-            if (data.UserList.Exists(x => x.Id == UserId) && data.GoodList.Exists(x => x.Id == GoodId))
+            if (data.UserList.Exists(x => x.Id == UserId) && data.GoodList.Exists(x => x.Id == GoodId) && (!data.UserList.Find(x => x.Id == UserId).GoodList.Exists(x => x == (Int32)GoodId)))
             {
-                data.UserList.Find(x => x.Id == UserId).GoodList.Add(GoodId);
+                data.UserList.Find(x => x.Id == UserId).GoodList.Add((Int32)GoodId);
                 Save();
                 return true;
             }
             else
             {
-                return false;
+                throw new Exception();
             }
         }
 
-        public bool AddGoodToCat(int CatId, int GoodId)
+        public bool AddGoodToCat(Int64 CatId, Int64 GoodId)
         {
-            if (data.CategoryList.Exists(x => x.Id == CatId) && data.GoodList.Exists(x => x.Id == GoodId))
+            if (data.CategoryList.Exists(x => x.Id == CatId) && data.GoodList.Exists(x => x.Id == GoodId) && (!data.CategoryList.Find(x => x.Id == CatId).GoodList.Exists(x => x == (Int32)CatId)))
             {
-                data.CategoryList.Find(x => x.Id == CatId).GoodList.Add(GoodId);
+                data.CategoryList.Find(x => x.Id == CatId).GoodList.Add((Int32)GoodId);
                 Save();
                 return true;
             }
             else
             {
-                return false;
+                throw new Exception();
             }
         }
 
-        public bool AddCatToGood(int GoodId, int CatId)
+        public bool AddCatToGood(Int64 GoodId, Int64 CatId)
         {
-            if (data.CategoryList.Exists(x => x.Id == CatId) && data.GoodList.Exists(x => x.Id == GoodId))
+            if (data.CategoryList.Exists(x => x.Id == CatId) && data.GoodList.Exists(x => x.Id == GoodId) && (!data.GoodList.Find(x => x.Id == GoodId).CategoryList.Exists(x => x == (Int32)CatId)))
             {
-                data.GoodList.Find(x => x.Id == GoodId).CategoryList.Add(CatId);
+                data.GoodList.Find(x => x.Id == GoodId).CategoryList.Add((Int32)CatId);
                 Save();
                 return true;
             }
             else
             {
-                return false;
+                throw new Exception();
             }
         }
 
-        public bool RemoveCatFromUser(int UserId, int CatId)
+        public bool RemoveCatFromUser(Int64 UserId, Int64 CatId)
         {
-            try
+            if (data.UserList.Find(x => x.Id == UserId).CategoryList.Remove((Int32)CatId))
             {
-                if (data.UserList.Find(x => x.Id == UserId).CategoryList.Remove(CatId))
-                {
-                    Save();
-                    return true;
-                }
-                return false;
+                Save();
+                return true;
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            throw new Exception();
         }
 
-        public bool RemoveGoodFromUser(int UserId, int GoodId)
+        public bool RemoveGoodFromUser(Int64 UserId, Int64 GoodId)
         {
-            try
+            if (data.UserList.Find(x => x.Id == UserId).GoodList.Remove((Int32)GoodId))
             {
-                if (data.UserList.Find(x => x.Id == UserId).GoodList.Remove(GoodId))
-                {
-                    Save();
-                    return true;
-                }
-                return false;
+                Save();
+                return true;
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            throw new Exception();
         }
 
-        public bool RemoveGoodFromCat(int CatId, int GoodId)
+        public bool RemoveGoodFromCat(Int64 CatId, Int64 GoodId)
         {
-            try
+            if (data.CategoryList.Find(x => x.Id == CatId).GoodList.Remove((Int32)GoodId))
             {
-                if (data.CategoryList.Find(x => x.Id == CatId).GoodList.Remove(GoodId))
-                {
-                    Save();
-                    return true;
-                }
-                return false;
+                Save();
+                return true;
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            throw new Exception();
         }
 
-        public bool RemoveCatFromGood(int GoodId, int CatId)
+        public bool RemoveCatFromGood(Int64 GoodId, Int64 CatId)
         {
-            try
+            if (data.GoodList.Find(x => x.Id == GoodId).CategoryList.Remove((Int32)CatId))
             {
-                if (data.GoodList.Find(x => x.Id == GoodId).CategoryList.Remove(CatId))
-                {
-                    Save();
-                    return true;
-                }
-                return false;
+                Save();
+                return true;
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            throw new Exception();
         }
 
-        public string GetData()
+        public Data.Data GetData()
         {
-            return JsonConvert.SerializeObject(data, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All,
-                Formatting = Formatting.Indented
-            });
+            return data;
         }
     }
 }
