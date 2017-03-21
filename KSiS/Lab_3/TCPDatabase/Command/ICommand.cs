@@ -8,6 +8,5 @@ namespace Command
 {
     public interface ICommand
     {
-        object[] array { get; set; }
     }
 }

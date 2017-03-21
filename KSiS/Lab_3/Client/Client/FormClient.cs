@@ -21,7 +21,7 @@ namespace Client
         public FormClient()
         {
             InitializeComponent();
-            client = new Database.DatabaseClient("NetTcpBinding_IDatabase");
+            client = new Database.DatabaseClient("BasicHttpBinding_IDatabase");
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
