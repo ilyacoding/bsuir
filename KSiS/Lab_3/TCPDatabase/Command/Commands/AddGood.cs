@@ -18,13 +18,9 @@ namespace Command
         IResponse Execute(ICommand command);
     }
 
-    public interface IResponse
-    {
-
-    }
-
     public class AddCGoodCommandHandler : ICommandHandler
     {
+
         public AddCGoodCommandHandler(Database db )
         {
             this.db = db;

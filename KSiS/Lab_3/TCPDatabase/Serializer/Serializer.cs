@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.IO;
-using Data;
 
-namespace TCPDatabase
+namespace Serializer
 {
+    public static class Serializer
+    {
 
+    }
 }
