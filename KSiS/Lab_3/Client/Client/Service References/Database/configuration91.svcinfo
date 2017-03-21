@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="pEQ2FYtgibH724G8vBLQ626Pt2I=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="rGK5MftNwe5JOFkRTsh1HXKSuHM=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_IDatabase">
       <properties>
@@ -230,10 +230,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpBinding_IDatabase" contract="Database.IDatabase" bindingType="basicHttpBinding" address="http://localhost:7777/Database" bindingConfiguration="BasicHttpBinding_IDatabase">
+    <endpoint name="BasicHttpBinding_IDatabase" contract="Database.IDatabase" bindingType="basicHttpBinding" address="http://169.254.61.71:17777/Database" bindingConfiguration="BasicHttpBinding_IDatabase">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:7777/Database</serializedValue>
+          <serializedValue>http://169.254.61.71:17777/Database</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -315,10 +315,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IDatabase" contract="Database.IDatabase" bindingType="netTcpBinding" address="net.tcp://localhost:8888/Database" bindingConfiguration="NetTcpBinding_IDatabase">
+    <endpoint name="NetTcpBinding_IDatabase" contract="Database.IDatabase" bindingType="netTcpBinding" address="net.tcp://169.254.61.71:18888/Database" bindingConfiguration="NetTcpBinding_IDatabase">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8888/Database</serializedValue>
+          <serializedValue>net.tcp://169.254.61.71:18888/Database</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -345,7 +345,7 @@
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
         <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>ASUS\Ilya</serializedValue>
+          <serializedValue>DESKTOP-MN12OGT\KSiS_3</serializedValue>
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>

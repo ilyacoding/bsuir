@@ -13,6 +13,8 @@ using System.Reflection;
 
 namespace TCPDatabase
 {
+
+
     public class TCPServer
     {
         public int ClientsConnected = 0;
@@ -21,7 +23,7 @@ namespace TCPDatabase
         private Thread Tasker { get; set; }
         private Database db { get; set; }
 
-        public TCPServer(int port)
+        public TCPServer(int port, HandlersREgistry registry, Serializer serializer)
         {
             sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             localIP = new IPEndPoint(GetLocalIP(), port);
@@ -74,12 +76,14 @@ namespace TCPDatabase
                     int BytesReceived = handler.Receive(bytes, bytes.Length, 0);
                     string data = Encoding.UTF8.GetString(bytes, 0, BytesReceived);
 
+                    var command = Serializer.Deserialize(data);
+                    // var handler = registry.Get(command.GetType());
+                    // var response = handler.Execute(command);
+                    // var serializedResponse = serializer.Serialize(response);
+
                     try
                     {
-                        ICommand cmd = JsonConvert.DeserializeObject<ICommand>(data, new JsonSerializerSettings
-                        {
-                            TypeNameHandling = TypeNameHandling.All
-                        });
+                        ICommand cmd = Serializer.Deserialize(data);
 
 
                         string TypeMethod = cmd.GetType().ToString().Split('.')[1];

@@ -31,8 +31,8 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:7777/?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:7777/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://169.254.61.71:17777/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://169.254.61.71:17777/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IDatabase_Save_InputMessage">
@@ -522,14 +522,14 @@
   </wsdl:binding>
   <wsdl:service name="Database">
     <wsdl:port name="BasicHttpBinding_IDatabase" binding="tns:BasicHttpBinding_IDatabase">
-      <soap:address location="http://localhost:7777/Database" />
+      <soap:address location="http://169.254.61.71:17777/Database" />
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IDatabase" binding="tns:NetTcpBinding_IDatabase">
-      <soap12:address location="net.tcp://localhost:8888/Database" />
+      <soap12:address location="net.tcp://169.254.61.71:18888/Database" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8888/Database</wsa10:Address>
+        <wsa10:Address>net.tcp://169.254.61.71:18888/Database</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>ASUS\Ilya</Upn>
+          <Upn>DESKTOP-MN12OGT\KSiS_3</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
