@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Command
+namespace Database
 {
-    public interface IResponse
+    public interface ICommandHandler
     {
+        object Execute(Command.ICommand command);
     }
 }
