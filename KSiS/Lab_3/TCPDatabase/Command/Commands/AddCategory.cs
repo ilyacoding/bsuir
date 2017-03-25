@@ -9,6 +9,6 @@ namespace Command
 {
     public class AddCategory : ICommand
     {
-        public object[] array { get; set; }
+        public string Category { get; set; }
     }
 }

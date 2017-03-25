@@ -52,7 +52,6 @@
     <Compile Include="Database.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serializer.cs" />
     <Compile Include="TCPServer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +61,14 @@
     <ProjectReference Include="..\Command\Command.csproj">
       <Project>{b11316ef-8e5a-408d-953f-599944b4f850}</Project>
       <Name>Command</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Database\Database.csproj">
+      <Project>{d2871ca2-c882-414a-acbf-dbb534a4e77f}</Project>
+      <Name>Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Serializer\Serializer.csproj">
+      <Project>{d1dedfed-ab24-44e0-acea-305cad810af5}</Project>
+      <Name>Serializer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

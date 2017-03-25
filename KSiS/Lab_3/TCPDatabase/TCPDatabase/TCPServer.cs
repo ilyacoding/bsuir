@@ -10,29 +10,30 @@ using Newtonsoft.Json;
 using Data;
 using Command;
 using System.Reflection;
+using Database;
 
 namespace TCPDatabase
 {
-
-
     public class TCPServer
     {
-        public int ClientsConnected = 0;
-        public Socket sock { get; set; }
-        private IPEndPoint localIP { get; set; }
+        private TcpListener server { get; set; }
         private Thread Tasker { get; set; }
-        private Database db { get; set; }
 
-        public TCPServer(int port, HandlersREgistry registry, Serializer serializer)
+        private Database.Database db { get; set; }
+        private HandlersRegistry registry { get; set; }
+
+        private Serializer.Serializer serializer { get; set; }
+
+        public TCPServer(int port, HandlersRegistry reg, Serializer.Serializer Serializer)
         {
-            sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            localIP = new IPEndPoint(GetLocalIP(), port);
-            Tasker = new Thread(AcceptBackground);
-            db = new Database();
-            sock.Bind(localIP);
-            sock.Listen(10);
-            Console.WriteLine("Server started at " + localIP.ToString());
-            StartAccepting();
+            db = new Database.Database();
+            serializer = Serializer;
+            registry = reg;
+
+            server = new TcpListener(GetLocalIP(), port);
+            server.Start();
+
+            Console.WriteLine("Server started at " + server.LocalEndpoint.ToString());
         }
 
         public void StartAccepting()
@@ -50,85 +51,49 @@ namespace TCPDatabase
         {
             while (true)
             {
-                Socket handler = sock.Accept();
-                Console.WriteLine("Client " + handler.RemoteEndPoint.ToString() + " connected.");
+                TcpClient handler = server.AcceptTcpClient();
+                Console.WriteLine("Client " + handler.Client.RemoteEndPoint.ToString() + " connected.");
                 RunBackground(handler);
             }
         }
 
-        public void RunBackground(Socket handler)
+        public void RunBackground(TcpClient handler)
         {
             Thread newThread = new Thread(HandleClient);
             newThread.Start(handler);
-            ClientsConnected++;
         }
 
         public void HandleClient(Object obj)
         {
-            Socket handler = (Socket)obj;
+            var client = (TcpClient)obj;
             while (true)
             {
                 try
                 {
-                    byte[] bytes = new byte[1024];
-                    var response = new Response();
+                    NetworkStream stream = client.GetStream();
 
-                    int BytesReceived = handler.Receive(bytes, bytes.Length, 0);
-                    string data = Encoding.UTF8.GetString(bytes, 0, BytesReceived);
+                    byte[] buffer = new byte[256];
+                    string data = "";
 
-                    var command = Serializer.Deserialize(data);
-                    // var handler = registry.Get(command.GetType());
-                    // var response = handler.Execute(command);
-                    // var serializedResponse = serializer.Serialize(response);
-
-                    try
+                    while (stream.DataAvailable || data.Length == 0)
                     {
-                        ICommand cmd = Serializer.Deserialize(data);
-
-
-                        string TypeMethod = cmd.GetType().ToString().Split('.')[1];
-                        Console.WriteLine(TypeMethod);
-                        MethodInfo method = db.GetType().GetMethod(TypeMethod);
-                        response.value = method.Invoke(db, cmd.array);
-
-                        string json = JsonConvert.SerializeObject(response, new JsonSerializerSettings
-                        {
-                            TypeNameHandling = TypeNameHandling.All,
-                            Formatting = Formatting.Indented
-                        });
-
-                        handler.Send(Encoding.UTF8.GetBytes(json));
+                        int BytesRead = stream.Read(buffer, 0, buffer.Length);
+                        data += Encoding.UTF8.GetString(buffer, 0, BytesRead);
                     }
-                    catch (Exception)
-                    {
-                        response.value = "error";
-                        Console.WriteLine(response.value);
+                    
+                    var command = serializer.Deserialize(data);
+                    var handler = registry.Get(command.GetType());
+                    var response = handler.Execute(command);
+                    string serializedResponse = serializer.Serialize(response);
 
-                        string json = JsonConvert.SerializeObject(response, new JsonSerializerSettings
-                        {
-                            TypeNameHandling = TypeNameHandling.All,
-                            Formatting = Formatting.Indented
-                        });
-                        handler.Send(Encoding.UTF8.GetBytes(json));
-                    }
+                    stream.Write(Encoding.UTF8.GetBytes(serializedResponse), 0, serializedResponse.Length);
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Client " + handler.RemoteEndPoint.ToString() + " disconnected.");
+                    Console.WriteLine("Client " + client.Client.RemoteEndPoint.ToString() + " disconnected.");
                     break;
                 }
             }
-        }
-
-        public void Send(string Message)
-        {
-            if (sock.Connected)
-                sock.Send(Encoding.UTF8.GetBytes(Message));
-        }
-
-        public IPAddress GetIP()
-        {
-            return localIP.Address;
         }
 
         private IPAddress GetLocalIP()

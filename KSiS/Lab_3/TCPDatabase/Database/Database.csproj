@@ -43,10 +43,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandHandlers\AddCategoryCommandHandler.cs" />
+    <Compile Include="CommandHandlers\AddUserCommandHandler.cs" />
+    <Compile Include="CommandHandlers\DefaultCommandHandler.cs" />
+    <Compile Include="CommandHandlers\RemoveCategoryCommandHandler.cs" />
+    <Compile Include="CommandHandlers\RemoveGoodCommandHandler.cs" />
+    <Compile Include="CommandHandlers\RemoveUserCommandHandler.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="CommandHandlers\AddGoodCommandHandler.cs" />
+    <Compile Include="HandlersRegistry.cs" />
+    <Compile Include="ICommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Command\Command.csproj">
+      <Project>{b11316ef-8e5a-408d-953f-599944b4f850}</Project>
+      <Name>Command</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{ef845c94-812f-46a7-aea6-b789449b08bb}</Project>
       <Name>Data</Name>

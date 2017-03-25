@@ -9,6 +9,6 @@ namespace Command
 {
     public class AddUser : ICommand
     {
-        public object[] array { get; set; }
+        public string User { get; set; }
     }
 }
