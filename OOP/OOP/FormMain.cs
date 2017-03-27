@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Reflection;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using Microsoft.VisualBasic;
 using ShapeContract;
 
 namespace OOP
@@ -19,6 +20,8 @@ namespace OOP
         CompositionContainer container;
         ImportManager imports;
         KnownTypesBinder kBinder;
+
+        private int InstrumentButtonY = 1;
 
         public FormMain()
         {
@@ -79,7 +82,20 @@ namespace OOP
             {
                 Shapes.State = EState.ReadyDrawing;
                 ShapeButton btn = (ShapeButton)sender;
+                
                 Shapes.ShapeToWork = (Shape)Activator.CreateInstance(btn.TypeOfShape, new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0 });
+            }
+        }
+
+        private void InstrumentButton_Click(object sender, EventArgs e)
+        {
+            if (Shapes.State == EState.None)
+            {
+                Shapes.State = EState.ReadyDrawing;
+                var btn = (InstrumentButton)sender;
+                var instrument = new Instrument(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0, btn.Instrument.ShapesList);
+                
+                Shapes.ShapeToWork = (Shape)instrument;
             }
         }
 
@@ -103,7 +119,7 @@ namespace OOP
             {
                 try
                 {
-                    string json = JsonConvert.SerializeObject(Shapes, new JsonSerializerSettings {
+                    var json = JsonConvert.SerializeObject(Shapes, new JsonSerializerSettings {
                         TypeNameHandling = TypeNameHandling.All,
                         Binder = kBinder
                     });
@@ -138,11 +154,11 @@ namespace OOP
                     Layers.UpdateStatic();
                     pictureBoxDraw.Image = Layers.DynamicLayer;
                 }
-                catch (JsonSerializationException err)
+                catch (JsonSerializationException)
                 {
                     MessageBox.Show("Can't find some shapes, contained in image. Please, load them.");
                 }
-                catch (Exception err)
+                catch (Exception)
                 {
                     MessageBox.Show("Error while reading file.");
                 }
@@ -254,14 +270,30 @@ namespace OOP
             if (Shapes.State == EState.Drawing)
             {
                 Shapes.CurrentPoint = new Point(e.X, e.Y);
-                Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y });
+                if (Shapes.ShapeToWork is Instrument)
+                {   
+                    Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y, new List<Shape>((Shapes.ShapeToWork as Instrument).ShapesList) });
+                }
+                else
+                {
+                    Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y });
+                }
+
                 Layers.UpdateDynamic();
                 pictureBoxDraw.Image = Layers.DynamicLayer;
             }
             else if (Shapes.State == EState.Moving)
             {
                 Shapes.CurrentPoint = new Point(e.X, e.Y);
-                Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), e.X, e.Y, e.X + Shapes.ShapeToWork.Coordinate.Width, e.Y + Shapes.ShapeToWork.Coordinate.Height });
+                if (Shapes.ShapeToWork is Instrument)
+                {
+                    Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), e.X, e.Y, e.X + Shapes.ShapeToWork.Coordinate.Width, e.Y + Shapes.ShapeToWork.Coordinate.Height, new List<Shape>((Shapes.ShapeToWork as Instrument).ShapesList) });
+                }
+                else
+                {
+                    Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), e.X, e.Y, e.X + Shapes.ShapeToWork.Coordinate.Width, e.Y + Shapes.ShapeToWork.Coordinate.Height });
+                }
+
                 Layers.UpdateDynamic();
                 pictureBoxDraw.Image = Layers.DynamicLayer;
             }
@@ -274,30 +306,37 @@ namespace OOP
                 MessageBox.Show("Please, select shape to draw.");
                 return;
             }
-
-            if (Shapes.State == EState.ReadyDrawing)
+            
+            switch (Shapes.State)
             {
-                Shapes.State = EState.Drawing;
-                Shapes.OldPoint = new Point(e.X, e.Y);
-                Layers.UpdateStatic();
-                pictureBoxDraw.Image = Layers.DynamicLayer;
-            }
-            else if (Shapes.State == EState.Drawing)
-            {
-                Shapes.State = EState.None;
-                Shapes.CurrentPoint = new Point(e.X, e.Y);
-                Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y }));
-                Shapes.ShapeToWork = null;
-                Layers.UpdateStatic();
-                pictureBoxDraw.Image = Layers.DynamicLayer;
-            }
-            else if (Shapes.State == EState.Moving)
-            {
-                Shapes.State = EState.None;
-                Shapes.Add(Shapes.ShapeToWork);
-                Shapes.ShapeToWork = null;
-                Layers.UpdateStatic();
-                pictureBoxDraw.Image = Layers.DynamicLayer;
+                case EState.ReadyDrawing:
+                    Shapes.State = EState.Drawing;
+                    Shapes.OldPoint = new Point(e.X, e.Y);
+                    Layers.UpdateStatic();
+                    pictureBoxDraw.Image = Layers.DynamicLayer;
+                    break;
+                case EState.Drawing:
+                    Shapes.State = EState.None;
+                    Shapes.CurrentPoint = new Point(e.X, e.Y);
+                    if (Shapes.ShapeToWork is Instrument)
+                    {
+                        Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y, new List<Shape>((Shapes.ShapeToWork as Instrument).ShapesList) }));
+                    }
+                    else
+                    {
+                        Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y }));
+                    }
+                    Shapes.ShapeToWork = null;
+                    Layers.UpdateStatic();
+                    pictureBoxDraw.Image = Layers.DynamicLayer;
+                    break;
+                case EState.Moving:
+                    Shapes.State = EState.None;
+                    Shapes.Add(Shapes.ShapeToWork);
+                    Shapes.ShapeToWork = null;
+                    Layers.UpdateStatic();
+                    pictureBoxDraw.Image = Layers.DynamicLayer;
+                    break;
             }
         }
 
@@ -307,13 +346,13 @@ namespace OOP
             {
                 InitializeImport();
 
-                int y = 1;
-                List<Type> runtimeTypes = new List<Type>();
+                var y = 1;
+                var runtimeTypes = new List<Type>();
                 foreach (var extension in imports.readerExtCollection)
                 {
                     try
                     {
-                        ShapeButton btn = new ShapeButton();
+                        var btn = new ShapeButton();
                         btn.Text = extension.Value.GetType().ToString().Split('.')[0];
                         btn.Location = new Point(5, 22 * (y++));
                         btn.TypeOfShape = extension.Value.GetType();
@@ -329,6 +368,7 @@ namespace OOP
                 }
                 runtimeTypes.Add(Shapes.GetType());
                 runtimeTypes.Add(Shapes.list.GetType());
+                runtimeTypes.Add(typeof(Instrument));
 
                 kBinder.KnownTypes = runtimeTypes;
             }
@@ -336,6 +376,79 @@ namespace OOP
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog.ShowDialog() != DialogResult.Cancel)
+            {
+                string Name = Interaction.InputBox("Instrument name:", "Input name", "");
+                try
+                {
+                    var instrument = Shapes.GetInstrument(pictureBoxDraw.Width, pictureBoxDraw.Height);
+                    instrument.Name = Name;
+                    string json = JsonConvert.SerializeObject(instrument, new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.All,
+                        Formatting = Formatting.Indented,
+                        Binder = kBinder
+                    });
+                    File.WriteAllText(saveFileDialog.FileName, json);
+                    Shapes.Clear();
+                    Layers.UpdateStatic();
+                    pictureBoxDraw.Image = Layers.DynamicLayer;
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show("Error while writing to file. Err: " + err.ToString());
+                }
+            }
+        }
+
+        private void loadToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() != DialogResult.Cancel)
+            {
+                try
+                {
+                    var json = File.ReadAllText(openFileDialog.FileName);
+
+                    var instrument = JsonConvert.DeserializeObject<Instrument>(json, new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.All,
+                        Binder = kBinder
+                    });
+
+                    try
+                    {
+                        var btn = new InstrumentButton();
+                        btn.Text = instrument.Name;
+                        btn.Location = new Point(5, 22 * (InstrumentButtonY++));
+                        btn.Instrument = instrument;
+                        btn.Click += new EventHandler(InstrumentButton_Click);
+                        groupBoxInstruments.Controls.Add(btn);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+
+                }
+                catch (JsonSerializationException)
+                {
+                    MessageBox.Show("Can't find some shapes, contained in image. Please, load them.");
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Error while reading file.");
+                }
+            }
+        }
+
+        private void updateStaticToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Layers.UpdateStatic();
+            pictureBoxDraw.Image = Layers.DynamicLayer;
         }
     }
 }

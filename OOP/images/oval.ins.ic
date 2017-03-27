@@ -1,0 +1,27 @@
+{
+  "$type": "Instrument",
+  "ShapesList": {
+    "$type": "List`1",
+    "$values": [
+      {
+        "$type": "Ellipse",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "19, 28, 69, 45",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Ellipse",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "15, 34, 76, 51",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      }
+    ]
+  },
+  "Coordinate": "0, 0, 0, 0",
+  "PenColor": "Black",
+  "PenWidth": 1.0
+}

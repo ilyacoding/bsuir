@@ -50,6 +50,7 @@
       <HintPath>..\packages\MefContrib.Integration.Autofac.1.2.2.1\lib\net40-Client\MefContrib.Integration.Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="MongoDB.Bson, Version=2.4.2.27, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Bson.2.4.2\lib\net45\MongoDB.Bson.dll</HintPath>
       <Private>True</Private>
@@ -90,7 +91,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoordinateConvertor.cs" />
     <Compile Include="ImportManager.cs" />
+    <Compile Include="Instrument.cs" />
+    <Compile Include="InstrumentButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="KnownTypesBinder.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="ShapeButton.cs">

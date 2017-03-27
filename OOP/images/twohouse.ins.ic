@@ -1,0 +1,46 @@
+{
+  "$type": "Instrument",
+  "ShapesList": {
+    "$type": "List`1",
+    "$values": [
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "0, 3, 1, 3",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "IsoTriangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "0, 0, 1, 2",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "0, 3, 1, 3",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "IsoTriangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "0, 0, 1, 2",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      }
+    ]
+  },
+  "Name": "twohouse",
+  "Editing": false,
+  "Selected": false,
+  "Coordinate": "0, 0, 0, 0",
+  "PenColor": "Black",
+  "PenWidth": 1.0
+}

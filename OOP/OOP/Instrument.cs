@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.ComponentModel.Composition;
 using ShapeContract;
 
-namespace Triangle
+namespace OOP
 {
-    [Export(typeof(Shape))]
-    public class Triangle : Shape, ISelectable, IEditable
+    public class Instrument : Shape, ISelectable, IEditable
     {
-        public bool Selected { get; set; }
-        public bool Editing { get; set; }
+        public List<Shape> ShapesList { get; set; }
+        public string Name { get; set; }
 
-        public Triangle(System.Drawing.Color color, float width, int x1, int y1, int x2, int y2)
+        public bool Editing { get; set; }
+        public bool Selected { get; set; }
+
+        public Instrument(Color color, float width, int x1, int y1, int x2, int y2, List<Shape> list)
         {
             Coordinate = new System.Drawing.Rectangle(x1, y1, x2 - x1, y2 - y1);
             PenColor = color;
             PenWidth = width;
+            ShapesList = list;
         }
 
-        public Triangle()
+        public Instrument()
         {
             Coordinate = new System.Drawing.Rectangle(0, 0, 0, 0);
             PenColor = Color.Black;
@@ -33,9 +31,18 @@ namespace Triangle
         {
             if (pen == null)
                 pen = new Pen(PenColor, PenWidth);
-            graphics.DrawLine(pen, new Point(Coordinate.X, Coordinate.Y), new Point(Coordinate.X, Coordinate.Bottom));
-            graphics.DrawLine(pen, new Point(Coordinate.X, Coordinate.Y), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
-            graphics.DrawLine(pen, new Point(Coordinate.X, Coordinate.Bottom), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
+
+            var newList = new List<Shape>(ShapesList);
+
+            foreach (var sh in newList)
+            {
+                var oldCoord = sh.Coordinate;
+                CoordinateConvertor.ToReal(sh, Coordinate.X, Coordinate.Y, Coordinate.Width, Coordinate.Height).Draw(graphics, pen);
+                //sh.Coordinate = new Rectangle(Coordinate.X + sh.Coordinate.X * Coordinate.Width / 100, Coordinate.Y + sh.Coordinate.Y * Coordinate.Height / 100, sh.Coordinate.Width * Coordinate.Width / 100, sh.Coordinate.Height * Coordinate.Height / 100);
+                //sh.Draw(graphics, pen);
+                sh.Coordinate = oldCoord;
+                //shape;
+            }
 
             if (Selected)
             {
