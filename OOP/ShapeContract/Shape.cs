@@ -13,6 +13,6 @@ namespace ShapeContract
         public Color PenColor { get; set; }
         public float PenWidth { get; set; }
 
-        public abstract void Draw(Graphics graphics);
+        public abstract void Draw(Graphics graphics, Pen DrawPen);
     }
 }

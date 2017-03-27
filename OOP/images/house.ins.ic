@@ -1,0 +1,28 @@
+{
+  "$type": "Instrument",
+  "ShapesList": {
+    "$type": "List`1",
+    "$values": [
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "23, 40, 45, 40",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "IsoTriangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "16, 9, 61, 31",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      }
+    ]
+  },
+  "Name": "House",
+  "Coordinate": "0, 0, 0, 0",
+  "PenColor": "Black",
+  "PenWidth": 1.0
+}

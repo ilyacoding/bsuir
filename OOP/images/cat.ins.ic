@@ -1,0 +1,126 @@
+{
+  "$type": "Instrument",
+  "ShapesList": {
+    "$type": "List`1",
+    "$values": [
+      {
+        "$type": "Ellipse",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "146, 231, 748, 650",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "226, 356, -84, -303",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "141, 40, 377, 193",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "512, 228, 355, -181",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "863, 46, -128, 237",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Ellipse",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "310, 350, 125, 187",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Ellipse",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "571, 371, 132, 171",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "523, 378, -76, 212",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "455, 590, 87, -75",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "237, 540, 65, 118",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "324, 671, 111, 81",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "471, 762, 101, -6",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "627, 743, 89, -34",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "742, 681, 76, -90",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      }
+    ]
+  },
+  "Name": "Cat",
+  "Editing": false,
+  "Selected": false,
+  "Coordinate": "0, 0, 0, 0",
+  "PenColor": "Black",
+  "PenWidth": 1.0
+}

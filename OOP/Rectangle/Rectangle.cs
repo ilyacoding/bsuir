@@ -29,23 +29,24 @@ namespace Rectangle
             PenWidth = 1;
         }
 
-        public override void Draw(Graphics graphics)
+        public override void Draw(Graphics graphics, Pen pen)
         {
-            var pen = new Pen(PenColor, PenWidth);
+            if (pen == null)
+                pen = new Pen(PenColor, PenWidth);
             graphics.DrawLine(pen, new Point(Coordinate.X, Coordinate.Y), new Point(Coordinate.X + Coordinate.Width, Coordinate.Y));
             graphics.DrawLine(pen, new Point(Coordinate.X, Coordinate.Y), new Point(Coordinate.X, Coordinate.Bottom));
             graphics.DrawLine(pen, new Point(Coordinate.X + Coordinate.Width, Coordinate.Y), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
             graphics.DrawLine(pen, new Point(Coordinate.X, Coordinate.Bottom), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
 
-            if (Selected)
-            {
-                var penBack = new Pen(Brushes.Red, PenWidth);
-                penBack.DashStyle = System.Drawing.Drawing2D.DashStyle.DashDot;
-                graphics.DrawLine(penBack, new Point(Coordinate.X - 2, Coordinate.Y - 2), new Point(Coordinate.X + Coordinate.Width + 2, Coordinate.Y - 2));
-                graphics.DrawLine(penBack, new Point(Coordinate.X - 2, Coordinate.Y - 2), new Point(Coordinate.X - 2, Coordinate.Bottom + 2));
-                graphics.DrawLine(penBack, new Point(Coordinate.X + Coordinate.Width + 2, Coordinate.Y - 2), new Point(Coordinate.X + Coordinate.Width + 2, Coordinate.Bottom + 2));
-                graphics.DrawLine(penBack, new Point(Coordinate.X - 2, Coordinate.Bottom + 2), new Point(Coordinate.X + Coordinate.Width + 2, Coordinate.Bottom + 2));
-            }
+            if (!Selected)
+                return;
+
+            var penBack = new Pen(Brushes.Red, PenWidth);
+            penBack.DashStyle = System.Drawing.Drawing2D.DashStyle.DashDot;
+            graphics.DrawLine(penBack, new Point(Coordinate.X - 2, Coordinate.Y - 2), new Point(Coordinate.X + Coordinate.Width + 2, Coordinate.Y - 2));
+            graphics.DrawLine(penBack, new Point(Coordinate.X - 2, Coordinate.Y - 2), new Point(Coordinate.X - 2, Coordinate.Bottom + 2));
+            graphics.DrawLine(penBack, new Point(Coordinate.X + Coordinate.Width + 2, Coordinate.Y - 2), new Point(Coordinate.X + Coordinate.Width + 2, Coordinate.Bottom + 2));
+            graphics.DrawLine(penBack, new Point(Coordinate.X - 2, Coordinate.Bottom + 2), new Point(Coordinate.X + Coordinate.Width + 2, Coordinate.Bottom + 2));
         }
     }
 }

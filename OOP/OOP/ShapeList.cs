@@ -40,10 +40,11 @@ namespace OOP
 
         public Shape this[int index]
         {
-            get { if (index >= 0 && index < list.Count)
+            get {
+                if (index >= 0 && index < list.Count)
                     return list[index];
-                else
-                    return null;
+
+                return null;
                 }
         }
 
@@ -57,7 +58,7 @@ namespace OOP
         {
             foreach (var sh in list)
             {
-                sh.Draw(graphics);
+                sh.Draw(graphics, null);
             }
         }
 
@@ -90,18 +91,15 @@ namespace OOP
 
         public void DrawTmp(Graphics graphics)
         {
-            if (ShapeToWork != null)
-            {
-                ShapeToWork.Draw(graphics);
-            }
+            ShapeToWork?.Draw(graphics, null);
         }
 
         public void RefreshListBox()
         {
             lb.Items.Clear();
-            foreach (var Shape in list)
+            foreach (var shape in list)
             {
-                lb.Items.Add(Shape);
+                lb.Items.Add(shape);
             }
         }
 
@@ -112,11 +110,34 @@ namespace OOP
 
         public void Back()
         {
-            if (list.Count > 0)
+            if (list.Count <= 0) return;
+            list.Remove(list.Last());
+            RefreshListBox();
+        }
+
+        public Instrument GetInstrument(int width, int height)
+        {
+            var result = new Instrument();
+            var content = new List<Shape>();
+            foreach (var element in list)
             {
-                list.Remove(list.Last());
-                RefreshListBox();
+                if (element is Instrument)
+                {
+                    foreach (var shape in (element as Instrument).ShapesList)
+                    {
+                        var oldCoord = shape.Coordinate;
+                        //content.Add(CoordinateConvertor.ToDelta(CoordinateConvertor.ToReal(shape, element.Coordinate.X, element.Coordinate.Y, element.Coordinate.Width, element.Coordinate.Height), width, height));
+                        content.Add(CoordinateConvertor.ToDelta(shape, width, height));
+                        shape.Coordinate = oldCoord;
+                    }
+                }
+                else
+                {
+                    content.Add(CoordinateConvertor.ToDelta(element, width, height));
+                }
             }
+            result.ShapesList = content;
+            return result;
         }
     }
 }

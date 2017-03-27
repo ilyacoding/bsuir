@@ -29,9 +29,10 @@ namespace Triangle
             PenWidth = 1;
         }
 
-        public override void Draw(System.Drawing.Graphics graphics)
+        public override void Draw(Graphics graphics, Pen pen)
         {
-            var pen = new Pen(PenColor, PenWidth);
+            if (pen == null)
+                pen = new Pen(PenColor, PenWidth);
             graphics.DrawLine(pen, new Point(Coordinate.X, Coordinate.Y), new Point(Coordinate.X, Coordinate.Bottom));
             graphics.DrawLine(pen, new Point(Coordinate.X, Coordinate.Y), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
             graphics.DrawLine(pen, new Point(Coordinate.X, Coordinate.Bottom), new Point(Coordinate.X + Coordinate.Width, Coordinate.Bottom));
