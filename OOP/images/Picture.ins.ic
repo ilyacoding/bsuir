@@ -1,0 +1,206 @@
+{
+  "$type": "Instrument",
+  "ShapesList": {
+    "$type": "List`1",
+    "$values": [
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "93, 659, 203, 162",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "IsoTriangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "82, 465, 229, 193",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "121, 459, 19, 134",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Trapeze",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "122, 712, 38, 50",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "184, 706, 38, 53",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "242, 706, 41, 56",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "407, 681, 211, 153",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "IsoTriangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "396, 496, 238, 181",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "436, 490, 20, 125",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Trapeze",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "437, 731, 38, 46",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "501, 725, 39, 50",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "562, 725, 42, 53",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "719, 703, 171, 134",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "IsoTriangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "710, 543, 192, 156",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "742, 537, 15, 109",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Trapeze",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "742, 746, 31, 40",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "794, 740, 31, 43",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "843, 740, 35, 43",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "11, 881, 972, -3",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "6, 928, 971, 0",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Ellipse",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "127, 212, -121, -203",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "74, 256, 9, 100",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "133, 203, 60, 112",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "171, 109, 92, 6",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      }
+    ]
+  },
+  "Name": "Picture",
+  "Editing": false,
+  "Selected": false,
+  "Coordinate": "0, 0, 0, 0",
+  "PenColor": "Black",
+  "PenWidth": 1.0
+}

@@ -44,6 +44,20 @@ namespace OOP
             container.ComposeParts(this, imports);
         }
 
+        public T Clone<T>(T source)
+        {
+            var serialized = JsonConvert.SerializeObject(source, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All,
+                Binder = kBinder
+            });
+            return JsonConvert.DeserializeObject<T>(serialized, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All,
+                Binder = kBinder
+            });
+        }
+
         private void buttonColorSelect_Click(object sender, EventArgs e)
         {
             if (colorDialogSelect.ShowDialog() == DialogResult.OK)
@@ -93,7 +107,7 @@ namespace OOP
             {
                 Shapes.State = EState.ReadyDrawing;
                 var btn = (InstrumentButton)sender;
-                var instrument = new Instrument(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0, btn.Instrument.ShapesList);
+                var instrument = new Instrument(colorDialogSelect.Color, Int32.Parse(labelThickness.Text), 0, 0, 0, 0, Clone(btn.Instrument.ShapesList));
                 
                 Shapes.ShapeToWork = (Shape)instrument;
             }
@@ -272,7 +286,7 @@ namespace OOP
                 Shapes.CurrentPoint = new Point(e.X, e.Y);
                 if (Shapes.ShapeToWork is Instrument)
                 {   
-                    Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y, new List<Shape>((Shapes.ShapeToWork as Instrument).ShapesList) });
+                    Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y, Clone((Shapes.ShapeToWork as Instrument).ShapesList) });
                 }
                 else
                 {
@@ -287,7 +301,7 @@ namespace OOP
                 Shapes.CurrentPoint = new Point(e.X, e.Y);
                 if (Shapes.ShapeToWork is Instrument)
                 {
-                    Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), e.X, e.Y, e.X + Shapes.ShapeToWork.Coordinate.Width, e.Y + Shapes.ShapeToWork.Coordinate.Height, new List<Shape>((Shapes.ShapeToWork as Instrument).ShapesList) });
+                    Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), e.X, e.Y, e.X + Shapes.ShapeToWork.Coordinate.Width, e.Y + Shapes.ShapeToWork.Coordinate.Height, Clone((Shapes.ShapeToWork as Instrument).ShapesList) });
                 }
                 else
                 {
@@ -320,7 +334,7 @@ namespace OOP
                     Shapes.CurrentPoint = new Point(e.X, e.Y);
                     if (Shapes.ShapeToWork is Instrument)
                     {
-                        Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y, new List<Shape>((Shapes.ShapeToWork as Instrument).ShapesList) }));
+                        Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y, Clone((Shapes.ShapeToWork as Instrument).ShapesList) }));
                     }
                     else
                     {
@@ -382,12 +396,18 @@ namespace OOP
         {
             if (saveFileDialog.ShowDialog() != DialogResult.Cancel)
             {
-                string Name = Interaction.InputBox("Instrument name:", "Input name", "");
+                var Name = Interaction.InputBox("Instrument name:", "Input name", "");
                 try
                 {
                     var instrument = Shapes.GetInstrument(pictureBoxDraw.Width, pictureBoxDraw.Height);
+
+                    foreach (var el in instrument.ShapesList)
+                    {
+                        MessageBox.Show(el.Coordinate.ToString());
+                    }
+
                     instrument.Name = Name;
-                    string json = JsonConvert.SerializeObject(instrument, new JsonSerializerSettings
+                    var json = JsonConvert.SerializeObject(instrument, new JsonSerializerSettings
                     {
                         TypeNameHandling = TypeNameHandling.All,
                         Formatting = Formatting.Indented,
@@ -452,4 +472,3 @@ namespace OOP
         }
     }
 }
-

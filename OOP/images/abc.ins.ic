@@ -4,56 +4,56 @@
     "$type": "List`1",
     "$values": [
       {
-        "$type": "Rectangle",
+        "$type": "Line",
         "Selected": false,
         "Editing": false,
-        "Coordinate": "63, 559, 853, 406",
+        "Coordinate": "128, 203, 321, 443",
         "PenColor": "Black",
         "PenWidth": 1.0
       },
       {
-        "$type": "IsoTriangle",
+        "$type": "Line",
         "Selected": false,
         "Editing": false,
-        "Coordinate": "19, 78, 957, 481",
+        "Coordinate": "458, 187, -326, 446",
         "PenColor": "Black",
         "PenWidth": 1.0
       },
       {
-        "$type": "Rectangle",
+        "$type": "Line",
         "Selected": false,
         "Editing": false,
-        "Coordinate": "176, 65, 84, 334",
+        "Coordinate": "128, 403, 323, 34",
         "PenColor": "Black",
         "PenWidth": 1.0
       },
       {
-        "$type": "Trapeze",
+        "$type": "Line",
         "Selected": false,
         "Editing": false,
-        "Coordinate": "179, 690, 159, 125",
+        "Coordinate": "522, 231, 234, 421",
         "PenColor": "Black",
         "PenWidth": 1.0
       },
       {
-        "$type": "Rectangle",
+        "$type": "Line",
         "Selected": false,
         "Editing": false,
-        "Coordinate": "439, 678, 162, 137",
+        "Coordinate": "762, 215, -237, 425",
         "PenColor": "Black",
         "PenWidth": 1.0
       },
       {
-        "$type": "Rectangle",
+        "$type": "Line",
         "Selected": false,
         "Editing": false,
-        "Coordinate": "681, 678, 178, 140",
+        "Coordinate": "522, 421, 235, 31",
         "PenColor": "Black",
         "PenWidth": 1.0
       }
     ]
   },
-  "Name": "House",
+  "Name": "",
   "Editing": false,
   "Selected": false,
   "Coordinate": "0, 0, 0, 0",
