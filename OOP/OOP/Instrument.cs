@@ -17,7 +17,7 @@ namespace OOP
             Coordinate = new System.Drawing.Rectangle(x1, y1, x2 - x1, y2 - y1);
             PenColor = color;
             PenWidth = width;
-            ShapesList = list;
+            ShapesList = new List<Shape>(list);
         }
 
         public Instrument()
@@ -25,6 +25,7 @@ namespace OOP
             Coordinate = new System.Drawing.Rectangle(0, 0, 0, 0);
             PenColor = Color.Black;
             PenWidth = 1;
+            ShapesList = new List<Shape>();
         }
 
         public override void Draw(Graphics graphics, Pen pen)
@@ -37,11 +38,9 @@ namespace OOP
             foreach (var sh in newList)
             {
                 var oldCoord = sh.Coordinate;
-                CoordinateConvertor.ToReal(sh, Coordinate.X, Coordinate.Y, Coordinate.Width, Coordinate.Height).Draw(graphics, pen);
-                //sh.Coordinate = new Rectangle(Coordinate.X + sh.Coordinate.X * Coordinate.Width / 100, Coordinate.Y + sh.Coordinate.Y * Coordinate.Height / 100, sh.Coordinate.Width * Coordinate.Width / 100, sh.Coordinate.Height * Coordinate.Height / 100);
-                //sh.Draw(graphics, pen);
+                sh.Coordinate = CoordinateConvertor.ToReal(sh.Coordinate, Coordinate.X, Coordinate.Y, Coordinate.Width, Coordinate.Height);
+                sh.Draw(graphics, pen);
                 sh.Coordinate = oldCoord;
-                //shape;
             }
 
             if (Selected)

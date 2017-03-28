@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using ShapeContract;
 
@@ -118,22 +119,24 @@ namespace OOP
         public Instrument GetInstrument(int width, int height)
         {
             var result = new Instrument();
-            var content = new List<Shape>();
+            var content = new List<Shape>(0);
             foreach (var element in list)
             {
                 if (element is Instrument)
                 {
                     foreach (var shape in (element as Instrument).ShapesList)
                     {
-                        var oldCoord = shape.Coordinate;
-                        //content.Add(CoordinateConvertor.ToDelta(CoordinateConvertor.ToReal(shape, element.Coordinate.X, element.Coordinate.Y, element.Coordinate.Width, element.Coordinate.Height), width, height));
-                        content.Add(CoordinateConvertor.ToDelta(shape, width, height));
-                        shape.Coordinate = oldCoord;
+                        var coord = shape.Coordinate;
+                        coord = CoordinateConvertor.ToReal(coord, element.Coordinate.X, element.Coordinate.Y, element.Coordinate.Width, element.Coordinate.Height);
+                        coord = CoordinateConvertor.ToDelta(coord, width, height);
+                        shape.Coordinate = coord;
+                        content.Add(shape);
                     }
                 }
                 else
                 {
-                    content.Add(CoordinateConvertor.ToDelta(element, width, height));
+                    element.Coordinate = CoordinateConvertor.ToDelta(element.Coordinate, width, height);
+                    content.Add(element);
                 }
             }
             result.ShapesList = content;

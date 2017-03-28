@@ -7,7 +7,7 @@
         "$type": "Rectangle",
         "Selected": false,
         "Editing": false,
-        "Coordinate": "23, 40, 45, 40",
+        "Coordinate": "63, 559, 853, 406",
         "PenColor": "Black",
         "PenWidth": 1.0
       },
@@ -15,13 +15,47 @@
         "$type": "IsoTriangle",
         "Selected": false,
         "Editing": false,
-        "Coordinate": "16, 9, 61, 31",
+        "Coordinate": "19, 78, 957, 481",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "176, 65, 84, 334",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Trapeze",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "179, 690, 159, 125",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "439, 678, 162, 137",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Rectangle",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "681, 678, 178, 140",
         "PenColor": "Black",
         "PenWidth": 1.0
       }
     ]
   },
   "Name": "House",
+  "Editing": false,
+  "Selected": false,
   "Coordinate": "0, 0, 0, 0",
   "PenColor": "Black",
   "PenWidth": 1.0

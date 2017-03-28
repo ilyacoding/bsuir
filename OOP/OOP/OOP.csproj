@@ -91,6 +91,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clone.cs" />
     <Compile Include="CoordinateConvertor.cs" />
     <Compile Include="ImportManager.cs" />
     <Compile Include="Instrument.cs" />

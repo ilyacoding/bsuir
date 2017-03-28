@@ -4,23 +4,34 @@
     "$type": "List`1",
     "$values": [
       {
-        "$type": "Ellipse",
+        "$type": "Line",
         "Selected": false,
         "Editing": false,
-        "Coordinate": "19, 28, 69, 45",
+        "Coordinate": "60, 103, 853, 809",
         "PenColor": "Black",
         "PenWidth": 1.0
       },
       {
-        "$type": "Ellipse",
+        "$type": "Line",
         "Selected": false,
         "Editing": false,
-        "Coordinate": "15, 34, 76, 51",
+        "Coordinate": "933, 75, -866, 815",
+        "PenColor": "Black",
+        "PenWidth": 1.0
+      },
+      {
+        "$type": "Line",
+        "Selected": false,
+        "Editing": false,
+        "Coordinate": "60, 468, 858, 65",
         "PenColor": "Black",
         "PenWidth": 1.0
       }
     ]
   },
+  "Name": "Lines",
+  "Editing": false,
+  "Selected": false,
   "Coordinate": "0, 0, 0, 0",
   "PenColor": "Black",
   "PenWidth": 1.0
