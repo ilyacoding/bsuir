@@ -8,7 +8,6 @@ namespace OOP
     {
         public List<Shape> ShapesList { get; set; }
         public string Name { get; set; }
-
         public bool Editing { get; set; }
         public bool Selected { get; set; }
 

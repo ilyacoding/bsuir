@@ -38,14 +38,14 @@ namespace OOP
 
         private void InitializeImport()
         {
-            DirectoryCatalog dirCatalog = new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Plugins");
+            var dirCatalog = new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Plugins");
             container = new CompositionContainer(dirCatalog);
             imports = new ImportManager();
             container.ComposeParts(this, imports);
         }
 
         public T Clone<T>(T source)
-        {
+        { 
             var serialized = JsonConvert.SerializeObject(source, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All,
@@ -57,7 +57,7 @@ namespace OOP
                 Binder = kBinder
             });
         }
-
+        
         private void buttonColorSelect_Click(object sender, EventArgs e)
         {
             if (colorDialogSelect.ShowDialog() == DialogResult.OK)
@@ -332,14 +332,30 @@ namespace OOP
                 case EState.Drawing:
                     Shapes.State = EState.None;
                     Shapes.CurrentPoint = new Point(e.X, e.Y);
+
+                    object[] argArray;
+
                     if (Shapes.ShapeToWork is Instrument)
                     {
-                        Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y, Clone((Shapes.ShapeToWork as Instrument).ShapesList) }));
+                        argArray = new object[]
+                        {
+                            colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X,
+                            Shapes.OldPoint.Y,
+                            Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y,
+                            Clone((Shapes.ShapeToWork as Instrument).ShapesList)
+                        };
                     }
                     else
                     {
-                        Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y }));
+                        argArray = new object[]
+                        {
+                            colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X,
+                            Shapes.OldPoint.Y,
+                            Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y
+                        };
                     }
+                    Shapes.Add((Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), argArray));
+
                     Shapes.ShapeToWork = null;
                     Layers.UpdateStatic();
                     pictureBoxDraw.Image = Layers.DynamicLayer;
@@ -401,10 +417,10 @@ namespace OOP
                 {
                     var instrument = Shapes.GetInstrument(pictureBoxDraw.Width, pictureBoxDraw.Height);
 
-                    foreach (var el in instrument.ShapesList)
-                    {
-                        MessageBox.Show(el.Coordinate.ToString());
-                    }
+//                    foreach (var el in instrument.ShapesList)
+//                    {
+//                        MessageBox.Show(el.Coordinate.ToString());
+//                    }
 
                     instrument.Name = Name;
                     var json = JsonConvert.SerializeObject(instrument, new JsonSerializerSettings
@@ -452,7 +468,6 @@ namespace OOP
                     {
                         MessageBox.Show(ex.ToString());
                     }
-
                 }
                 catch (JsonSerializationException)
                 {
