@@ -1,39 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using Newtonsoft.Json;
-using Data;
 using Command;
-using System.Reflection;
 using Database;
 
 namespace TCPDatabase
 {
-    public class TCPServer
+    public class TcpServer
     {
-        private TcpListener server { get; set; }
+        private TcpListener Server { get; }
         private Thread Tasker { get; set; }
+        
+        private HandlersRegistry Registry { get; }
 
-        private Database.Database db { get; set; }
-        private HandlersRegistry registry { get; set; }
+        private Serializer.Serializer Serializer { get; }
 
-        private Serializer.Serializer serializer { get; set; }
-
-        public TCPServer(int port, HandlersRegistry reg, Serializer.Serializer Serializer)
+        public TcpServer(int port, HandlersRegistry reg, Serializer.Serializer serializer)
         {
-            db = new Database.Database();
-            serializer = Serializer;
-            registry = reg;
+            Serializer = serializer;
+            Registry = reg;
 
-            server = new TcpListener(GetLocalIP(), port);
-            server.Start();
+            Server = new TcpListener(GetLocalIp(), port);
+            Server.Start();
+            StartAccepting();
 
-            Console.WriteLine("Server started at " + server.LocalEndpoint.ToString());
+            Console.WriteLine("Server started at " + Server.LocalEndpoint);
+
         }
 
         public void StartAccepting()
@@ -51,54 +45,56 @@ namespace TCPDatabase
         {
             while (true)
             {
-                TcpClient handler = server.AcceptTcpClient();
-                Console.WriteLine("Client " + handler.Client.RemoteEndPoint.ToString() + " connected.");
+                var handler = Server.AcceptTcpClient();
+                Console.WriteLine("Client " + handler.Client.RemoteEndPoint + " connected.");
                 RunBackground(handler);
             }
+            // ReSharper disable once FunctionNeverReturns
         }
 
         public void RunBackground(TcpClient handler)
         {
-            Thread newThread = new Thread(HandleClient);
+            var newThread = new Thread(HandleClient);
             newThread.Start(handler);
         }
 
-        public void HandleClient(Object obj)
+        public void HandleClient(object obj)
         {
             var client = (TcpClient)obj;
             while (true)
             {
                 try
                 {
-                    NetworkStream stream = client.GetStream();
+                    var stream = client.GetStream();
 
-                    byte[] buffer = new byte[256];
-                    string data = "";
+                    var buffer = new byte[256];
+                    var data = "";
 
                     while (stream.DataAvailable || data.Length == 0)
                     {
-                        int BytesRead = stream.Read(buffer, 0, buffer.Length);
-                        data += Encoding.UTF8.GetString(buffer, 0, BytesRead);
+                        var bytesRead = stream.Read(buffer, 0, buffer.Length);
+                        data += Encoding.UTF8.GetString(buffer, 0, bytesRead);
                     }
                     
-                    var command = serializer.Deserialize(data);
-                    var handler = registry.Get(command.GetType());
+                    var command = Serializer.Deserialize(data);
+                    var handler = Registry.Get(command.GetType());
                     var response = handler.Execute(command);
-                    string serializedResponse = serializer.Serialize(response);
+                    var serializedResponse = Serializer.Serialize(new Response { Value = response });
+                    var bytesResponse = Encoding.UTF8.GetBytes(serializedResponse);
 
-                    stream.Write(Encoding.UTF8.GetBytes(serializedResponse), 0, serializedResponse.Length);
+                    stream.Write(bytesResponse, 0, bytesResponse.Length);
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Client " + client.Client.RemoteEndPoint.ToString() + " disconnected.");
+                    Console.WriteLine("Client " + client.Client.RemoteEndPoint + " disconnected.");
                     break;
                 }
             }
         }
 
-        private IPAddress GetLocalIP()
+        private static IPAddress GetLocalIp()
         {
-            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+            var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)

@@ -8,6 +8,6 @@ namespace Command
 {
     public class RemoveGood : ICommand
     {
-        public object[] array { get; set; }
+        public int GoodId { get; set; }
     }
 }

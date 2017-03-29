@@ -33,8 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Command">
-      <HintPath>..\..\TCPDatabase\Command\bin\Debug\Command.dll</HintPath>
+    <Reference Include="Command, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TCPDatabase\TCPDatabase\bin\Debug\Command.dll</HintPath>
     </Reference>
     <Reference Include="Data">
       <HintPath>..\..\Database\Data\bin\Debug\Data.dll</HintPath>
@@ -90,6 +91,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Serializer\Serializer.csproj">
+      <Project>{b2240904-d91a-4a4e-bbd2-74d4ab69e15d}</Project>
+      <Name>Serializer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

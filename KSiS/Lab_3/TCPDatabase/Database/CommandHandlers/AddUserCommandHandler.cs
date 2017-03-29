@@ -18,7 +18,7 @@ namespace Database
         {
             var addUser = (Command.AddUser)command;
 
-            return db.AddGood(addUser.User);
+            return db.AddUser(addUser.User);
         }
     }
 }

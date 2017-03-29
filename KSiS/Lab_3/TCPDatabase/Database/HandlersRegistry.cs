@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Database
 {
@@ -23,7 +20,16 @@ namespace Database
 
         public ICommandHandler Get(Type comType)
         {
-            return dict[comType];
+            ICommandHandler cmdHandler;
+            try
+            {
+                cmdHandler = dict[comType];
+            }
+            catch (Exception)
+            {
+                cmdHandler = Default;
+            }
+            return cmdHandler;
         }
     }
 }

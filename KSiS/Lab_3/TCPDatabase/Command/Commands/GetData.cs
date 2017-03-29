@@ -8,6 +8,5 @@ namespace Command
 {
     public class GetData : ICommand
     {
-        public object[] array { get; set; }
     }
 }
