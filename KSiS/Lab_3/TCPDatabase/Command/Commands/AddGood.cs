@@ -9,5 +9,6 @@ namespace Command
     public class AddGood : ICommand
     {
         public string Good { get; set; }
+        public int UserId { get; set; }
     }
 }

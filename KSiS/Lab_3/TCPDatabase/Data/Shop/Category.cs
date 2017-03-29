@@ -11,13 +11,13 @@ namespace Data
         public static int A_I = 0;
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<int> GoodList { get; set; }
+        public int UserId { get; set; }
 
-        public Category(string name, int A_I)
+        public Category(string name, int userId, int A_I)
         {
             Id = A_I;
             Name = name;
-            GoodList = new List<int>();
+            UserId = userId;
         }
     }
 }

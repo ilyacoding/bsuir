@@ -7,7 +7,6 @@ using Command;
 using Database;
 using Newtonsoft.Json;
 using System.Reflection;
-using Database;
 
 namespace TCPDatabase
 {
@@ -15,7 +14,7 @@ namespace TCPDatabase
     {
         private static void Main(string[] args)
         {
-            var db = new Database.Database();
+            var db = new Database.Database("db.txt", new DbSerializer());
             var registry = new HandlersRegistry();
 
             registry.Reg(new AddGood().GetType(), new AddGoodCommandHandler(db));
@@ -25,6 +24,9 @@ namespace TCPDatabase
             registry.Reg(new RemoveGood().GetType(), new RemoveGoodCommandHandler(db));
             registry.Reg(new RemoveCategory().GetType(), new RemoveCategoryCommandHandler(db));
             registry.Reg(new RemoveUser().GetType(), new RemoveUserCommandHandler(db));
+
+            registry.Reg(new AddReference().GetType(), new AddReferenceCommandHandler(db));
+            registry.Reg(new RemoveReference().GetType(), new RemoveReferenceCommandHandler(db));
 
             registry.Reg(new GetData().GetType(), new GetDataCommandHandler(db));
 

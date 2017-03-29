@@ -40,21 +40,44 @@ namespace TCPClient
 
         private void addCategoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var catName = Interaction.InputBox("Category:", "Input category", "");
-            if (catName.Length > 0)
+            try
             {
-                var response = Client.AddCategory(catName);
-                MessageBox.Show("Category added. Id: " + response.ToString());
+                var catName = Interaction.InputBox("Category:", "Input category", "");
+                var userId = Convert.ToInt32(Interaction.InputBox("UserId:", "Input userId", ""));
+                if (catName.Length > 0 && userId > 0)
+                {
+                    var response = Client.AddCategory(catName, userId);
+                    if (response == -1)
+                        MessageBox.Show("Can't add category. Invalid userId.");
+                    else
+                        MessageBox.Show("Category added. Id: " + response.ToString());
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error occured.");
             }
         }
 
         private void addGoodToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var goodName = Interaction.InputBox("Goodname:", "Input good", "");
-            if (goodName.Length > 0)
+            try
             {
-                var response = Client.AddGood(goodName);
-                MessageBox.Show("Good added. Id: " + response.ToString());
+                var goodName = Interaction.InputBox("Goodname:", "Input good", "");
+                var userId = Convert.ToInt32(Interaction.InputBox("UserId:", "Input userId", ""));
+                if (goodName.Length > 0 && userId > 0)
+                {
+                    var response = Client.AddGood(goodName, userId);
+
+                    if (response == -1)
+                        MessageBox.Show("Can't add good. Invalid userId.");
+                    else
+                        MessageBox.Show("Good added. Id: " + response.ToString());
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error occured.");
             }
         }
 
@@ -78,7 +101,7 @@ namespace TCPClient
             }
             catch (Exception)
             {
-                MessageBox.Show("No changes were done.");
+                MessageBox.Show("Error occured.");
             }
         }
 
@@ -102,7 +125,7 @@ namespace TCPClient
             }
             catch (Exception)
             {
-                MessageBox.Show("No changes were done.");
+                MessageBox.Show("Error occured.");
             }
         }
 
@@ -126,186 +149,10 @@ namespace TCPClient
             }
             catch (Exception)
             {
-                MessageBox.Show("No changes were done.");
+                MessageBox.Show("Error occured.");
             }
         }
-        /*
-        private void catToUserToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int UserId = Convert.ToInt32(Interaction.InputBox("User Id:", "User", ""));
-                int CatId = Convert.ToInt32(Interaction.InputBox("Category Id:", "Category", ""));
-               // var response = client.ProcessFunctuion(new AddCatToUser(), new object[] { UserId, CatId });
-                if (response.ToString() != "error")
-                {
-                    MessageBox.Show("Link CatId: " + CatId.ToString() + " | UserId: " + UserId.ToString() + " created succesfully.");
-                }
-                else
-                {
-                    MessageBox.Show("Link creation failed.");
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("No changes were done.");
-            }
-        }
-
-        private void goodToUserToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int UserId = Convert.ToInt32(Interaction.InputBox("User Id:", "User", ""));
-                int GoodId = Convert.ToInt32(Interaction.InputBox("Good Id:", "Good", ""));
-                var response = client.ProcessFunctuion(new AddGoodToUser(), new object[] { UserId, GoodId });
-                if (response.ToString() != "error")
-                {
-                    MessageBox.Show("Link GoodId: " + GoodId.ToString() + " | UserId: " + UserId.ToString() + " created succesfully.");
-                }
-                else
-                {
-                    MessageBox.Show("Link creation failed.");
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("No changes were done.");
-            }
-        }
-
-        private void goodToCatToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int CategoryId = Convert.ToInt32(Interaction.InputBox("Category Id:", "Category", ""));
-                int GoodId = Convert.ToInt32(Interaction.InputBox("Good Id:", "Good", ""));
-                var response = client.ProcessFunctuion(new AddGoodToCat(), new object[] { CategoryId, GoodId });
-                if (response.ToString() != "error")
-                {
-                    MessageBox.Show("Link CategoryId: " + CategoryId.ToString() + " | GoodId: " + GoodId.ToString() + " created succesfully.");
-                }
-                else
-                {
-                    MessageBox.Show("Link creation failed.");
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("No changes were done.");
-            }
-        }
-
-        private void catToGoodToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int GoodId = Convert.ToInt32(Interaction.InputBox("Good Id:", "Good", ""));
-                int CategoryId = Convert.ToInt32(Interaction.InputBox("Category Id:", "Category", ""));
-                var response = client.ProcessFunctuion(new AddCatToGood(), new object[] { GoodId, CategoryId });
-                if (response.ToString() != "error")
-                {
-                    MessageBox.Show("Link CategoryId: " + CategoryId.ToString() + " | GoodId: " + GoodId.ToString() + " created succesfully.");
-                }
-                else
-                {
-                    MessageBox.Show("Link creation failed.");
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("No changes were done.");
-            }
-        }
-
-        private void catFromUserToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int UserId = Convert.ToInt32(Interaction.InputBox("User Id:", "User", ""));
-                int CatId = Convert.ToInt32(Interaction.InputBox("Category Id:", "Category", ""));
-                var response = client.ProcessFunctuion(new RemoveCatFromUser(), new object[] { UserId, CatId });
-                if (response.ToString() != "error")
-                {
-                    MessageBox.Show("Link CatId: " + CatId.ToString() + " | UserId: " + UserId.ToString() + " deleted succesfully.");
-                }
-                else
-                {
-                    MessageBox.Show("Link deletion failed.");
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("No changes were done.");
-            }
-        }
-
-        private void goodFromUserToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int UserId = Convert.ToInt32(Interaction.InputBox("User Id:", "User", ""));
-                int GoodId = Convert.ToInt32(Interaction.InputBox("Good Id:", "Good", ""));
-                var response = client.ProcessFunctuion(new RemoveGoodFromUser(), new object[] { UserId, GoodId });
-                if (response.ToString() != "error")
-                {
-                    MessageBox.Show("Link GoodId: " + GoodId.ToString() + " | UserId: " + UserId.ToString() + " deleted succesfully.");
-                }
-                else
-                {
-                    MessageBox.Show("Link deletion failed.");
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("No changes were done.");
-            }
-        }
-
-        private void goodFromCatToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int CatId = Convert.ToInt32(Interaction.InputBox("Cat Id:", "Cat", ""));
-                int GoodId = Convert.ToInt32(Interaction.InputBox("Good Id:", "Good", ""));
-                var response = client.ProcessFunctuion(new RemoveGoodFromCat(), new object[] { CatId, GoodId });
-                if (response.ToString() != "error")
-                {
-                    MessageBox.Show("Link GoodId: " + GoodId.ToString() + " | CatId: " + CatId.ToString() + " deleted succesfully.");
-                }
-                else
-                {
-                    MessageBox.Show("Link deletion failed.");
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("No changes were done.");
-            }
-        }
-
-        private void catFromGoodToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int GoodId = Convert.ToInt32(Interaction.InputBox("Good Id:", "Good", ""));
-                int CatId = Convert.ToInt32(Interaction.InputBox("Cat Id:", "Cat", ""));
-                var response = client.ProcessFunctuion(new RemoveCatFromGood(), new object[] { GoodId, CatId });
-                if (response.ToString() != "error")
-                {
-                    MessageBox.Show("Link GoodId: " + GoodId.ToString() + " | CatId: " + CatId.ToString() + " deleted succesfully.");
-                }
-                else
-                {
-                    MessageBox.Show("Link deletion failed.");
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("No changes were done.");
-            }
-        }
-        */
+        
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -315,48 +162,88 @@ namespace TCPClient
                 richTextBoxUser.Clear();
                 richTextBoxGood.Clear();
                 richTextBoxCategory.Clear();
-                
+                richTextBoxReference.Clear();
+
                 foreach (var item in data.UserList)
                 {
-                    richTextBoxUser.Text += "Id: " + item.Id + " | Name: " + item.Name + "\n";
-                    richTextBoxUser.Text += "Category: ";
-                    foreach (var cat in item.CategoryList)
-                    {
-                        richTextBoxUser.Text += cat + "; ";
-                    }
-                    richTextBoxUser.Text += "Good: ";
-                    foreach (var good in item.GoodList)
-                    {
-                        richTextBoxUser.Text += good + "; ";
-                    }
-                    richTextBoxUser.Text += "\n\n";
+                    richTextBoxUser.Text += "Id: " + item.Id + " | Name: " + item.Name + "\n\n";
                 }
 
                 foreach (var item in data.CategoryList)
                 {
                     richTextBoxCategory.Text += "Id: " + item.Id + " | Name: " + item.Name + "\n";
-                    richTextBoxCategory.Text += "Good: ";
-                    foreach (var good in item.GoodList)
-                    {
-                        richTextBoxCategory.Text += good + "; ";
-                    }
+                    richTextBoxCategory.Text += "UserId: " + item.UserId;
                     richTextBoxCategory.Text += "\n\n";
                 }
 
                 foreach (var item in data.GoodList)
                 {
                     richTextBoxGood.Text += "Id: " + item.Id + " | Name: " + item.Name + "\n";
-                    richTextBoxGood.Text += "Category: ";
-                    foreach (var cat in item.CategoryList)
-                    {
-                        richTextBoxGood.Text += cat + "; ";
-                    }
+                    richTextBoxGood.Text += "UserId: " + item.UserId;
                     richTextBoxGood.Text += "\n\n";
+                }
+
+                foreach (var item in data.ReferenceList)
+                {
+                    richTextBoxReference.Text += "GoodId: " + item.GoodId + " | CategoryId: " + item.CategoryId + "\n\n";
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+        }
+       
+
+        private void referenceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var goodId = Convert.ToInt32(Interaction.InputBox("GoodId:", "Input goodId", ""));
+                var categoryId = Convert.ToInt32(Interaction.InputBox("CategoryId:", "Input categoryId", ""));
+                if (goodId >= 0 && categoryId >= 0)
+                {
+                    if (Client.AddReference(goodId, categoryId))
+                    {
+                        MessageBox.Show("Reference added: GoodId: " + goodId.ToString() + ", CategoryId: " +
+                                        categoryId.ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show("Reference already exists or good or category doesn't exist: GoodId: " + goodId.ToString() + ", CategoryId: " +
+                                        categoryId.ToString());
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error occured.");
+            }
+        }
+
+        private void referenceToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var goodId = Convert.ToInt32(Interaction.InputBox("GoodId:", "Input goodId", ""));
+                var categoryId = Convert.ToInt32(Interaction.InputBox("CategoryId:", "Input categoryId", ""));
+                if (goodId >= 0 && categoryId >= 0)
+                {
+                    if (Client.RemoveReference(goodId, categoryId))
+                    {
+                        MessageBox.Show("Reference removed: GoodId: " + goodId.ToString() + ", CategoryId: " +
+                                        categoryId.ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show("Reference doesn't exists: GoodId: " + goodId.ToString() + ", CategoryId: " +
+                                        categoryId.ToString());
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error occured.");
             }
         }
     }

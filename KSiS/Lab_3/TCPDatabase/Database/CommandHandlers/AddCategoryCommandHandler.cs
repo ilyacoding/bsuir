@@ -18,7 +18,7 @@ namespace Database
         {
             var addCategory = (Command.AddCategory)command;
 
-            return db.AddCategory(addCategory.Category);
+            return db.AddCategory(addCategory.Category, addCategory.UserId);
         }
     }
 }

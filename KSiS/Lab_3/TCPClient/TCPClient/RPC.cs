@@ -67,17 +67,27 @@ namespace TCPClient
 
         public int AddUser(string userName)
         {
-            return Convert.ToInt32(ProcessFunctuion(new AddUser {User = userName}));
+            return Convert.ToInt32(ProcessFunctuion(new AddUser { User = userName }));
         }
 
-        public int AddGood(string goodName)
+        public int AddGood(string goodName, int userId)
         {
-            return Convert.ToInt32(ProcessFunctuion(new AddGood { Good = goodName }));
+            return Convert.ToInt32(ProcessFunctuion(new AddGood { Good = goodName, UserId = userId}));
         }
 
-        public int AddCategory(string catName)
+        public int AddCategory(string catName, int userId)
         {
-            return Convert.ToInt32(ProcessFunctuion(new AddCategory { Category = catName }));
+            return Convert.ToInt32(ProcessFunctuion(new AddCategory { Category = catName, UserId = userId}));
+        }
+
+        public bool AddReference(int goodId, int categoryId)
+        {
+            return (bool)ProcessFunctuion(new AddReference { GoodId = goodId, CategoryId = categoryId });
+        }
+
+        public bool RemoveReference(int goodId, int categoryId)
+        {
+            return (bool)ProcessFunctuion(new RemoveReference { GoodId = goodId, CategoryId = categoryId });
         }
 
         public bool RemoveUser(int userId)

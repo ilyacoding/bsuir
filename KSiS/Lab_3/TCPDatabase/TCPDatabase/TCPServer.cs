@@ -76,6 +76,7 @@ namespace TCPDatabase
                         data += Encoding.UTF8.GetString(buffer, 0, bytesRead);
                     }
                     
+
                     var command = Serializer.Deserialize(data);
                     var handler = Registry.Get(command.GetType());
                     var response = handler.Execute(command);
@@ -83,9 +84,12 @@ namespace TCPDatabase
                     var bytesResponse = Encoding.UTF8.GetBytes(serializedResponse);
 
                     stream.Write(bytesResponse, 0, bytesResponse.Length);
+
+                    Console.WriteLine(command.GetType().ToString().Split('.')[1]);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Console.WriteLine(ex.ToString());
                     Console.WriteLine("Client " + client.Client.RemoteEndPoint + " disconnected.");
                     break;
                 }

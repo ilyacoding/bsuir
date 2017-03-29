@@ -18,7 +18,7 @@ namespace Database
         {
             var addGood = (Command.AddGood)command;
 
-            return db.AddGood(addGood.Good);
+            return db.AddGood(addGood.Good, addGood.UserId);
         }
     }
 }

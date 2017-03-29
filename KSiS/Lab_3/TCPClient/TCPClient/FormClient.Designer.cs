@@ -38,8 +38,8 @@
             this.addGoodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.goodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.categoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.goodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBoxIP = new System.Windows.Forms.TextBox();
             this.labelConnected = new System.Windows.Forms.Label();
             this.richTextBoxGood = new System.Windows.Forms.RichTextBox();
@@ -48,6 +48,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.richTextBoxReference = new System.Windows.Forms.RichTextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.referenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.referenceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,8 +71,8 @@
             // databaseToolStripMenuItem
             // 
             this.databaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.connectToolStripMenuItem,
-            this.loadToolStripMenuItem});
+            this.loadToolStripMenuItem,
+            this.connectToolStripMenuItem});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
             this.databaseToolStripMenuItem.Size = new System.Drawing.Size(84, 24);
             this.databaseToolStripMenuItem.Text = "Database";
@@ -76,14 +80,14 @@
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(138, 26);
             this.connectToolStripMenuItem.Text = "Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(138, 26);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
@@ -92,7 +96,8 @@
             this.addToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addUserToolStripMenuItem,
             this.addCategoryToolStripMenuItem,
-            this.addGoodToolStripMenuItem});
+            this.addGoodToolStripMenuItem,
+            this.referenceToolStripMenuItem});
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             this.addToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.addToolStripMenuItem.Text = "Add";
@@ -100,21 +105,21 @@
             // addUserToolStripMenuItem
             // 
             this.addUserToolStripMenuItem.Name = "addUserToolStripMenuItem";
-            this.addUserToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.addUserToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.addUserToolStripMenuItem.Text = "User";
             this.addUserToolStripMenuItem.Click += new System.EventHandler(this.addUserToolStripMenuItem_Click);
             // 
             // addCategoryToolStripMenuItem
             // 
             this.addCategoryToolStripMenuItem.Name = "addCategoryToolStripMenuItem";
-            this.addCategoryToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.addCategoryToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.addCategoryToolStripMenuItem.Text = "Category";
             this.addCategoryToolStripMenuItem.Click += new System.EventHandler(this.addCategoryToolStripMenuItem_Click);
             // 
             // addGoodToolStripMenuItem
             // 
             this.addGoodToolStripMenuItem.Name = "addGoodToolStripMenuItem";
-            this.addGoodToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.addGoodToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.addGoodToolStripMenuItem.Text = "Good";
             this.addGoodToolStripMenuItem.Click += new System.EventHandler(this.addGoodToolStripMenuItem_Click);
             // 
@@ -122,8 +127,9 @@
             // 
             this.removeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.userToolStripMenuItem,
+            this.categoryToolStripMenuItem,
             this.goodToolStripMenuItem,
-            this.categoryToolStripMenuItem});
+            this.referenceToolStripMenuItem1});
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
             this.removeToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
             this.removeToolStripMenuItem.Text = "Remove";
@@ -131,23 +137,23 @@
             // userToolStripMenuItem
             // 
             this.userToolStripMenuItem.Name = "userToolStripMenuItem";
-            this.userToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.userToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.userToolStripMenuItem.Text = "User";
             this.userToolStripMenuItem.Click += new System.EventHandler(this.userToolStripMenuItem_Click);
-            // 
-            // goodToolStripMenuItem
-            // 
-            this.goodToolStripMenuItem.Name = "goodToolStripMenuItem";
-            this.goodToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.goodToolStripMenuItem.Text = "Good";
-            this.goodToolStripMenuItem.Click += new System.EventHandler(this.goodToolStripMenuItem_Click);
             // 
             // categoryToolStripMenuItem
             // 
             this.categoryToolStripMenuItem.Name = "categoryToolStripMenuItem";
-            this.categoryToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.categoryToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.categoryToolStripMenuItem.Text = "Category";
             this.categoryToolStripMenuItem.Click += new System.EventHandler(this.categoryToolStripMenuItem_Click);
+            // 
+            // goodToolStripMenuItem
+            // 
+            this.goodToolStripMenuItem.Name = "goodToolStripMenuItem";
+            this.goodToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
+            this.goodToolStripMenuItem.Text = "Good";
+            this.goodToolStripMenuItem.Click += new System.EventHandler(this.goodToolStripMenuItem_Click);
             // 
             // textBoxIP
             // 
@@ -176,7 +182,7 @@
             // 
             // richTextBoxUser
             // 
-            this.richTextBoxUser.Location = new System.Drawing.Point(253, 313);
+            this.richTextBoxUser.Location = new System.Drawing.Point(12, 313);
             this.richTextBoxUser.Name = "richTextBoxUser";
             this.richTextBoxUser.Size = new System.Drawing.Size(449, 209);
             this.richTextBoxUser.TabIndex = 4;
@@ -211,17 +217,50 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(439, 293);
+            this.label3.Location = new System.Drawing.Point(195, 293);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 17);
             this.label3.TabIndex = 8;
             this.label3.Text = "User";
+            // 
+            // richTextBoxReference
+            // 
+            this.richTextBoxReference.Location = new System.Drawing.Point(467, 313);
+            this.richTextBoxReference.Name = "richTextBoxReference";
+            this.richTextBoxReference.Size = new System.Drawing.Size(449, 209);
+            this.richTextBoxReference.TabIndex = 9;
+            this.richTextBoxReference.Text = "";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(677, 293);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(74, 17);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Reference";
+            // 
+            // referenceToolStripMenuItem
+            // 
+            this.referenceToolStripMenuItem.Name = "referenceToolStripMenuItem";
+            this.referenceToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.referenceToolStripMenuItem.Text = "Reference";
+            this.referenceToolStripMenuItem.Click += new System.EventHandler(this.referenceToolStripMenuItem_Click);
+            // 
+            // referenceToolStripMenuItem1
+            // 
+            this.referenceToolStripMenuItem1.Name = "referenceToolStripMenuItem1";
+            this.referenceToolStripMenuItem1.Size = new System.Drawing.Size(181, 26);
+            this.referenceToolStripMenuItem1.Text = "Reference";
+            this.referenceToolStripMenuItem1.Click += new System.EventHandler(this.referenceToolStripMenuItem1_Click);
             // 
             // FormClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(923, 523);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.richTextBoxReference);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -263,6 +302,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RichTextBox richTextBoxReference;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ToolStripMenuItem referenceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem referenceToolStripMenuItem1;
     }
 }
 
