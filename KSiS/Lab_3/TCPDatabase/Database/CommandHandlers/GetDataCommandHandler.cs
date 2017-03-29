@@ -6,19 +6,17 @@ using System.Threading.Tasks;
 
 namespace Database
 {
-    public class AddUserCommandHandler : ICommandHandler
+    public class GetDataCommandHandler : ICommandHandler
     {
-        private Database db { get; set; }
-        public AddUserCommandHandler(Database db)
+        private Database db { get; }
+        public GetDataCommandHandler(Database db)
         {
             this.db = db;
         }
 
         public object Execute(Command.ICommand command)
         {
-            var addUser = (Command.AddUser)command;
-
-            return db.AddUser(addUser.User);
+            return db.GetData();
         }
     }
 }

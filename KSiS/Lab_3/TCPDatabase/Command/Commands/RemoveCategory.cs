@@ -8,6 +8,6 @@ namespace Command
 {
     public class RemoveCategory : ICommand
     {
-        public object[] array { get; set; }
+        public int CatId { get; set; }
     }
 }

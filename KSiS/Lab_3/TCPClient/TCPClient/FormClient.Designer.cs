@@ -36,22 +36,12 @@
             this.addUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addGoodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBoxIP = new System.Windows.Forms.TextBox();
-            this.labelConnected = new System.Windows.Forms.Label();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.goodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.categoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addLinksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeLinksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.catToUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.goodToUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.goodToCatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.catToGoodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.catFromUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.goodFromUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.goodFromCatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.catFromGoodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBoxIP = new System.Windows.Forms.TextBox();
+            this.labelConnected = new System.Windows.Forms.Label();
             this.richTextBoxGood = new System.Windows.Forms.RichTextBox();
             this.richTextBoxUser = new System.Windows.Forms.RichTextBox();
             this.richTextBoxCategory = new System.Windows.Forms.RichTextBox();
@@ -67,9 +57,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.databaseToolStripMenuItem,
             this.addToolStripMenuItem,
-            this.removeToolStripMenuItem,
-            this.addLinksToolStripMenuItem,
-            this.removeLinksToolStripMenuItem});
+            this.removeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(923, 28);
@@ -130,23 +118,6 @@
             this.addGoodToolStripMenuItem.Text = "Good";
             this.addGoodToolStripMenuItem.Click += new System.EventHandler(this.addGoodToolStripMenuItem_Click);
             // 
-            // textBoxIP
-            // 
-            this.textBoxIP.Location = new System.Drawing.Point(12, 53);
-            this.textBoxIP.Name = "textBoxIP";
-            this.textBoxIP.Size = new System.Drawing.Size(122, 22);
-            this.textBoxIP.TabIndex = 1;
-            this.textBoxIP.Text = "192.168.231.1";
-            // 
-            // labelConnected
-            // 
-            this.labelConnected.AutoSize = true;
-            this.labelConnected.Location = new System.Drawing.Point(12, 33);
-            this.labelConnected.Name = "labelConnected";
-            this.labelConnected.Size = new System.Drawing.Size(99, 17);
-            this.labelConnected.TabIndex = 2;
-            this.labelConnected.Text = "No connection";
-            // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -178,83 +149,22 @@
             this.categoryToolStripMenuItem.Text = "Category";
             this.categoryToolStripMenuItem.Click += new System.EventHandler(this.categoryToolStripMenuItem_Click);
             // 
-            // addLinksToolStripMenuItem
+            // textBoxIP
             // 
-            this.addLinksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.catToUserToolStripMenuItem,
-            this.goodToUserToolStripMenuItem,
-            this.goodToCatToolStripMenuItem,
-            this.catToGoodToolStripMenuItem});
-            this.addLinksToolStripMenuItem.Name = "addLinksToolStripMenuItem";
-            this.addLinksToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
-            this.addLinksToolStripMenuItem.Text = "AddLinks";
+            this.textBoxIP.Location = new System.Drawing.Point(12, 53);
+            this.textBoxIP.Name = "textBoxIP";
+            this.textBoxIP.Size = new System.Drawing.Size(122, 22);
+            this.textBoxIP.TabIndex = 1;
+            this.textBoxIP.Text = "192.168.3.1";
             // 
-            // removeLinksToolStripMenuItem
+            // labelConnected
             // 
-            this.removeLinksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.catFromUserToolStripMenuItem,
-            this.goodFromUserToolStripMenuItem,
-            this.goodFromCatToolStripMenuItem,
-            this.catFromGoodToolStripMenuItem});
-            this.removeLinksToolStripMenuItem.Name = "removeLinksToolStripMenuItem";
-            this.removeLinksToolStripMenuItem.Size = new System.Drawing.Size(107, 24);
-            this.removeLinksToolStripMenuItem.Text = "RemoveLinks";
-            // 
-            // catToUserToolStripMenuItem
-            // 
-            this.catToUserToolStripMenuItem.Name = "catToUserToolStripMenuItem";
-            this.catToUserToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.catToUserToolStripMenuItem.Text = "CatToUser";
-            this.catToUserToolStripMenuItem.Click += new System.EventHandler(this.catToUserToolStripMenuItem_Click);
-            // 
-            // goodToUserToolStripMenuItem
-            // 
-            this.goodToUserToolStripMenuItem.Name = "goodToUserToolStripMenuItem";
-            this.goodToUserToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.goodToUserToolStripMenuItem.Text = "GoodToUser";
-            this.goodToUserToolStripMenuItem.Click += new System.EventHandler(this.goodToUserToolStripMenuItem_Click);
-            // 
-            // goodToCatToolStripMenuItem
-            // 
-            this.goodToCatToolStripMenuItem.Name = "goodToCatToolStripMenuItem";
-            this.goodToCatToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.goodToCatToolStripMenuItem.Text = "GoodToCat";
-            this.goodToCatToolStripMenuItem.Click += new System.EventHandler(this.goodToCatToolStripMenuItem_Click);
-            // 
-            // catToGoodToolStripMenuItem
-            // 
-            this.catToGoodToolStripMenuItem.Name = "catToGoodToolStripMenuItem";
-            this.catToGoodToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.catToGoodToolStripMenuItem.Text = "CatToGood";
-            this.catToGoodToolStripMenuItem.Click += new System.EventHandler(this.catToGoodToolStripMenuItem_Click);
-            // 
-            // catFromUserToolStripMenuItem
-            // 
-            this.catFromUserToolStripMenuItem.Name = "catFromUserToolStripMenuItem";
-            this.catFromUserToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.catFromUserToolStripMenuItem.Text = "CatFromUser";
-            this.catFromUserToolStripMenuItem.Click += new System.EventHandler(this.catFromUserToolStripMenuItem_Click);
-            // 
-            // goodFromUserToolStripMenuItem
-            // 
-            this.goodFromUserToolStripMenuItem.Name = "goodFromUserToolStripMenuItem";
-            this.goodFromUserToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.goodFromUserToolStripMenuItem.Text = "GoodFromUser";
-            this.goodFromUserToolStripMenuItem.Click += new System.EventHandler(this.goodFromUserToolStripMenuItem_Click);
-            // 
-            // goodFromCatToolStripMenuItem
-            // 
-            this.goodFromCatToolStripMenuItem.Name = "goodFromCatToolStripMenuItem";
-            this.goodFromCatToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.goodFromCatToolStripMenuItem.Text = "GoodFromCat";
-            this.goodFromCatToolStripMenuItem.Click += new System.EventHandler(this.goodFromCatToolStripMenuItem_Click);
-            // 
-            // catFromGoodToolStripMenuItem
-            // 
-            this.catFromGoodToolStripMenuItem.Name = "catFromGoodToolStripMenuItem";
-            this.catFromGoodToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.catFromGoodToolStripMenuItem.Text = "CatFromGood";
-            this.catFromGoodToolStripMenuItem.Click += new System.EventHandler(this.catFromGoodToolStripMenuItem_Click);
+            this.labelConnected.AutoSize = true;
+            this.labelConnected.Location = new System.Drawing.Point(12, 33);
+            this.labelConnected.Name = "labelConnected";
+            this.labelConnected.Size = new System.Drawing.Size(99, 17);
+            this.labelConnected.TabIndex = 2;
+            this.labelConnected.Text = "No connection";
             // 
             // richTextBoxGood
             // 
@@ -323,7 +233,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormClient";
-            this.Text = "Form1";
+            this.Text = "Client";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -347,16 +257,6 @@
         private System.Windows.Forms.ToolStripMenuItem userToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem goodToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem categoryToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addLinksToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem catToUserToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem goodToUserToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem goodToCatToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem catToGoodToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem removeLinksToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem catFromUserToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem goodFromUserToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem goodFromCatToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem catFromGoodToolStripMenuItem;
         private System.Windows.Forms.RichTextBox richTextBoxGood;
         private System.Windows.Forms.RichTextBox richTextBoxUser;
         private System.Windows.Forms.RichTextBox richTextBoxCategory;

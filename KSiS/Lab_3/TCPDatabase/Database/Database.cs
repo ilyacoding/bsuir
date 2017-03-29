@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
+﻿using System.IO;
 using Newtonsoft.Json;
 using Data;
 
@@ -11,19 +6,19 @@ namespace Database
 {
     public class Database
     {
-        public Data.Data data;
-        public string path;
+        public Data.Data Data;
+        public string Path;
 
         public Database()
         {
-            path = "db.txt";
+            Path = "db.txt";
             Load();
         }
 
         public void Load()
         {
-            string json = File.ReadAllText(path);
-            data = JsonConvert.DeserializeObject<Data.Data>(json, new JsonSerializerSettings
+            var json = File.ReadAllText(Path);
+            Data = JsonConvert.DeserializeObject<Data.Data>(json, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All
             });
@@ -31,43 +26,43 @@ namespace Database
 
         public void Save()
         {
-            string json = JsonConvert.SerializeObject(data, new JsonSerializerSettings
+            var json = JsonConvert.SerializeObject(Data, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All,
                 Formatting = Formatting.Indented
             });
-            File.WriteAllText(path, json);
+            File.WriteAllText(Path, json);
         }
 
         public int AddUser(string name)
         {
-            var user = new User(name, data.AI_User++);
-            data.AddUser(user);
+            var user = new User(name, Data.AI_User++);
+            Data.AddUser(user);
             Save();
             return user.Id;
         }
 
         public int AddCategory(string name)
         {
-            var cat = new Category(name, data.AI_Category++);
-            data.AddCategory(cat);
+            var cat = new Category(name, Data.AI_Category++);
+            Data.AddCategory(cat);
             Save();
             return cat.Id;
         }
 
         public int AddGood(string name)
         {
-            var good = new Good(name, data.AI_Good++);
-            data.AddGood(good);
+            var good = new Good(name, Data.AI_Good++);
+            Data.AddGood(good);
             Save();
             return good.Id;
         }
 
-        public bool RemoveUser(Int64 UserId)
+        public bool RemoveUser(long userId)
         {
-            if (data.UserList.Exists(x => x.Id == UserId))
+            if (Data.UserList.Exists(x => x.Id == userId))
             {
-                data.RemoveUser(data.UserList.Find(x => x.Id == UserId));
+                Data.RemoveUser(Data.UserList.Find(x => x.Id == userId));
                 Save();
                 return true;
             }
@@ -77,11 +72,11 @@ namespace Database
             }
         }
 
-        public bool RemoveCategory(Int64 CatId)
+        public bool RemoveCategory(long catId)
         {
-            if (data.CategoryList.Exists(x => x.Id == CatId))
+            if (Data.CategoryList.Exists(x => x.Id == catId))
             {
-                data.RemoveCategory(data.CategoryList.Find(x => x.Id == CatId));
+                Data.RemoveCategory(Data.CategoryList.Find(x => x.Id == catId));
                 Save();
                 return true;
             }
@@ -91,11 +86,11 @@ namespace Database
             }
         }
 
-        public bool RemoveGood(Int64 GoodId)
+        public bool RemoveGood(long goodId)
         {
-            if (data.GoodList.Exists(x => x.Id == GoodId))
+            if (Data.GoodList.Exists(x => x.Id == goodId))
             {
-                data.RemoveGood(data.GoodList.Find(x => x.Id == GoodId));
+                Data.RemoveGood(Data.GoodList.Find(x => x.Id == goodId));
                 Save();
                 return true;
             }
@@ -203,7 +198,7 @@ namespace Database
         */
         public Data.Data GetData()
         {
-            return data;
+            return Data;
         }
     }
 }

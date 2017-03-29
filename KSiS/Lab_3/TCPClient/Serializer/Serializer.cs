@@ -1,19 +1,25 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Command;
+using Data;
 
 namespace Serializer
 {
     public class Serializer
     {
-        public ICommand Deserialize(string str)
+        public Response Deserialize(string str)
         {
-            return JsonConvert.DeserializeObject<ICommand>(str, new JsonSerializerSettings
+            return JsonConvert.DeserializeObject<Response>(str, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All
             });
         }
 
-        public string Serialize(Response response)
+        public string Serialize(object response)
         {
             return JsonConvert.SerializeObject(response, new JsonSerializerSettings
             {

@@ -8,6 +8,6 @@ namespace Command
 {
     public class Response
     {
-        public object value { get; set; }
+        public object Value { get; set; }
     }
 }

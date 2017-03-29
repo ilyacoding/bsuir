@@ -1,31 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Net.Sockets;
-using Data;
 using Command;
-using Newtonsoft.Json;
 
 namespace TCPClient
 {
-    public class RPC
+    public class Rpc
     {
-        private TcpClient client { get; set; }
-        private NetworkStream stream { get; set; }
+        private TcpClient Client { get; }
+        private NetworkStream Stream { get; set; }
+        private Serializer.Serializer Serializer { get; }
 
-        public RPC()
+        public Rpc(Serializer.Serializer serializer)
         {
-            client = new TcpClient();
+            Client = new TcpClient();
+            Serializer = serializer;
         }
-        
-        public bool Connect(string remoteIP, int port)
+
+        public bool Connect(string remoteIp, int port)
         {
             try
             {
-                client.Connect(remoteIP, port);
-                stream = client.GetStream();
+                Client.Connect(remoteIp, port);
+                Stream = Client.GetStream();
             }
             catch (Exception)
             {
@@ -37,50 +34,70 @@ namespace TCPClient
 
         public bool Connected()
         {
-            return client.Connected;
+            return Client.Connected;
         }
 
-        public void Send(string msg)
+        private void Send(string msg)
         {
-            if (client.Connected)
-            {
-                byte[] buf = Encoding.UTF8.GetBytes(msg);
-                stream.Write(buf, 0, buf.Length);
-            }
+            if (!Client.Connected) return;
+            var buf = Encoding.UTF8.GetBytes(msg);
+            Stream.Write(buf, 0, buf.Length);
         }
 
-        public string Receive()
+        private string Receive()
         {
-            string msg = "";
-            if (client.Connected)
+            var msg = "";
+            if (!Client.Connected) return msg;
+            var buffer = new byte[256];
+            while (Stream.DataAvailable || msg.Length == 0)
             {
-                byte[] buffer = new byte[256];
-                while (stream.DataAvailable || msg.Length == 0)
-                {
-                    int BytesRead = stream.Read(buffer, 0, buffer.Length);
-                    msg += Encoding.UTF8.GetString(buffer, 0, BytesRead);
-                }
+                var bytesRead = Stream.Read(buffer, 0, buffer.Length);
+                msg += Encoding.UTF8.GetString(buffer, 0, bytesRead);
             }
             return msg;
         }
 
-        public object ProcessFunctuion(ICommand cmd, object[] parameters)
+        private object ProcessFunctuion(ICommand cmd)
         {
-            cmd.array = parameters;
-            string json = JsonConvert.SerializeObject(cmd, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All,
-                Formatting = Formatting.Indented
-            });
-
+            var json = Serializer.Serialize(cmd);
             Send(json);
             json = Receive();
+            return Serializer.Deserialize(json).Value;
+        }
 
-            Response response = JsonConvert.DeserializeObject<Response>(json, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All
-            });
-            return response.value;
+        public int AddUser(string userName)
+        {
+            return Convert.ToInt32(ProcessFunctuion(new AddUser {User = userName}));
+        }
+
+        public int AddGood(string goodName)
+        {
+            return Convert.ToInt32(ProcessFunctuion(new AddGood { Good = goodName }));
+        }
+
+        public int AddCategory(string catName)
+        {
+            return Convert.ToInt32(ProcessFunctuion(new AddCategory { Category = catName }));
+        }
+
+        public bool RemoveUser(int userId)
+        {
+            return (bool)ProcessFunctuion(new RemoveUser { UserId = userId });
+        }
+
+        public bool RemoveGood(int goodId)
+        {
+            return (bool)ProcessFunctuion(new RemoveGood { GoodId = goodId });
+        }
+
+        public bool RemoveCategory(int catId)
+        {
+            return (bool)ProcessFunctuion(new RemoveCategory { CatId = catId });
+        }
+        
+        public Data.Data GetData()
+        {
+            return (Data.Data)ProcessFunctuion(new GetData());
         }
     }
 }

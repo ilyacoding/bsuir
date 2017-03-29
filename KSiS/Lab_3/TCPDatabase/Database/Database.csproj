@@ -46,6 +46,7 @@
     <Compile Include="CommandHandlers\AddCategoryCommandHandler.cs" />
     <Compile Include="CommandHandlers\AddUserCommandHandler.cs" />
     <Compile Include="CommandHandlers\DefaultCommandHandler.cs" />
+    <Compile Include="CommandHandlers\GetDataCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemoveCategoryCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemoveGoodCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemoveUserCommandHandler.cs" />

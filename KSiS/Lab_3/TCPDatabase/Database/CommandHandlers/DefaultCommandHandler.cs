@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Database.CommandHandlers
+namespace Database
 {
     public class DefaultCommandHandler : ICommandHandler
     {

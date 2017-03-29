@@ -1,23 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 using Microsoft.VisualBasic;
-using Command;
 
 namespace TCPClient
 {
     public partial class FormClient : Form
     {
-        private RPC client { get; set; }
+        private Rpc Client { get; set; }
 
         public FormClient()
         {
@@ -26,10 +15,10 @@ namespace TCPClient
         
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            client = new RPC();
-            client.Connect(textBoxIP.Text, 17777);
+            Client = new Rpc(new Serializer.Serializer());
+            Client.Connect(textBoxIP.Text, 17777);
             
-            if (client.Connected())
+            if (Client.Connected())
             {
                 labelConnected.Text = "Connected";
             }
@@ -41,30 +30,30 @@ namespace TCPClient
 
         private void addUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string UserName = Interaction.InputBox("Username:", "Input username", "");
-            if (UserName.Length > 0)
+            var userName = Interaction.InputBox("Username:", "Input username", "");
+            if (userName.Length > 0)
             {
-                var response = client.ProcessFunctuion(new AddUser(), new object[] { UserName });
+                var response = Client.AddUser(userName);
                 MessageBox.Show("User added. Id: " + response.ToString());
             }
         }
 
         private void addCategoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string CatName = Interaction.InputBox("Category:", "Input category", "");
-            if (CatName.Length > 0)
+            var catName = Interaction.InputBox("Category:", "Input category", "");
+            if (catName.Length > 0)
             {
-                var response = client.ProcessFunctuion(new AddCategory(), new object[] { CatName });
+                var response = Client.AddCategory(catName);
                 MessageBox.Show("Category added. Id: " + response.ToString());
             }
         }
 
         private void addGoodToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string GoodName = Interaction.InputBox("Goodname:", "Input good", "");
-            if (GoodName.Length > 0)
+            var goodName = Interaction.InputBox("Goodname:", "Input good", "");
+            if (goodName.Length > 0)
             {
-                var response = client.ProcessFunctuion(new AddGood(), new object[] { GoodName });
+                var response = Client.AddGood(goodName);
                 MessageBox.Show("Good added. Id: " + response.ToString());
             }
         }
@@ -73,17 +62,17 @@ namespace TCPClient
         {
             try
             {
-                int UserId = Convert.ToInt32(Interaction.InputBox("User Id:", "User to delete", ""));
-                if (UserId >= 0)
+                var userId = Convert.ToInt32(Interaction.InputBox("User Id:", "User to delete", ""));
+                if (userId >= 0)
                 {
-                    var response = client.ProcessFunctuion(new RemoveUser(), new object[] { (Int32)UserId });
-                    if (response.ToString() != "error")
+                    var response = Client.RemoveUser(userId);
+                    if (response)
                     {
-                        MessageBox.Show("User with id " + UserId.ToString() + " deleted succesfully.");
+                        MessageBox.Show("User with id " + userId.ToString() + " deleted succesfully.");
                     }
                     else
                     {
-                        MessageBox.Show("User with id " + UserId.ToString() + " doesn't exist.");
+                        MessageBox.Show("User with id " + userId.ToString() + " doesn't exist.");
                     }
                 }
             }
@@ -97,17 +86,17 @@ namespace TCPClient
         {
             try
             {
-                int GoodId = Convert.ToInt32(Interaction.InputBox("Good Id:", "Good to delete", ""));
-                if (GoodId >= 0)
+                var goodId = Convert.ToInt32(Interaction.InputBox("Good Id:", "Good to delete", ""));
+                if (goodId >= 0)
                 {
-                    var response = client.ProcessFunctuion(new RemoveGood(), new object[] { (Int32)GoodId });
-                    if (response.ToString() != "error")
+                    var response = Client.RemoveGood(goodId);
+                    if (response)
                     {
-                        MessageBox.Show("Good with id " + GoodId.ToString() + " deleted succesfully.");
+                        MessageBox.Show("Good with id " + goodId.ToString() + " deleted succesfully.");
                     }
                     else
                     {
-                        MessageBox.Show("Good with id " + GoodId.ToString() + " doesn't exist.");
+                        MessageBox.Show("Good with id " + goodId.ToString() + " doesn't exist.");
                     }
                 }
             }
@@ -121,17 +110,17 @@ namespace TCPClient
         {
             try
             {
-                int CategoryId = Convert.ToInt32(Interaction.InputBox("Category Id:", "Category to delete", ""));
-                if (CategoryId >= 0)
+                var categoryId = Convert.ToInt32(Interaction.InputBox("Category Id:", "Category to delete", ""));
+                if (categoryId >= 0)
                 {
-                    var response = client.ProcessFunctuion(new RemoveCategory(), new object[] { (Int32)CategoryId });
-                    if (response.ToString() != "error")
+                    var response = Client.RemoveCategory(categoryId);
+                    if (response)
                     {
-                        MessageBox.Show("Category with id " + CategoryId.ToString() + " deleted succesfully.");
+                        MessageBox.Show("Category with id " + categoryId.ToString() + " deleted succesfully.");
                     }
                     else
                     {
-                        MessageBox.Show("Category with id " + CategoryId.ToString() + " doesn't exist.");
+                        MessageBox.Show("Category with id " + categoryId.ToString() + " doesn't exist.");
                     }
                 }
             }
@@ -140,14 +129,14 @@ namespace TCPClient
                 MessageBox.Show("No changes were done.");
             }
         }
-
+        /*
         private void catToUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
                 int UserId = Convert.ToInt32(Interaction.InputBox("User Id:", "User", ""));
                 int CatId = Convert.ToInt32(Interaction.InputBox("Category Id:", "Category", ""));
-                var response = client.ProcessFunctuion(new AddCatToUser(), new object[] { UserId, CatId });
+               // var response = client.ProcessFunctuion(new AddCatToUser(), new object[] { UserId, CatId });
                 if (response.ToString() != "error")
                 {
                     MessageBox.Show("Link CatId: " + CatId.ToString() + " | UserId: " + UserId.ToString() + " created succesfully.");
@@ -316,25 +305,17 @@ namespace TCPClient
                 MessageBox.Show("No changes were done.");
             }
         }
-
+        */
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                var response = client.ProcessFunctuion(new GetData(), new object[] { });
-
-                if (response.ToString() == "error")
-                {
-                    MessageBox.Show(response.ToString());
-                    return;
-                }
-
-                Data.Data data = (Data.Data)response;
+                var data = Client.GetData();
 
                 richTextBoxUser.Clear();
                 richTextBoxGood.Clear();
                 richTextBoxCategory.Clear();
-
+                
                 foreach (var item in data.UserList)
                 {
                     richTextBoxUser.Text += "Id: " + item.Id + " | Name: " + item.Name + "\n";

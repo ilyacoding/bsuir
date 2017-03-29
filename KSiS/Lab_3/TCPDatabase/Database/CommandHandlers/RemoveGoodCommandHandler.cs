@@ -9,16 +9,16 @@ namespace Database
     public class RemoveGoodCommandHandler : ICommandHandler
     {
         private Database db { get; set; }
-        public AddGoodCommandHandler(Database db)
+        public RemoveGoodCommandHandler(Database db)
         {
             this.db = db;
         }
 
         public object Execute(Command.ICommand command)
         {
-            var addGood = (Command.AddGood)command;
+            var removeGood = (Command.RemoveGood)command;
 
-            return db.AddGood(addGood.Good);
+            return db.RemoveGood(removeGood.GoodId);
         }
     }
 }

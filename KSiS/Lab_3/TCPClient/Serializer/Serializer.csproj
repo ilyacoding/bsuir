@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4CC6424F-38A1-422F-A8F0-BF221F347661}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{B2240904-D91A-4A4E-BBD2-74D4AB69E15D}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TCPDatabase</RootNamespace>
-    <AssemblyName>TCPDatabase</AssemblyName>
+    <RootNamespace>Serializer</RootNamespace>
+    <AssemblyName>Serializer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,11 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Command">
+      <HintPath>..\..\TCPDatabase\Command\bin\Debug\Command.dll</HintPath>
+    </Reference>
     <Reference Include="Data">
-      <HintPath>..\..\Database\Data\bin\Debug\Data.dll</HintPath>
+      <HintPath>..\..\TCPDatabase\TCPDatabase\bin\Debug\Data.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\..\..\Programs\VisualStudio\Common7\IDE\TestAgent\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\TCPDatabase\TCPDatabase\bin\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,26 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Serializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TCPServer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Command\Command.csproj">
-      <Project>{b11316ef-8e5a-408d-953f-599944b4f850}</Project>
-      <Name>Command</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Database\Database.csproj">
-      <Project>{d2871ca2-c882-414a-acbf-dbb534a4e77f}</Project>
-      <Name>Database</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Serializer\Serializer.csproj">
-      <Project>{d1dedfed-ab24-44e0-acea-305cad810af5}</Project>
-      <Name>Serializer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
