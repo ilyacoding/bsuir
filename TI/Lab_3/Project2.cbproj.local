@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.857,=C:\Users\Ilya\Documents\Embarcadero\Studio\Projects\Project2PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.852,D:\BSUIR\Теория информации\лаба 3_потоков шифр\CryptoGeffe\Project2PCH1.h=C:\Users\Ilya\Documents\Embarcadero\Studio\Projects\Project2PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.479,D:\BSUIR\Теория информации\лаба 3_потоков шифр\CryptoGeffe\Unit1.h=C:\Users\Ilya\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.070,D:\BSUIR\Теория информации\лаба 3_потоков шифр\CryptoGeffe\uInc.h=D:\BSUIR\Теория информации\лаба 3_потоков шифр\CryptoGeffe\File1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.479,D:\BSUIR\Теория информации\лаба 3_потоков шифр\CryptoGeffe\Unit1.cpp=C:\Users\Ilya\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.919,D:\BSUIR\Теория информации\лаба 3_потоков шифр\CryptoGeffe\Project2.cbproj=C:\Users\Ilya\Documents\Embarcadero\Studio\Projects\Project2.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.629,=D:\BSUIR\Теория информации\лаба 3_потоков шифр\CryptoGeffe\File1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.479,D:\BSUIR\Теория информации\лаба 3_потоков шифр\CryptoGeffe\Unit1.dfm=C:\Users\Ilya\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.879,=C:\Users\Ilya\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+  </Transactions>
+</BorlandProject>
