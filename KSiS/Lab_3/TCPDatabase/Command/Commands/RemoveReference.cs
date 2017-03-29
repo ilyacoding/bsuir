@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Command
 {
-    public class AddGood : ICommand
+    public class RemoveReference : ICommand
     {
-        public string Good { get; set; }
-        public int UserId { get; set; }
+        public int GoodId { get; set; }
+        public int CategoryId { get; set; }
     }
 }

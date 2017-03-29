@@ -10,5 +10,6 @@ namespace Command
     public class AddCategory : ICommand
     {
         public string Category { get; set; }
+        public int UserId { get; set; }
     }
 }

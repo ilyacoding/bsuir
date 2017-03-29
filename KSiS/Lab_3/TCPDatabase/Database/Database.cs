@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Newtonsoft.Json;
 using Data;
 
@@ -6,32 +7,43 @@ namespace Database
 {
     public class Database
     {
-        public Data.Data Data;
+        public DbSerializer Serializer { get; set; }
+        public Data.Data Data { get; set; }
         public string Path;
 
-        public Database()
+        public Database(string path, DbSerializer serializer)
         {
-            Path = "db.txt";
+            Path = path;
+            Serializer = serializer;
             Load();
         }
 
         public void Load()
         {
             var json = File.ReadAllText(Path);
-            Data = JsonConvert.DeserializeObject<Data.Data>(json, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All
-            });
+            Data = Serializer.Deserialize(json);
         }
 
         public void Save()
         {
-            var json = JsonConvert.SerializeObject(Data, new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All,
-                Formatting = Formatting.Indented
-            });
+            var json = Serializer.Serialize(Data);
             File.WriteAllText(Path, json);
+        }
+
+        public bool AddReference(int goodId, int categoryId)
+        {
+            if (Data.ReferenceExist(goodId, categoryId) || !Data.GoodExist(goodId) || !Data.CategoryExist(categoryId)) return false;
+            Data.AddReference(new Reference(goodId, categoryId));
+            Save();
+            return true;
+        }
+
+        public bool RemoveReference(int goodId, int categoryId)
+        {
+            if (!Data.ReferenceExist(goodId, categoryId)) return false;
+            Data.RemoveReference(goodId, categoryId);
+            Save();
+            return true;
         }
 
         public int AddUser(string name)
@@ -42,27 +54,29 @@ namespace Database
             return user.Id;
         }
 
-        public int AddCategory(string name)
+        public int AddCategory(string name, int userId)
         {
-            var cat = new Category(name, Data.AI_Category++);
+            if (!Data.UserExist(userId)) return -1;
+            var cat = new Category(name, userId, Data.AI_Category++);
             Data.AddCategory(cat);
             Save();
             return cat.Id;
         }
 
-        public int AddGood(string name)
+        public int AddGood(string name, int userId)
         {
-            var good = new Good(name, Data.AI_Good++);
+            if (!Data.UserExist(userId)) return -1;
+            var good = new Good(name, userId, Data.AI_Good++);
             Data.AddGood(good);
             Save();
             return good.Id;
         }
 
-        public bool RemoveUser(long userId)
+        public bool RemoveUser(int userId)
         {
-            if (Data.UserList.Exists(x => x.Id == userId))
+            if (Data.UserExist(userId))
             {
-                Data.RemoveUser(Data.UserList.Find(x => x.Id == userId));
+                Data.RemoveUser(userId);
                 Save();
                 return true;
             }
@@ -72,11 +86,12 @@ namespace Database
             }
         }
 
-        public bool RemoveCategory(long catId)
+        public bool RemoveCategory(int catId)
         {
-            if (Data.CategoryList.Exists(x => x.Id == catId))
+            if (Data.CategoryExist(catId))
             {
-                Data.RemoveCategory(Data.CategoryList.Find(x => x.Id == catId));
+                Data.RemoveReferenceByCategoryId(catId);
+                Data.RemoveCategory(catId);
                 Save();
                 return true;
             }
@@ -86,11 +101,12 @@ namespace Database
             }
         }
 
-        public bool RemoveGood(long goodId)
+        public bool RemoveGood(int goodId)
         {
-            if (Data.GoodList.Exists(x => x.Id == goodId))
+            if (Data.GoodExist(goodId))
             {
-                Data.RemoveGood(Data.GoodList.Find(x => x.Id == goodId));
+                Data.RemoveReferenceByGoodId(goodId);
+                Data.RemoveGood(goodId);
                 Save();
                 return true;
             }
@@ -99,103 +115,7 @@ namespace Database
                 return false;
             }
         }
-        /*
-        public bool AddCatToUser(Int64 UserId, Int64 CatId)
-        {
-            if (data.UserList.Exists(x => x.Id == UserId) && data.CategoryList.Exists(x => x.Id == (Int32)CatId) && (!data.UserList.Find(x => x.Id == UserId).CategoryList.Exists(x => x == (Int32)CatId)))
-            {
-                data.UserList.Find(x => x.Id == UserId).CategoryList.Add((Int32)CatId);
-                Save();
-                return true;
-            }
-            else
-            {
-                throw new Exception();
-            }
-        }
 
-        public bool AddGoodToUser(Int64 UserId, Int64 GoodId)
-        {
-            if (data.UserList.Exists(x => x.Id == UserId) && data.GoodList.Exists(x => x.Id == GoodId) && (!data.UserList.Find(x => x.Id == UserId).GoodList.Exists(x => x == (Int32)GoodId)))
-            {
-                data.UserList.Find(x => x.Id == UserId).GoodList.Add((Int32)GoodId);
-                Save();
-                return true;
-            }
-            else
-            {
-                throw new Exception();
-            }
-        }
-
-        public bool AddGoodToCat(Int64 CatId, Int64 GoodId)
-        {
-            if (data.CategoryList.Exists(x => x.Id == CatId) && data.GoodList.Exists(x => x.Id == GoodId) && (!data.CategoryList.Find(x => x.Id == CatId).GoodList.Exists(x => x == (Int32)CatId)))
-            {
-                data.CategoryList.Find(x => x.Id == CatId).GoodList.Add((Int32)GoodId);
-                Save();
-                return true;
-            }
-            else
-            {
-                throw new Exception();
-            }
-        }
-
-        public bool AddCatToGood(Int64 GoodId, Int64 CatId)
-        {
-            if (data.CategoryList.Exists(x => x.Id == CatId) && data.GoodList.Exists(x => x.Id == GoodId) && (!data.GoodList.Find(x => x.Id == GoodId).CategoryList.Exists(x => x == (Int32)CatId)))
-            {
-                data.GoodList.Find(x => x.Id == GoodId).CategoryList.Add((Int32)CatId);
-                Save();
-                return true;
-            }
-            else
-            {
-                throw new Exception();
-            }
-        }
-
-        public bool RemoveCatFromUser(Int64 UserId, Int64 CatId)
-        {
-            if (data.UserList.Find(x => x.Id == UserId).CategoryList.Remove((Int32)CatId))
-            {
-                Save();
-                return true;
-            }
-            throw new Exception();
-        }
-
-        public bool RemoveGoodFromUser(Int64 UserId, Int64 GoodId)
-        {
-            if (data.UserList.Find(x => x.Id == UserId).GoodList.Remove((Int32)GoodId))
-            {
-                Save();
-                return true;
-            }
-            throw new Exception();
-        }
-
-        public bool RemoveGoodFromCat(Int64 CatId, Int64 GoodId)
-        {
-            if (data.CategoryList.Find(x => x.Id == CatId).GoodList.Remove((Int32)GoodId))
-            {
-                Save();
-                return true;
-            }
-            throw new Exception();
-        }
-
-        public bool RemoveCatFromGood(Int64 GoodId, Int64 CatId)
-        {
-            if (data.GoodList.Find(x => x.Id == GoodId).CategoryList.Remove((Int32)CatId))
-            {
-                Save();
-                return true;
-            }
-            throw new Exception();
-        }
-        */
         public Data.Data GetData()
         {
             return Data;

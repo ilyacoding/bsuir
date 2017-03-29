@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\TCPDatabase\bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\OOP\OOP\bin\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,14 +44,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandHandlers\AddCategoryCommandHandler.cs" />
+    <Compile Include="CommandHandlers\AddReferenceCommandHandler.cs" />
     <Compile Include="CommandHandlers\AddUserCommandHandler.cs" />
     <Compile Include="CommandHandlers\DefaultCommandHandler.cs" />
     <Compile Include="CommandHandlers\GetDataCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemoveCategoryCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemoveGoodCommandHandler.cs" />
+    <Compile Include="CommandHandlers\RemoveReferenceCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemoveUserCommandHandler.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="CommandHandlers\AddGoodCommandHandler.cs" />
+    <Compile Include="DbSerializer.cs" />
     <Compile Include="HandlersRegistry.cs" />
     <Compile Include="ICommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -5,7 +5,7 @@ namespace Database
 {
     public class HandlersRegistry
     {
-        private Dictionary<Type, ICommandHandler> dict = new Dictionary<Type, ICommandHandler>();
+        private Dictionary<Type, ICommandHandler> Dict = new Dictionary<Type, ICommandHandler>();
         private ICommandHandler Default { get; set; }
 
         public void RegDefault(ICommandHandler handler)
@@ -15,7 +15,7 @@ namespace Database
 
         public void Reg(Type commandType, ICommandHandler handler)
         {
-            dict.Add(commandType, handler);
+            Dict.Add(commandType, handler);
         }
 
         public ICommandHandler Get(Type comType)
@@ -23,7 +23,7 @@ namespace Database
             ICommandHandler cmdHandler;
             try
             {
-                cmdHandler = dict[comType];
+                cmdHandler = Dict[comType];
             }
             catch (Exception)
             {

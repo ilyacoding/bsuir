@@ -8,6 +8,8 @@ namespace Data
 {
     public class Data
     {
+        public List<Reference> ReferenceList { get; set; }
+
         public List<Category> CategoryList { get; set; }
         public int AI_Category;
 
@@ -17,12 +19,52 @@ namespace Data
         public List<User> UserList { get; set; }
         public int AI_User;
 
-
         public Data()
         {
             CategoryList = new List<Category>();
             GoodList = new List<Good>();
             UserList = new List<User>();
+            ReferenceList = new List<Reference>();
+        }
+
+        public bool ReferenceExist(int goodId, int categoryId)
+        {
+            return ReferenceList.Exists(x => x.CategoryId == categoryId && x.GoodId == goodId);
+        }
+
+        public bool UserExist(int userId)
+        {
+            return UserList.Exists(x => x.Id == userId);
+        }
+
+        public bool CategoryExist(int categoryId)
+        {
+            return CategoryList.Exists(x => x.Id == categoryId);
+        }
+
+        public bool GoodExist(int goodId)
+        {
+            return GoodList.Exists(x => x.Id == goodId);
+        }
+
+        public void AddReference(Reference refer)
+        {
+            ReferenceList.Add(refer);
+        }
+
+        public void RemoveReference(int goodId, int categoryId)
+        {
+            ReferenceList.Remove(ReferenceList.Find(x => x.GoodId == goodId && x.CategoryId == categoryId));
+        }
+
+        public void RemoveReferenceByGoodId(int goodId)
+        {
+            ReferenceList.RemoveAll(x => x.GoodId == goodId);
+        }
+
+        public void RemoveReferenceByCategoryId(int categoryId)
+        {
+            ReferenceList.RemoveAll(x => x.CategoryId == categoryId);
         }
 
         public void AddUser(User usr)
@@ -40,19 +82,19 @@ namespace Data
             CategoryList.Add(cat);
         }
 
-        public void RemoveUser(User usr)
+        public void RemoveUser(int userId)
         {
-            UserList.Remove(usr);
+            UserList.Remove(UserList.Find(x => x.Id == userId));
         }
 
-        public void RemoveGood(Good good)
+        public void RemoveGood(int goodId)
         {
-            GoodList.Remove(good);
+            GoodList.Remove(GoodList.Find(x => x.Id == goodId));
         }
 
-        public void RemoveCategory(Category cat)
+        public void RemoveCategory(int categoryId)
         {
-            CategoryList.Remove(cat);
+            CategoryList.Remove(CategoryList.Find(x => x.Id == categoryId));
         }
     }
 }
