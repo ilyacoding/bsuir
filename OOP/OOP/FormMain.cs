@@ -10,6 +10,7 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using Microsoft.VisualBasic;
 using ShapeContract;
+using System.Xml;
 
 namespace OOP
 {
@@ -417,16 +418,11 @@ namespace OOP
                 {
                     var instrument = Shapes.GetInstrument(pictureBoxDraw.Width, pictureBoxDraw.Height);
 
-//                    foreach (var el in instrument.ShapesList)
-//                    {
-//                        MessageBox.Show(el.Coordinate.ToString());
-//                    }
-
                     instrument.Name = Name;
                     var json = JsonConvert.SerializeObject(instrument, new JsonSerializerSettings
                     {
                         TypeNameHandling = TypeNameHandling.All,
-                        Formatting = Formatting.Indented,
+                        Formatting = Newtonsoft.Json.Formatting.Indented,
                         Binder = kBinder
                     });
                     File.WriteAllText(saveFileDialog.FileName, json);
@@ -484,6 +480,16 @@ namespace OOP
         {
             Layers.UpdateStatic();
             pictureBoxDraw.Image = Layers.DynamicLayer;
+        }
+
+        private void loadToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

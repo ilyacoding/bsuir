@@ -28,6 +28,10 @@ namespace TCPDatabase
             registry.Reg(new AddReference().GetType(), new AddReferenceCommandHandler(db));
             registry.Reg(new RemoveReference().GetType(), new RemoveReferenceCommandHandler(db));
 
+            registry.Reg(new SelectByCategoryId().GetType(), new SelectByCategoryIdCommandHandler(db));
+            registry.Reg(new SelectByUserId().GetType(), new SelectByUserIdCommandHandler(db));
+            registry.Reg(new SelectByGoodId().GetType(), new SelectByGoodIdCommandHandler(db));
+
             registry.Reg(new GetData().GetType(), new GetDataCommandHandler(db));
 
             registry.RegDefault(new DefaultCommandHandler(db));

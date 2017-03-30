@@ -34,10 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Autofac.Integration.Mef, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Mef.4.0.0\lib\net45\Autofac.Integration.Mef.dll</HintPath>
       <Private>True</Private>
@@ -67,8 +63,8 @@
       <HintPath>..\packages\mongocsharpdriver.2.4.2\lib\net45\MongoDB.Driver.Legacy.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -92,6 +88,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoordinateConvertor.cs" />
+    <Compile Include="FormSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSettings.Designer.cs">
+      <DependentUpon>FormSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImportManager.cs" />
     <Compile Include="Instrument.cs" />
     <Compile Include="InstrumentButton.cs">
@@ -99,6 +101,7 @@
     </Compile>
     <Compile Include="KnownTypesBinder.cs" />
     <Compile Include="Layer.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="ShapeButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -113,6 +116,9 @@
     <Compile Include="ShapeList.cs" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSettings.resx">
+      <DependentUpon>FormSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

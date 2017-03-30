@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Newtonsoft.Json;
+using System.Linq;
 using Data;
 
 namespace Database
@@ -32,7 +32,9 @@ namespace Database
 
         public bool AddReference(int goodId, int categoryId)
         {
-            if (Data.ReferenceExist(goodId, categoryId) || !Data.GoodExist(goodId) || !Data.CategoryExist(categoryId)) return false;
+            if (Data.ReferenceExist(goodId, categoryId)) throw new Exception("Reference already exist.");
+            if (!Data.GoodExist(goodId)) throw new Exception("Good doesn't exist.");
+            if (!Data.CategoryExist(categoryId)) throw new Exception("Category doesn't exist.");
             Data.AddReference(new Reference(goodId, categoryId));
             Save();
             return true;
@@ -40,7 +42,7 @@ namespace Database
 
         public bool RemoveReference(int goodId, int categoryId)
         {
-            if (!Data.ReferenceExist(goodId, categoryId)) return false;
+            if (!Data.ReferenceExist(goodId, categoryId)) throw new Exception("Reference doesn't exist.");
             Data.RemoveReference(goodId, categoryId);
             Save();
             return true;
@@ -48,6 +50,7 @@ namespace Database
 
         public int AddUser(string name)
         {
+            if (name.Length == 0) throw new Exception("User name not defined.");
             var user = new User(name, Data.AI_User++);
             Data.AddUser(user);
             Save();
@@ -56,7 +59,8 @@ namespace Database
 
         public int AddCategory(string name, int userId)
         {
-            if (!Data.UserExist(userId)) return -1;
+            if (name.Length == 0) throw new Exception("Category name not defined.");
+            if (!Data.UserExist(userId)) throw new Exception("User doesn't exist.");
             var cat = new Category(name, userId, Data.AI_Category++);
             Data.AddCategory(cat);
             Save();
@@ -65,7 +69,8 @@ namespace Database
 
         public int AddGood(string name, int userId)
         {
-            if (!Data.UserExist(userId)) return -1;
+            if (name.Length == 0) throw new Exception("Good name not defined.");
+            if (!Data.UserExist(userId)) throw new Exception("User doesn't exist.");
             var good = new Good(name, userId, Data.AI_Good++);
             Data.AddGood(good);
             Save();
@@ -74,46 +79,110 @@ namespace Database
 
         public bool RemoveUser(int userId)
         {
-            if (Data.UserExist(userId))
-            {
-                Data.RemoveUser(userId);
-                Save();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            if (!Data.UserExist(userId)) throw new Exception("User doesn't exist.");
+            Data.RemoveUser(userId);
+            Save();
+            return true;
         }
 
         public bool RemoveCategory(int catId)
         {
-            if (Data.CategoryExist(catId))
-            {
-                Data.RemoveReferenceByCategoryId(catId);
-                Data.RemoveCategory(catId);
-                Save();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            if (!Data.CategoryExist(catId)) throw new Exception("Category doesn't exist.");
+            Data.RemoveReferenceByCategoryId(catId);
+            Data.RemoveCategory(catId);
+            Save();
+            return true;
         }
 
         public bool RemoveGood(int goodId)
         {
-            if (Data.GoodExist(goodId))
+            if (!Data.GoodExist(goodId)) throw new Exception("Good doesn't exist.");
+            Data.RemoveReferenceByGoodId(goodId);
+            Data.RemoveGood(goodId);
+            Save();
+            return true;
+        }
+
+        public Data.Data SelectByUserId(int userId, bool dependency)
+        {
+            var data = new Data.Data();
+
+            if (!Data.UserExist(userId)) throw new Exception("User doesn't exist.");
+
+            data.AddUser(Data.UserList.Single(x => x.Id == userId));
+
+            if (!dependency) return data;
+
+            foreach (var good in Data.GoodList.Where(x => x.UserId == userId).ToList())
             {
-                Data.RemoveReferenceByGoodId(goodId);
-                Data.RemoveGood(goodId);
-                Save();
-                return true;
+                data.AddGood(good);
             }
-            else
+
+            foreach (var category in Data.CategoryList.Where(x => x.UserId == userId).ToList())
             {
-                return false;
+                data.AddCategory(category);
             }
+
+            return data;
+        }
+
+        public Data.Data SelectByGoodId(int goodId, bool dependency)
+        {
+            var data = new Data.Data();
+
+            if (!Data.GoodExist(goodId)) throw new Exception("Good doesn't exist.");
+
+            var good = Data.GoodList.Single(x => x.Id == goodId);
+
+            data.AddGood(good);
+
+            if (!dependency) return data;
+
+            foreach (var user in Data.UserList.Where(x => x.Id == good.UserId).ToList())
+            {
+                data.AddUser(user);
+            }
+
+            foreach (var category in Data.SelectCategoryByGood(goodId).ToList())
+            {
+                data.AddCategory(category);
+            }
+
+            foreach (var reference in Data.ReferenceList.Where(x => x.GoodId == good.Id).ToList())
+            {
+                data.AddReference(reference);
+            }
+
+            return data;
+        }
+
+        public Data.Data SelectByCategoryId(int categoryId, bool dependency)
+        {
+            var data = new Data.Data();
+
+            if (!Data.CategoryExist(categoryId)) throw new Exception("Category doesn't exist.");
+
+            var category = Data.CategoryList.Single(x => x.Id == categoryId);
+            data.AddCategory(category);
+            
+            if (!dependency) return data;
+
+            foreach (var user in Data.UserList.Where(x => x.Id == category.UserId).ToList())
+            {
+                data.AddUser(user);
+            }
+
+            foreach (var good in Data.SelectGoodByCategory(categoryId).ToList())
+            {
+                data.AddGood(good);
+            }
+
+            foreach (var reference in Data.ReferenceList.Where(x => x.CategoryId == category.Id).ToList())
+            {
+                data.AddReference(reference);
+            }
+
+            return data;
         }
 
         public Data.Data GetData()

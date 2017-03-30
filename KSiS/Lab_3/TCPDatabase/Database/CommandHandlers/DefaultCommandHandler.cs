@@ -16,7 +16,7 @@ namespace Database
 
         public object Execute(Command.ICommand command)
         {
-            return null;
+            throw new NotSupportedException("No such command.");
         }
     }
 }
