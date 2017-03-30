@@ -62,7 +62,9 @@ namespace TCPClient
             var json = Serializer.Serialize(cmd);
             Send(json);
             json = Receive();
-            return Serializer.Deserialize(json).Value;
+            var response = Serializer.Deserialize(json);
+            if (response.Exception != null) throw response.Exception;
+            return response.Value;
         }
 
         public int AddUser(string userName)
@@ -104,7 +106,22 @@ namespace TCPClient
         {
             return (bool)ProcessFunctuion(new RemoveCategory { CatId = catId });
         }
-        
+
+        public Data.Data SelectByUserId(int userId, bool dependency)
+        {
+            return (Data.Data)ProcessFunctuion(new SelectByUserId { UserId = userId, Dependency = dependency});
+        }
+
+        public Data.Data SelectByGoodId(int goodId, bool dependency)
+        {
+            return (Data.Data)ProcessFunctuion(new SelectByGoodId { GoodId = goodId, Dependency = dependency });
+        }
+
+        public Data.Data SelectByCategoryId(int categoryId, bool dependency)
+        {
+            return (Data.Data)ProcessFunctuion(new SelectByCategoryId { CategoryId = categoryId, Dependency = dependency });
+        }
+
         public Data.Data GetData()
         {
             return (Data.Data)ProcessFunctuion(new GetData());

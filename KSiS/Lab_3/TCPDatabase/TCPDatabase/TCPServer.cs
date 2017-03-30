@@ -75,14 +75,25 @@ namespace TCPDatabase
                         var bytesRead = stream.Read(buffer, 0, buffer.Length);
                         data += Encoding.UTF8.GetString(buffer, 0, bytesRead);
                     }
-                    
+
+                    object response;
+                    Exception exception = null;
 
                     var command = Serializer.Deserialize(data);
                     var handler = Registry.Get(command.GetType());
-                    var response = handler.Execute(command);
-                    var serializedResponse = Serializer.Serialize(new Response { Value = response });
-                    var bytesResponse = Encoding.UTF8.GetBytes(serializedResponse);
 
+                    try
+                    {
+                        response = handler.Execute(command);
+                    }
+                    catch (Exception ex)
+                    {
+                        response = null;
+                        exception = ex;
+                    }
+
+                    var serializedResponse = Serializer.Serialize(new Response { Value = response, Exception = exception});
+                    var bytesResponse = Encoding.UTF8.GetBytes(serializedResponse);
                     stream.Write(bytesResponse, 0, bytesResponse.Length);
 
                     Console.WriteLine(command.GetType().ToString().Split('.')[1]);

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Command
 {
-    public class Response
+    public class SelectByCategoryId : ICommand
     {
-        public object Value { get; set; }
-        public Exception Exception { get; set; }
+        public int CategoryId { get; set; }
+        public bool Dependency { get; set; }
     }
 }

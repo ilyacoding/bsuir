@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace Database
 {
-    public class DefaultCommandHandler : ICommandHandler
+    public class SelectByGoodIdCommandHandler : ICommandHandler
     {
         private Database db { get; set; }
-        public DefaultCommandHandler(Database db)
+        public SelectByGoodIdCommandHandler(Database db)
         {
             this.db = db;
         }
 
         public object Execute(Command.ICommand command)
         {
-            throw new NotSupportedException("No such command.");
+            var select = (Command.SelectByGoodId)command;
+            return db.SelectByGoodId(select.GoodId, select.Dependency);
         }
     }
 }

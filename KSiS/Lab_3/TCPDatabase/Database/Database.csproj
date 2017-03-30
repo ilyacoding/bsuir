@@ -52,6 +52,9 @@
     <Compile Include="CommandHandlers\RemoveGoodCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemoveReferenceCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemoveUserCommandHandler.cs" />
+    <Compile Include="CommandHandlers\SelectByCategoryIdCommandHandler.cs" />
+    <Compile Include="CommandHandlers\SelectByGoodIdCommandHandler.cs" />
+    <Compile Include="CommandHandlers\SelectByUserIdCommandHandler.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="CommandHandlers\AddGoodCommandHandler.cs" />
     <Compile Include="DbSerializer.cs" />

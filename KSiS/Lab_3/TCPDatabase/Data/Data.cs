@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,7 +52,7 @@ namespace Data
         {
             ReferenceList.Add(refer);
         }
-
+        
         public void RemoveReference(int goodId, int categoryId)
         {
             ReferenceList.Remove(ReferenceList.Find(x => x.GoodId == goodId && x.CategoryId == categoryId));
@@ -65,6 +66,46 @@ namespace Data
         public void RemoveReferenceByCategoryId(int categoryId)
         {
             ReferenceList.RemoveAll(x => x.CategoryId == categoryId);
+        }
+
+        public IEnumerable<Reference> SelectReferenceByCategoryId(int categoryId)
+        {
+            return ReferenceList.Where(x => x.CategoryId == categoryId);
+        }
+
+        public IEnumerable<Reference> SelectReferenceByGoodId(int goodId)
+        {
+            return ReferenceList.Where(x => x.GoodId == goodId);
+        }
+
+        public List<Category> SelectCategoryByGood(int goodId)
+        {
+            var reference = SelectReferenceByGoodId(goodId);
+            var categories = new List<Category>();
+            foreach (var item in reference.ToList())
+            {
+                var cat = CategoryList.Single(x => x.Id == item.CategoryId);
+                if (!categories.Contains(cat))
+                {
+                    categories.Add(cat);
+                }
+            }
+            return categories;
+        }
+
+        public List<Good> SelectGoodByCategory(int categoryId)
+        {
+            var reference = SelectReferenceByCategoryId(categoryId);
+            var goods = new List<Good>();
+            foreach (var item in reference.ToList())
+            {
+                var good = GoodList.Single(x => x.Id == item.GoodId);
+                if (!goods.Contains(good))
+                {
+                    goods.Add(good);
+                }
+            }
+            return goods;
         }
 
         public void AddUser(User usr)
