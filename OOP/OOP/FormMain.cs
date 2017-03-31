@@ -17,6 +17,7 @@ namespace OOP
     public partial class FormMain : Form
     {
         ShapeList Shapes;
+        ConfigSettings Settings;
         Layer Layers;
         CompositionContainer container;
         ImportManager imports;
@@ -152,6 +153,8 @@ namespace OOP
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            openFileDialog.Filter = "Image files (*.ic)|*.ic";
+            openFileDialog.InitialDirectory = "D:\\Crypto\\GitHub\\bsuir-labs\\OOP\\OOP\\bin\\Debug\\Images\\";
             if (openFileDialog.ShowDialog() != DialogResult.Cancel)
             {
                 try
@@ -484,12 +487,15 @@ namespace OOP
 
         private void loadToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-
+            if (openFileDialog.ShowDialog() != DialogResult.Cancel)
+            {
+            }
         }
 
-        private void saveToolStripMenuItem2_Click(object sender, EventArgs e)
+        private void configurationEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            var formSetttings = new FormSettings();
+            formSetttings.Show();
         }
     }
 }

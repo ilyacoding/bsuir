@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OOP
 {
-    public class Settings
+    public class ConfigSettings
     {
         public int Width { get; set; }
         public int Height { get; set; }

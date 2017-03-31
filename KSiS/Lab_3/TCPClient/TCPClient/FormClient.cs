@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
 
@@ -267,6 +268,19 @@ namespace TCPClient
             }
         }
 
+        private bool selectDependency(object sender, EventArgs e)
+        {
+            switch (Interaction.MsgBox("Select dependencies from database?", MsgBoxStyle.YesNo))
+            {
+                case MsgBoxResult.Yes:
+                    return true;
+                case MsgBoxResult.No:
+                    return false;
+                default:
+                    throw new Exception("Please, select: choose dependency or not.");
+            }
+        }
+
         private void selectUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int userId;
@@ -281,18 +295,7 @@ namespace TCPClient
                 return;
             }
 
-            switch (Interaction.MsgBox("Select dependencies from database?", MsgBoxStyle.YesNo))
-            {
-                case MsgBoxResult.Yes:
-                    dependency = true;
-                    break;
-                case MsgBoxResult.No:
-                    dependency = false;
-                    break;
-                default:
-                    MessageBox.Show("Please, select: choose dependency or not.");
-                    return;
-            }
+            dependency = selectDependency(sender, e);
 
             try
             {
