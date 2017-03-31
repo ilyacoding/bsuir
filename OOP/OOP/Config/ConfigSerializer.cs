@@ -13,6 +13,7 @@ namespace OOP
         public void Serialize(ConfigSettings configSettings, string filePath)
         { 
             var formatter = new XmlSerializer(typeof(ConfigSettings));
+            File.Delete(filePath);
             using (var fs = new FileStream(filePath, FileMode.OpenOrCreate))
             {
                 formatter.Serialize(fs, configSettings);
@@ -22,7 +23,7 @@ namespace OOP
         public ConfigSettings Deserialize(string filePath)
         {
             var formatter = new XmlSerializer(typeof(ConfigSettings));
-            using (var fs = new FileStream("persons.xml", FileMode.OpenOrCreate))
+            using (var fs = new FileStream(filePath, FileMode.OpenOrCreate))
             {
                 return (ConfigSettings)formatter.Deserialize(fs);
             }

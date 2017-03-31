@@ -22,7 +22,7 @@ namespace OOP
             Height = height;
             Shapes = sh;
         }
-
+        
         public void UpdateStatic()
         {
             var TmpLayer = new Bitmap(Width, Height);

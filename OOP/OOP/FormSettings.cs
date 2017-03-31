@@ -42,8 +42,7 @@ namespace OOP
                 height = Convert.ToInt32(textBoxHeight.Text);
                 
                 modulePath = textBoxModulePath.Text;
-
-
+                
                 imageExtension = textBoxImageExt.Text;
                 imagePath = textBoxImagePath.Text;
 
