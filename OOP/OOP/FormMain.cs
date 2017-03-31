@@ -16,18 +16,22 @@ namespace OOP
 {
     public partial class FormMain : Form
     {
-        ShapeList Shapes;
-        ConfigSettings Settings;
-        Layer Layers;
-        CompositionContainer container;
-        ImportManager imports;
-        KnownTypesBinder kBinder;
+        private ShapeList Shapes;
+        private ConfigSettings Settings;
+        private Layer Layers;
+        private CompositionContainer container;
+        private ImportManager imports;
+        private KnownTypesBinder kBinder;
+        private string ExecutionPath { get; set; }
+        private ConfigSettings ConfigSettings { get; set; }
+        private ConfigSerializer ConfigSerializer { get; set; }
 
         private int InstrumentButtonY = 1;
 
         public FormMain()
         {
             InitializeComponent();
+            ExecutionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             panelColorSelect.BackColor = Color.Black;
             panelBackgroundSelect.BackColor = Color.White;
             pictureBoxDraw.BackColor = Color.White;
@@ -36,6 +40,7 @@ namespace OOP
             Shapes = new ShapeList(Color.White, listBoxShapes);
             Layers = new Layer(pictureBoxDraw.Width, pictureBoxDraw.Height, Shapes);
             kBinder = new KnownTypesBinder();
+            ConfigSerializer = new ConfigSerializer();
         }
 
         private void InitializeImport(string directoryPath)
@@ -131,7 +136,15 @@ namespace OOP
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (ConfigSettings == null)
+            {
+                MessageBox.Show("Config wasn't load.");
+                return;
+            }
+            saveFileDialog.Filter = "Image files (*." + ConfigSettings.ImageSettings.ImageExtension + ")|*." + ConfigSettings.ImageSettings.ImageExtension;
+            saveFileDialog.InitialDirectory = ConfigSettings.ImageSettings.ImagePath;
+            saveFileDialog.RestoreDirectory = false;
+            
             if (saveFileDialog.ShowDialog() != DialogResult.Cancel)
             {
                 try
@@ -150,13 +163,20 @@ namespace OOP
                     MessageBox.Show("Error while writing to file. Err: " + err.ToString());
                 }
             }
+            ClearFileDialog();
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-            openFileDialog.Filter = "Image files (*.ic)|*.ic";
-            openFileDialog.InitialDirectory = "D:\\Crypto\\GitHub\\bsuir-labs\\OOP\\OOP\\bin\\Debug\\Images\\";
+            if (ConfigSettings == null)
+            {
+                MessageBox.Show("Config wasn't load.");
+                return;
+            }
+            openFileDialog.Filter = "Image files (*." + ConfigSettings.ImageSettings.ImageExtension + ")|*." + ConfigSettings.ImageSettings.ImageExtension;
+            openFileDialog.InitialDirectory = ConfigSettings.ImageSettings.ImagePath;
+            openFileDialog.RestoreDirectory = false;
+            
             if (openFileDialog.ShowDialog() != DialogResult.Cancel)
             {
                 try
@@ -183,6 +203,7 @@ namespace OOP
                     MessageBox.Show("Error while reading file.");
                 }
             }
+            ClearFileDialog();
         }
 
         private void listBoxShapes_SelectedIndexChanged(object sender, EventArgs e)
@@ -378,10 +399,14 @@ namespace OOP
         
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (ConfigSettings == null)
+            {
+                MessageBox.Show("Config wasn't load.");
+                return;
+            }
             try
             {
-                InitializeImport(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Plugins");
+                InitializeImport(ConfigSettings.ModuleSettings.ModulePath);
 
                 var y = 1;
                 var runtimeTypes = new List<Type>();
@@ -413,13 +438,20 @@ namespace OOP
             {
                 MessageBox.Show(ex.ToString());
             }
+            ClearFileDialog();
         }
 
         private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-            openFileDialog.Filter = "Image files (*.ic)|*.ic";
-            openFileDialog.InitialDirectory = "D:\\Crypto\\GitHub\\bsuir-labs\\OOP\\OOP\\bin\\Debug\\Images\\";
+            if (ConfigSettings == null)
+            {
+                MessageBox.Show("Config wasn't load.");
+                return;
+            }
+            saveFileDialog.Filter = "Instrument files (*." + ConfigSettings.InstrumentSettings.InstrumentExtension + ")|*." + ConfigSettings.InstrumentSettings.InstrumentExtension;
+            saveFileDialog.InitialDirectory = ConfigSettings.InstrumentSettings.InstrumentPath;
+            saveFileDialog.RestoreDirectory = false;
+            
             if (saveFileDialog.ShowDialog() != DialogResult.Cancel)
             {
                 var Name = Interaction.InputBox("Instrument name:", "Input name", "");
@@ -448,9 +480,15 @@ namespace OOP
 
         private void loadToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-            openFileDialog.Filter = "Image files (*.ic)|*.ic";
-            openFileDialog.InitialDirectory = "D:\\Crypto\\GitHub\\bsuir-labs\\OOP\\OOP\\bin\\Debug\\Images\\";
+            if (ConfigSettings == null)
+            {
+                MessageBox.Show("Config wasn't load.");
+                return;
+            }
+            openFileDialog.Filter = "Instrument files (*." + ConfigSettings.InstrumentSettings.InstrumentExtension + ")|*." + ConfigSettings.InstrumentSettings.InstrumentExtension;
+            openFileDialog.InitialDirectory = ConfigSettings.InstrumentSettings.InstrumentPath;
+            openFileDialog.RestoreDirectory = false;
+            
             if (openFileDialog.ShowDialog() != DialogResult.Cancel)
             {
                 try
@@ -488,25 +526,50 @@ namespace OOP
             }
         }
 
-        private void updateStaticToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Layers.UpdateStatic();
-            pictureBoxDraw.Image = Layers.DynamicLayer;
-        }
-
         private void loadToolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            openFileDialog.Filter = "Xml configuration (*.xml)|*.xml";
+            openFileDialog.InitialDirectory = Path.Combine(ExecutionPath, "Configurations");
+            openFileDialog.RestoreDirectory = false;
+            
+            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
 
-            throw new NotImplementedException();
-            if (openFileDialog.ShowDialog() != DialogResult.Cancel)
+            try
             {
+                ConfigSettings = ConfigSerializer.Deserialize(openFileDialog.FileName);
+
+                if (!ConfigSettings.IsValid())
+                {
+                    ConfigSettings = null;
+                    MessageBox.Show("Invalid config.");
+                    return;
+                }
             }
+            catch (Exception)
+            {
+                MessageBox.Show("Invalid config.");
+                return;
+            }
+
+            pictureBoxDraw.Width = ConfigSettings.WindowSettings.Width;
+            pictureBoxDraw.Height = ConfigSettings.WindowSettings.Height;
+
+            Layers = new Layer(pictureBoxDraw.Width, pictureBoxDraw.Height, Shapes);
+
+            labelConfig.Text = "Config: " + Path.GetFileName(openFileDialog.FileName);
+            ClearFileDialog();
         }
 
         private void configurationEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var formSetttings = new FormSettings(new ConfigSerializer());
             formSetttings.Show();
+        }
+
+        private void ClearFileDialog()
+        {
+            openFileDialog.FileName = "";
+            saveFileDialog.FileName = "";
         }
     }
 }

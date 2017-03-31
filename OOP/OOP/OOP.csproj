@@ -87,7 +87,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigSerializer.cs" />
+    <Compile Include="Config\ConfigSerializer.cs" />
+    <Compile Include="Config\ImageSettings.cs" />
+    <Compile Include="Config\InstrumentSettings.cs" />
+    <Compile Include="Config\ModuleSettings.cs" />
+    <Compile Include="Config\WindowSettings.cs" />
     <Compile Include="CoordinateConvertor.cs" />
     <Compile Include="FormSettings.cs">
       <SubType>Form</SubType>
@@ -102,7 +106,7 @@
     </Compile>
     <Compile Include="KnownTypesBinder.cs" />
     <Compile Include="Layer.cs" />
-    <Compile Include="ConfigSettings.cs" />
+    <Compile Include="Config\ConfigSettings.cs" />
     <Compile Include="ShapeButton.cs">
       <SubType>Component</SubType>
     </Compile>
