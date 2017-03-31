@@ -38,9 +38,9 @@ namespace OOP
             kBinder = new KnownTypesBinder();
         }
 
-        private void InitializeImport()
+        private void InitializeImport(string directoryPath)
         {
-            var dirCatalog = new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Plugins");
+            var dirCatalog = new DirectoryCatalog(directoryPath);
             container = new CompositionContainer(dirCatalog);
             imports = new ImportManager();
             container.ComposeParts(this, imports);
@@ -131,6 +131,7 @@ namespace OOP
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            throw new NotImplementedException();
             if (saveFileDialog.ShowDialog() != DialogResult.Cancel)
             {
                 try
@@ -153,6 +154,7 @@ namespace OOP
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            throw new NotImplementedException();
             openFileDialog.Filter = "Image files (*.ic)|*.ic";
             openFileDialog.InitialDirectory = "D:\\Crypto\\GitHub\\bsuir-labs\\OOP\\OOP\\bin\\Debug\\Images\\";
             if (openFileDialog.ShowDialog() != DialogResult.Cancel)
@@ -373,12 +375,13 @@ namespace OOP
                     break;
             }
         }
-
+        
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            throw new NotImplementedException();
             try
             {
-                InitializeImport();
+                InitializeImport(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Plugins");
 
                 var y = 1;
                 var runtimeTypes = new List<Type>();
@@ -414,6 +417,9 @@ namespace OOP
 
         private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            throw new NotImplementedException();
+            openFileDialog.Filter = "Image files (*.ic)|*.ic";
+            openFileDialog.InitialDirectory = "D:\\Crypto\\GitHub\\bsuir-labs\\OOP\\OOP\\bin\\Debug\\Images\\";
             if (saveFileDialog.ShowDialog() != DialogResult.Cancel)
             {
                 var Name = Interaction.InputBox("Instrument name:", "Input name", "");
@@ -442,6 +448,9 @@ namespace OOP
 
         private void loadToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            throw new NotImplementedException();
+            openFileDialog.Filter = "Image files (*.ic)|*.ic";
+            openFileDialog.InitialDirectory = "D:\\Crypto\\GitHub\\bsuir-labs\\OOP\\OOP\\bin\\Debug\\Images\\";
             if (openFileDialog.ShowDialog() != DialogResult.Cancel)
             {
                 try
@@ -487,6 +496,8 @@ namespace OOP
 
         private void loadToolStripMenuItem2_Click(object sender, EventArgs e)
         {
+
+            throw new NotImplementedException();
             if (openFileDialog.ShowDialog() != DialogResult.Cancel)
             {
             }
@@ -494,7 +505,7 @@ namespace OOP
 
         private void configurationEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var formSetttings = new FormSettings();
+            var formSetttings = new FormSettings(new ConfigSerializer());
             formSetttings.Show();
         }
     }

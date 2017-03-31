@@ -87,7 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigSerialization.cs" />
+    <Compile Include="ConfigSerializer.cs" />
     <Compile Include="CoordinateConvertor.cs" />
     <Compile Include="FormSettings.cs">
       <SubType>Form</SubType>
