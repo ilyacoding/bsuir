@@ -1,0 +1,23 @@
+#!/bin/bash
+OIFS="$IFS"
+IFS=$'\n'
+ERROR_LOG="tmp"
+
+amount=`find $1 -readable -type f 2>$ERROR_LOG | wc -l`
+let "amount+=`find $2 -readable -type f 2>$ERROR_LOG | wc -l`"
+
+echo "Checked $amount"
+
+for i in $(find "$1" -readable -print -type f 2>$ERROR_LOG)
+do
+    for j in $(find "$2" -readable -print -type f 2>$ERROR_LOG)
+    do
+        if cmp -s "${i}" "${j}" 2>$ERROR_LOG ; then 
+        	echo "`readlink -f $i` = `readlink -f $j`"
+        fi
+    done
+done
+
+sed -r "s/^/$(basename $0 -a): /" $ERROR_LOG >&2
+rm $ERROR_LOG
+IFS="$OIFS"
