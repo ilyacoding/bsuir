@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ilya/OS/lab3/main.c
+stdio.h
+-
+unistd.h
+-
+dirent.h
+-
+stdlib.h
+-
+string.h
+-
+errno.h
+-
+libgen.h
+-
+sys/wait.h
+-
+
