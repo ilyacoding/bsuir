@@ -319,9 +319,9 @@ namespace OOP
                 {
                     Shapes.ShapeToWork = (Shape)Activator.CreateInstance(Shapes.ShapeToWork.GetType(), new object[] { colorDialogSelect.Color, Int32.Parse(labelThickness.Text), Shapes.OldPoint.X, Shapes.OldPoint.Y, Shapes.CurrentPoint.X, Shapes.CurrentPoint.Y });
                 }
-
                 Layers.UpdateDynamic();
                 pictureBoxDraw.Image = Layers.DynamicLayer;
+                System.GC.Collect();
             }
             else if (Shapes.State == EState.Moving)
             {
@@ -337,6 +337,7 @@ namespace OOP
 
                 Layers.UpdateDynamic();
                 pictureBoxDraw.Image = Layers.DynamicLayer;
+                System.GC.Collect();
             }
         }
 
@@ -553,7 +554,6 @@ namespace OOP
 
             pictureBoxDraw.Width = ConfigSettings.WindowSettings.Width;
             pictureBoxDraw.Height = ConfigSettings.WindowSettings.Height;
-
             Layers = new Layer(pictureBoxDraw.Width, pictureBoxDraw.Height, Shapes);
 
             labelConfig.Text = "Config: " + Path.GetFileName(openFileDialog.FileName);

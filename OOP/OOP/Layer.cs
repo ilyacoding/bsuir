@@ -45,6 +45,11 @@ namespace OOP
                 TmpLayer = new Bitmap(Width, Height);
             }
 
+            if (DynamicLayer != null)
+            {
+                DynamicLayer.Dispose();
+            }
+
             Shapes.DrawTmp(Graphics.FromImage(TmpLayer));
             DynamicLayer = TmpLayer;
         }

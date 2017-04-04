@@ -64,13 +64,13 @@ int ProcessDir(char* prog, char* directory, int from, int to, FILE* fd_output, u
 
 		free(currentPath);
 	} 
-
+	
 	if (errno != 0)
 	{
 		fprintf(stderr, "%s: %s %s\n", prog, directory, strerror(errno));
 		return -1;
 	}
-
+	
 	closedir(dp);
 	if (errno != 0)
 	{
