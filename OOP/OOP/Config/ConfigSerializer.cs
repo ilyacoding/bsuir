@@ -13,10 +13,13 @@ namespace OOP
         public void Serialize(ConfigSettings configSettings, string filePath)
         { 
             var formatter = new XmlSerializer(typeof(ConfigSettings));
+            var ns = new XmlSerializerNamespaces();
+            
+            ns.Add("", "");
             File.Delete(filePath);
             using (var fs = new FileStream(filePath, FileMode.OpenOrCreate))
             {
-                formatter.Serialize(fs, configSettings);
+                formatter.Serialize(fs, configSettings, ns);
             }
         }
 

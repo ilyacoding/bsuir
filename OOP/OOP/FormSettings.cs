@@ -92,6 +92,12 @@ namespace OOP
                 }
             };
 
+            if (!config.IsValid())
+            {
+                MessageBox.Show("Config is not valid.");
+                return;
+            }
+
             ConfigSerializer.Serialize(config, saveFileDialogConfig.FileName);
         }
 
