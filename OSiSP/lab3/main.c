@@ -65,7 +65,7 @@ int ProcessFile(char* prog, char* filepath)
         if ((*array[i]) > 0)
         {
             char* string = (char*)malloc(100*sizeof(char));
-            sprintf(string, "%d %f; ", i, (*array[i]) * delta);
+            sprintf(string, "%x %d; ", i, *array[i]);
             strcat(result, string);
             free(string);
         }
