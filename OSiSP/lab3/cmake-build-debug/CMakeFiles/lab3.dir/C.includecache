@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/ilya/OS/lab3/main.c
+/home/ilya/bsuir-labs/OSiSP/lab3/main.c
 stdio.h
 -
 unistd.h

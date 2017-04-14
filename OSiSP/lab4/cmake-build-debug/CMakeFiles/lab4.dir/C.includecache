@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ilya/bsuir-labs/OSiSP/lab4/main.c
+stdio.h
+-
+sys/types.h
+-
+signal.h
+-
+stdio.h
+-
+unistd.h
+-
+dirent.h
+-
+stdlib.h
+-
+string.h
+-
+errno.h
+-
+libgen.h
+-
+sys/wait.h
+-
+
