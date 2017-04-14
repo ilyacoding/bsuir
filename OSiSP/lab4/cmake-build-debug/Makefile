@@ -48,10 +48,10 @@ RM = /home/ilya/clion/bin/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ilya/bsuir-labs/OSiSP/lab3
+CMAKE_SOURCE_DIR = /home/ilya/bsuir-labs/OSiSP/lab4
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ilya/bsuir-labs/OSiSP/lab3/cmake-build-debug
+CMAKE_BINARY_DIR = /home/ilya/bsuir-labs/OSiSP/lab4/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ilya/bsuir-labs/OSiSP/lab3/cmake-build-debug/CMakeFiles /home/ilya/bsuir-labs/OSiSP/lab3/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ilya/bsuir-labs/OSiSP/lab4/cmake-build-debug/CMakeFiles /home/ilya/bsuir-labs/OSiSP/lab4/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ilya/bsuir-labs/OSiSP/lab3/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ilya/bsuir-labs/OSiSP/lab4/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named lab3
+# Target rules for targets named lab4
 
 # Build rule for target.
-lab3: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 lab3
-.PHONY : lab3
+lab4: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lab4
+.PHONY : lab4
 
 # fast build rule for target.
-lab3/fast:
-	$(MAKE) -f CMakeFiles/lab3.dir/build.make CMakeFiles/lab3.dir/build
-.PHONY : lab3/fast
+lab4/fast:
+	$(MAKE) -f CMakeFiles/lab4.dir/build.make CMakeFiles/lab4.dir/build
+.PHONY : lab4/fast
 
 main.o: main.c.o
 
@@ -129,7 +129,7 @@ main.o: main.c.o
 
 # target to build an object file
 main.c.o:
-	$(MAKE) -f CMakeFiles/lab3.dir/build.make CMakeFiles/lab3.dir/main.c.o
+	$(MAKE) -f CMakeFiles/lab4.dir/build.make CMakeFiles/lab4.dir/main.c.o
 .PHONY : main.c.o
 
 main.i: main.c.i
@@ -138,7 +138,7 @@ main.i: main.c.i
 
 # target to preprocess a source file
 main.c.i:
-	$(MAKE) -f CMakeFiles/lab3.dir/build.make CMakeFiles/lab3.dir/main.c.i
+	$(MAKE) -f CMakeFiles/lab4.dir/build.make CMakeFiles/lab4.dir/main.c.i
 .PHONY : main.c.i
 
 main.s: main.c.s
@@ -147,7 +147,7 @@ main.s: main.c.s
 
 # target to generate assembly for a file
 main.c.s:
-	$(MAKE) -f CMakeFiles/lab3.dir/build.make CMakeFiles/lab3.dir/main.c.s
+	$(MAKE) -f CMakeFiles/lab4.dir/build.make CMakeFiles/lab4.dir/main.c.s
 .PHONY : main.c.s
 
 # Help Target
@@ -158,7 +158,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... lab3"
+	@echo "... lab4"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
