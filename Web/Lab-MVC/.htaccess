@@ -1,0 +1,12 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.php [L]
+#RewriteEngine On
+
+#RewriteRule ^cat/(.*)$ index.php?cat_id=$1 [L,QSA]
+#RewriteRule ^date/(.*)$ index.php?date=$1 [L,QSA]
+#RewriteRule ^item/(.*)$ index.php?item=$1 [L,QSA]
+#
+## Sitemap
+#RewriteRule ^sitemap.xml$ /sitemap.php
