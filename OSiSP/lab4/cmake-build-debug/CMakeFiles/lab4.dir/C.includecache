@@ -29,4 +29,8 @@ libgen.h
 -
 sys/wait.h
 -
+sys/time.h
+-
+sys/stat.h
+-
 
