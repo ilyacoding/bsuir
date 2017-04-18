@@ -1,10 +1,7 @@
-#define _BSD_SOURCE
 #include <stdio.h>
 #include <sys/types.h>
 #include <signal.h>
-#include <stdio.h>
 #include <unistd.h>
-#include <dirent.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
@@ -15,11 +12,128 @@
 
 char* prog;
 char* TMP_PID_LIST = "tmp_pid_list";
+char* TMP_SIG = "tmp_sig";
+FILE* tmp_sig;
 int pid_list[10];
 
 int sig1_received = 0;
 int sig2_received = 0;
 int send_to_pid;
+
+int wait_sig(long num)
+{
+    FILE* fp = fopen(TMP_SIG, "r");
+
+    if (errno != 0)
+    {
+        fprintf(stderr, "123%s: %s\n", prog, strerror(errno));
+        return -1;
+    }
+    long size = 0;
+    while (size < num) {
+        fseek(fp, 0L, SEEK_END);
+
+        if (errno != 0) {
+            fprintf(stderr, "%s: %s\n", prog, strerror(errno));
+            return -1;
+        }
+
+        size = ftell(fp);
+
+        if (errno != 0)
+        {
+            fprintf(stderr, "%s: %s\n", prog, strerror(errno));
+            return -1;
+        }
+    }
+
+    fclose(fp);
+
+    if (errno != 0)
+    {
+        fprintf(stderr, "%s: %s\n", prog, strerror(errno));
+        return -1;
+    }
+
+    return 0;
+}
+
+//int get_sig()
+//{
+//    FILE* fp = fopen(TMP_SIG, "r");
+//
+//    if (errno != 0)
+//    {
+//        fprintf(stderr, "123%s: %s\n", prog, strerror(errno));
+//        return -1;
+//    }
+//
+//    fseek(fp, 0L, SEEK_END);
+//
+//    if (errno != 0)
+//    {
+//        fprintf(stderr, "%s: %s\n", prog, strerror(errno));
+//        return -1;
+//    }
+//
+//    long size = ftell(fp);
+//
+//    if (errno != 0)
+//    {
+//        fprintf(stderr, "%s: %s\n", prog, strerror(errno));
+//        return -1;
+//    }
+//
+//    fclose(fp);
+//
+//    if (errno != 0)
+//    {
+//        fprintf(stderr, "%s: %s\n", prog, strerror(errno));
+//        return -1;
+//    }
+//
+//    return size;
+//}
+
+void add_sig()
+{
+    FILE* fp = fopen(TMP_SIG, "a");
+
+    if (errno != 0)
+    {
+        fprintf(stderr, "%s: %s\n", prog, strerror(errno));
+        return;
+    }
+
+    fprintf(fp, "1");
+
+    fclose(fp);
+
+    if (errno != 0)
+    {
+        fprintf(stderr, "%s: %s\n", prog, strerror(errno));
+        return;
+    }
+}
+
+void clear_sig()
+{
+    FILE* fp = fopen(TMP_SIG, "w");
+
+    if (errno != 0)
+    {
+        fprintf(stderr, "%s: %s\n", prog, strerror(errno));
+        return;
+    }
+
+    fclose(fp);
+
+    if (errno != 0)
+    {
+        fprintf(stderr, "%s: %s\n", prog, strerror(errno));
+        return;
+    }
+}
 
 int get_pid_list()
 {
@@ -124,6 +238,7 @@ void *ps1_sig_handler(int signo)
     {
         printf("1 %d %d получил SIGUSR2 %lld\n", getpid(), getppid(), curr_time());
         sig2_received++;
+
         if (sig2_received == 101)
         {
             get_pid_list();
@@ -136,6 +251,7 @@ void *ps1_sig_handler(int signo)
         }
         else
         {
+            clear_sig();
             send_to(1, SIGUSR2, 0);
         }
     }
@@ -152,6 +268,7 @@ void *ps2_sig_handler(int signo)
     {
         printf("2 %d %d получил SIGUSR2 %lld\n", getpid(), getppid(), curr_time());
         sig2_received++;
+        add_sig();
     }
     else if (signo == SIGTERM)
     {
@@ -171,6 +288,7 @@ void *ps3_sig_handler(int signo)
     {
         printf("3 %d %d получил SIGUSR2 %lld\n", getpid(), getppid(), curr_time());
         sig2_received++;
+        add_sig();
     }
     else if (signo == SIGTERM)
     {
@@ -199,6 +317,7 @@ void *ps4_sig_handler(int signo)
     {
         printf("4 %d %d получил SIGUSR2 %lld\n", getpid(), getppid(), curr_time());
         sig2_received++;
+        add_sig();
     }
     else if (signo == SIGTERM)
     {
@@ -219,6 +338,7 @@ void *ps5_sig_handler(int signo)
     {
         printf("5 %d %d получил SIGUSR2 %lld\n", getpid(), getppid(), curr_time());
         sig2_received++;
+        add_sig();
     }
     else if (signo == SIGTERM)
     {
@@ -233,11 +353,14 @@ void *ps6_sig_handler(int signo)
     {
         printf("6 %d %d получил SIGUSR2 %lld\n", getpid(), getppid(), curr_time());
         sig2_received++;
+
+        wait_sig(4);
+        clear_sig();
+
         send_to(6, SIGUSR1, 0);
     }
     else if (signo == SIGTERM)
     {
-
         print_result(6);
         get_pid_list();
 
@@ -255,6 +378,7 @@ void *ps7_sig_handler(int signo)
     {
         printf("7 %d %d получил SIGUSR1 %lld\n", getpid(), getppid(), curr_time());
         sig1_received++;
+        add_sig();
     }
     else if (signo == SIGTERM)
     {
@@ -267,8 +391,11 @@ void *ps8_sig_handler(int signo)
 {
     if (signo == SIGUSR1)
     {
-        printf("8 %d %d получил SIGUSR1 %lld\n", getpid(), getppid(), curr_time());
         sig1_received++;
+        printf("8 %d %d получил SIGUSR1 %lld\n", getpid(), getppid(), curr_time());
+
+        wait_sig(1);
+        clear_sig();
         send_to(8, SIGUSR2, 0);
     }
     else if (signo == SIGTERM)
@@ -276,12 +403,6 @@ void *ps8_sig_handler(int signo)
         print_result(8);
         exit(0);
     }
-}
-
-int file_exist (char *filename)
-{
-    struct stat   buffer;
-    return (stat (filename, &buffer) == 0);
 }
 
 int amount_of_lines(char* filename)
@@ -319,10 +440,6 @@ int main(int argc, char *argv[])
 {
     prog = basename(argv[0]);
 
-    if(file_exist(TMP_PID_LIST))
-    {
-        remove(TMP_PID_LIST);
-    }
     FILE* pidFile = fopen(TMP_PID_LIST, "w");
 
     if (errno != 0)
@@ -380,8 +497,6 @@ int main(int argc, char *argv[])
                         signal(SIGUSR1, (void *)ps8_sig_handler);
                         signal(SIGTERM, (void *)ps8_sig_handler);
 
-                        printf("8) %d %d : %d process created\n", getpid(), getppid(), getpgrp());
-
                         while(amount_of_lines(TMP_PID_LIST) != 6);
 
                         fseek(pidFile, 0L, SEEK_END);
@@ -412,8 +527,6 @@ int main(int argc, char *argv[])
 
                     while(amount_of_lines(TMP_PID_LIST) != 2);
 
-                    printf("4) %d %d : %d process created\n", getpid(), getppid(), getpgrp());
-
                     fseek(pidFile, 0L, SEEK_END);
 
                     if (errno != 0)
@@ -436,7 +549,6 @@ int main(int argc, char *argv[])
                     // Process 4
                 }
                 int group_3 = getpid();
-//                printf("PID3 = %d\n", group_3);
 
                 int pid5 = fork();
                 if (pid5 == -1)
@@ -452,8 +564,6 @@ int main(int argc, char *argv[])
                     signal(SIGTERM, (void *)ps5_sig_handler);
 
                     while(amount_of_lines(TMP_PID_LIST) != 3);
-
-                    printf("5) %d %d : %d process created\n", getpid(), getppid(), getpgrp());
 
                     fseek(pidFile, 0L, SEEK_END);
 
@@ -497,8 +607,6 @@ int main(int argc, char *argv[])
                         signal(SIGUSR1, (void *)ps7_sig_handler);
                         signal(SIGTERM, (void *)ps7_sig_handler);
 
-                        printf("7) %d %d : %d process created\n", getpid(), getppid(), getpgrp());
-
                         while(amount_of_lines(TMP_PID_LIST) != 5);
 
                         fseek(pidFile, 0L, SEEK_END);
@@ -530,8 +638,6 @@ int main(int argc, char *argv[])
 
                     while(amount_of_lines(TMP_PID_LIST) != 4);
 
-                    printf("6) %d %d : %d process created\n", getpid(), getppid(), getpgrp());
-
                     fseek(pidFile, 0L, SEEK_END);
 
                     if (errno != 0)
@@ -560,8 +666,6 @@ int main(int argc, char *argv[])
 
                 while(amount_of_lines(TMP_PID_LIST) != 1);
 
-                printf("3) %d %d : %d process created\n", getpid(), getppid(), getpgrp());
-
                 fseek(pidFile, 0L, SEEK_END);
 
                 if (errno != 0)
@@ -587,8 +691,6 @@ int main(int argc, char *argv[])
             setpgid(0, group_2);
             signal(SIGUSR2, (void *)ps2_sig_handler);
             signal(SIGTERM, (void *)ps2_sig_handler);
-
-            printf("2) %d %d : %d process created\n", getpid(), getppid(), getpgrp());
 
             fseek(pidFile, 0L, SEEK_END);
 
@@ -618,16 +720,11 @@ int main(int argc, char *argv[])
 
         signal(SIGUSR2, (void *)ps1_sig_handler);
 
-        printf("1) %d %d : %d process created\n", getpid(), getppid(), getpgrp());
-
         while(1)
         {
             if (amount_of_lines(TMP_PID_LIST) == 7)
                 break;
         }
-
-        fprintf(stdout, "All processes created.\n");
-//        remove("tmp_create_ps");
 
         send_to(1, SIGUSR2, 0);
 
@@ -644,7 +741,15 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-//    remove(TMP_PID_LIST);
+    remove(TMP_PID_LIST);
+
+    if (errno != 0)
+    {
+        fprintf(stderr, "%s: %s\n", prog, strerror(errno));
+        return -1;
+    }
+
+    remove(TMP_SIG);
 
     if (errno != 0)
     {
