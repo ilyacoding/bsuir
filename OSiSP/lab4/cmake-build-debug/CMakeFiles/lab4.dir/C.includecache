@@ -13,11 +13,7 @@ sys/types.h
 -
 signal.h
 -
-stdio.h
--
 unistd.h
--
-dirent.h
 -
 stdlib.h
 -
