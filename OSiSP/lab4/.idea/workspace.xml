@@ -26,8 +26,8 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="83" column="12" lean-forward="false" selection-start-line="83" selection-start-column="12" selection-end-line="83" selection-end-column="12" />
+            <state relative-caret-position="242">
+              <caret line="127" column="9" lean-forward="false" selection-start-line="127" selection-start-column="9" selection-end-line="127" selection-end-column="9" />
               <folding>
                 <element signature="e#20#38#0" expanded="true" />
               </folding>
@@ -44,11 +44,12 @@
       <find>fputc('a', startFile);</find>
       <find>fclose(startFile);</find>
       <find>fputs(itoa(getpid()), pidFile);</find>
+      <find>while(1) { pause(); }</find>
     </findStrings>
     <replaceStrings>
-      <replace>while(1) pause();</replace>
       <replace>fclose(pidFile);</replace>
       <replace>fprintf(pidFile, &quot;%d\n&quot;, getpid());</replace>
+      <replace>while(1) pause();</replace>
     </replaceStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -66,8 +67,8 @@
   </component>
   <component name="OCFindUsagesOptions" text="false" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="669" />
-    <option name="y" value="38" />
+    <option name="x" value="673" />
+    <option name="y" value="27" />
     <option name="width" value="1204" />
     <option name="height" value="1053" />
   </component>
@@ -317,19 +318,19 @@
       <workItem from="1491928159556" duration="8553000" />
       <workItem from="1491944712178" duration="4864000" />
       <workItem from="1491979846542" duration="112000" />
-      <workItem from="1492375937768" duration="19813000" />
+      <workItem from="1492375937768" duration="25232000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62809000" />
+    <option name="totallyTimeSpent" value="68228000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="669" y="38" width="1204" height="1053" extended-state="0" />
+    <frame x="673" y="27" width="1204" height="1053" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22351696" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22351696" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901135" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -697,8 +698,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="83" column="12" lean-forward="false" selection-start-line="83" selection-start-column="12" selection-end-line="83" selection-end-column="12" />
+        <state relative-caret-position="242">
+          <caret line="127" column="9" lean-forward="false" selection-start-line="127" selection-start-column="9" selection-end-line="127" selection-end-column="9" />
           <folding>
             <element signature="e#20#38#0" expanded="true" />
           </folding>
