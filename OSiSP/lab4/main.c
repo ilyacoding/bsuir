@@ -714,7 +714,6 @@ int main(int argc, char *argv[])
             // Process 2
         }
         // Process 1
-        long size;
         setpgid(pid1, pid1);
         send_to_pid = pid2;
 
