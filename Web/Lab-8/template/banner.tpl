@@ -1,0 +1,1 @@
+<a href="{BANNER_LINK}"><img src="{BANNER_SRC}" width="{BANNER_WIDTH}" height="{BANNER_HEIGHT}" alt="{BANNER_ALT}"></a>
