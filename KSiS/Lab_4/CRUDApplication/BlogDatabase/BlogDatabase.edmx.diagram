@@ -4,14 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1df258681b0948e6800e4c8704e6a447" Name="Diagram1" >
-        <EntityTypeShape EntityType="BlogDatabase.User" Width="1.5" PointX="1.5" PointY="3.375" />
-        <EntityTypeShape EntityType="BlogDatabase.Post" Width="1.5" PointX="4.25" PointY="0.75" />
-        <EntityTypeShape EntityType="BlogDatabase.Category" Width="1.5" PointX="1.375" PointY="0.75" />
-        <EntityTypeShape EntityType="BlogDatabase.Comment" Width="1.5" PointX="4.25" PointY="3.375" />
+      <Diagram DiagramId="c4fd6749324a4deda50f4657ab4f15ca" Name="Diagram1" >
+        <EntityTypeShape EntityType="BlogDatabase.User" Width="1.5" PointX="7" PointY="3.125" />
+        <EntityTypeShape EntityType="BlogDatabase.Post" Width="1.5" PointX="2.625" PointY="2.875" />
+        <EntityTypeShape EntityType="BlogDatabase.Category" Width="1.5" PointX="0.5" PointY="3" />
+        <EntityTypeShape EntityType="BlogDatabase.Review" Width="1.5" PointX="4.75" PointY="3" />
         <AssociationConnector Association="BlogDatabase.CategoryPost" />
-        <AssociationConnector Association="BlogDatabase.CommentPost" />
-        <AssociationConnector Association="BlogDatabase.UserComment" />
+        <AssociationConnector Association="BlogDatabase.ReviewPost" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="BlogDatabase.UserReview" />
+        <EntityTypeShape EntityType="BlogDatabase.IElement" Width="1.5" PointX="3.75" PointY="0.625" />
+        <InheritanceConnector EntityType="BlogDatabase.Post" />
+        <InheritanceConnector EntityType="BlogDatabase.Category" />
+        <InheritanceConnector EntityType="BlogDatabase.User" />
+        <InheritanceConnector EntityType="BlogDatabase.Review" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
