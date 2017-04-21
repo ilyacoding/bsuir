@@ -70,9 +70,6 @@
     <Compile Include="Category.cs">
       <DependentUpon>BlogDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="IElement.cs">
-      <DependentUpon>BlogDatabase.tt</DependentUpon>
-    </Compile>
     <Compile Include="Post.cs">
       <DependentUpon>BlogDatabase.tt</DependentUpon>
     </Compile>

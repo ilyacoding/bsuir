@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRUDApplication", "CRUDAppl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogDatabase", "BlogDatabase\BlogDatabase.csproj", "{ADDD443C-3A7F-48D3-ADC3-EF2FBBA64C3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{19013247-5FD5-444F-BE5D-41B70E9707DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{ADDD443C-3A7F-48D3-ADC3-EF2FBBA64C3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADDD443C-3A7F-48D3-ADC3-EF2FBBA64C3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADDD443C-3A7F-48D3-ADC3-EF2FBBA64C3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19013247-5FD5-444F-BE5D-41B70E9707DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19013247-5FD5-444F-BE5D-41B70E9707DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19013247-5FD5-444F-BE5D-41B70E9707DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19013247-5FD5-444F-BE5D-41B70E9707DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

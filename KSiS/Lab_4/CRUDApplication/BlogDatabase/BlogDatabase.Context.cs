@@ -25,6 +25,9 @@ namespace BlogDatabase
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<IElement> IElementSet { get; set; }
+        public virtual DbSet<User> UserSet { get; set; }
+        public virtual DbSet<Post> PostSet { get; set; }
+        public virtual DbSet<Category> CategorySet { get; set; }
+        public virtual DbSet<Review> ReviewSet { get; set; }
     }
 }

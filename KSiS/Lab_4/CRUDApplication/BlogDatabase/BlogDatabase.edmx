@@ -6,81 +6,58 @@
     <edmx:StorageModels>
     <Schema Namespace="BlogDatabase.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="BlogDatabaseStoreContainer">
-    <EntitySet Name="IElementSet" EntityType="BlogDatabase.Store.IElementSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="IElementSet_Category" EntityType="BlogDatabase.Store.IElementSet_Category" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="IElementSet_Post" EntityType="BlogDatabase.Store.IElementSet_Post" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="IElementSet_Review" EntityType="BlogDatabase.Store.IElementSet_Review" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="IElementSet_User" EntityType="BlogDatabase.Store.IElementSet_User" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserSet" EntityType="BlogDatabase.Store.UserSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PostSet" EntityType="BlogDatabase.Store.PostSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CategorySet" EntityType="BlogDatabase.Store.CategorySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ReviewSet" EntityType="BlogDatabase.Store.ReviewSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CategoryPost" EntityType="BlogDatabase.Store.CategoryPost" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_CategoryPost_Category" Association="BlogDatabase.Store.FK_CategoryPost_Category">
-      <End Role="Category" EntitySet="IElementSet_Category" />
+      <End Role="Category" EntitySet="CategorySet" />
       <End Role="CategoryPost" EntitySet="CategoryPost" />
     </AssociationSet>
     <AssociationSet Name="FK_CategoryPost_Post" Association="BlogDatabase.Store.FK_CategoryPost_Post">
-      <End Role="Post" EntitySet="IElementSet_Post" />
+      <End Role="Post" EntitySet="PostSet" />
       <End Role="CategoryPost" EntitySet="CategoryPost" />
     </AssociationSet>
     <AssociationSet Name="ReviewPost" Association="BlogDatabase.Store.ReviewPost">
-      <End Role="Review" EntitySet="IElementSet_Review" />
-      <End Role="Post" EntitySet="IElementSet_Post" />
+      <End Role="Review" EntitySet="ReviewSet" />
+      <End Role="Post" EntitySet="PostSet" />
     </AssociationSet>
     <AssociationSet Name="UserReview" Association="BlogDatabase.Store.UserReview">
-      <End Role="User" EntitySet="IElementSet_User" />
-      <End Role="Review" EntitySet="IElementSet_Review" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Category_inherits_IElement" Association="BlogDatabase.Store.FK_Category_inherits_IElement">
-      <End Role="IElement" EntitySet="IElementSet" />
-      <End Role="Category" EntitySet="IElementSet_Category" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Post_inherits_IElement" Association="BlogDatabase.Store.FK_Post_inherits_IElement">
-      <End Role="IElement" EntitySet="IElementSet" />
-      <End Role="Post" EntitySet="IElementSet_Post" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Review_inherits_IElement" Association="BlogDatabase.Store.FK_Review_inherits_IElement">
-      <End Role="IElement" EntitySet="IElementSet" />
-      <End Role="Review" EntitySet="IElementSet_Review" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_inherits_IElement" Association="BlogDatabase.Store.FK_User_inherits_IElement">
-      <End Role="IElement" EntitySet="IElementSet" />
-      <End Role="User" EntitySet="IElementSet_User" />
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Review" EntitySet="ReviewSet" />
     </AssociationSet>
   </EntityContainer>
-  <EntityType Name="IElementSet">
+  <EntityType Name="UserSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <EntityType Name="IElementSet_Category">
+  <EntityType Name="PostSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="IElementSet_Post">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Id" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="IElementSet_Review">
+  <EntityType Name="CategorySet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReviewSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="Post_Id" Type="int" Nullable="false" />
     <Property Name="User_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="IElementSet_User">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="CategoryPost">
     <Key>
@@ -91,8 +68,8 @@
     <Property Name="Post_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="ReviewPost">
-    <End Role="Review" Type="BlogDatabase.Store.IElementSet_Review" Multiplicity="*" />
-    <End Role="Post" Type="BlogDatabase.Store.IElementSet_Post" Multiplicity="1" />
+    <End Role="Review" Type="BlogDatabase.Store.ReviewSet" Multiplicity="*" />
+    <End Role="Post" Type="BlogDatabase.Store.PostSet" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="Post">
         <PropertyRef Name="Id" />
@@ -103,8 +80,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserReview">
-    <End Role="User" Type="BlogDatabase.Store.IElementSet_User" Multiplicity="1" />
-    <End Role="Review" Type="BlogDatabase.Store.IElementSet_Review" Multiplicity="*" />
+    <End Role="User" Type="BlogDatabase.Store.UserSet" Multiplicity="1" />
+    <End Role="Review" Type="BlogDatabase.Store.ReviewSet" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="Id" />
@@ -115,7 +92,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CategoryPost_Category">
-    <End Role="Category" Type="BlogDatabase.Store.IElementSet_Category" Multiplicity="1" />
+    <End Role="Category" Type="BlogDatabase.Store.CategorySet" Multiplicity="1" />
     <End Role="CategoryPost" Type="BlogDatabase.Store.CategoryPost" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Category">
@@ -128,7 +105,7 @@
   </Association>
   <Association Name="FK_CategoryPost_Post">
     <End Role="CategoryPost" Type="BlogDatabase.Store.CategoryPost" Multiplicity="*" />
-    <End Role="Post" Type="BlogDatabase.Store.IElementSet_Post" Multiplicity="1" />
+    <End Role="Post" Type="BlogDatabase.Store.PostSet" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="Post">
         <PropertyRef Name="Id" />
@@ -138,96 +115,59 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Category_inherits_IElement">
-    <End Role="IElement" Type="BlogDatabase.Store.IElementSet" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Category" Type="BlogDatabase.Store.IElementSet_Category" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="IElement">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Category">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Post_inherits_IElement">
-    <End Role="IElement" Type="BlogDatabase.Store.IElementSet" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Post" Type="BlogDatabase.Store.IElementSet_Post" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="IElement">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Post">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Review_inherits_IElement">
-    <End Role="IElement" Type="BlogDatabase.Store.IElementSet" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Review" Type="BlogDatabase.Store.IElementSet_Review" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="IElement">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Review">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_User_inherits_IElement">
-    <End Role="IElement" Type="BlogDatabase.Store.IElementSet" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="User" Type="BlogDatabase.Store.IElementSet_User" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="IElement">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="BlogDatabase" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="BlogDatabaseContainer" annotation:LazyLoadingEnabled="true">
           <AssociationSet Name="CategoryPost" Association="BlogDatabase.CategoryPost">
-            <End Role="Category" EntitySet="IElementSet" />
-            <End Role="Post" EntitySet="IElementSet" />
+            <End Role="Category" EntitySet="CategorySet" />
+            <End Role="Post" EntitySet="PostSet" />
           </AssociationSet>
           <AssociationSet Name="ReviewPost" Association="BlogDatabase.ReviewPost">
-            <End Role="Review" EntitySet="IElementSet" />
-            <End Role="Post" EntitySet="IElementSet" />
+            <End Role="Review" EntitySet="ReviewSet" />
+            <End Role="Post" EntitySet="PostSet" />
           </AssociationSet>
           <AssociationSet Name="UserReview" Association="BlogDatabase.UserReview">
-            <End Role="User" EntitySet="IElementSet" />
-            <End Role="Review" EntitySet="IElementSet" />
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="Review" EntitySet="ReviewSet" />
           </AssociationSet>
-          <EntitySet Name="IElementSet" EntityType="BlogDatabase.IElement" />
+          <EntitySet Name="UserSet" EntityType="BlogDatabase.User" />
+          <EntitySet Name="PostSet" EntityType="BlogDatabase.Post" />
+          <EntitySet Name="CategorySet" EntityType="BlogDatabase.Category" />
+          <EntitySet Name="ReviewSet" EntityType="BlogDatabase.Review" />
         </EntityContainer>
-        <EntityType Name="User" BaseType="BlogDatabase.IElement">
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
           <Property Name="Name" Type="String" Nullable="false" />
           <NavigationProperty Name="Review" Relationship="BlogDatabase.UserReview" FromRole="User" ToRole="Review" />
         </EntityType>
-        <EntityType Name="Post" BaseType="BlogDatabase.IElement">
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
           <Property Name="Title" Type="String" Nullable="false" />
           <Property Name="Content" Type="String" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="BlogDatabase.CategoryPost" FromRole="Post" ToRole="Category" />
           <NavigationProperty Name="Review" Relationship="BlogDatabase.ReviewPost" FromRole="Post" ToRole="Review" />
         </EntityType>
-        <EntityType Name="Category" BaseType="BlogDatabase.IElement">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
           <Property Name="Title" Type="String" Nullable="false" />
           <NavigationProperty Name="Post" Relationship="BlogDatabase.CategoryPost" FromRole="Category" ToRole="Post" />
         </EntityType>
-        <EntityType Name="Review" BaseType="BlogDatabase.IElement">
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
           <Property Name="Content" Type="String" Nullable="false" />
           <NavigationProperty Name="Post" Relationship="BlogDatabase.ReviewPost" FromRole="Review" ToRole="Post" />
           <NavigationProperty Name="User" Relationship="BlogDatabase.UserReview" FromRole="Review" ToRole="User" />
@@ -244,47 +184,42 @@
           <End Type="BlogDatabase.User" Role="User" Multiplicity="1" />
           <End Type="BlogDatabase.Review" Role="Review" Multiplicity="*" />
         </Association>
-        <EntityType Name="IElement" Abstract="true">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="BlogDatabaseStoreContainer" CdmEntityContainer="BlogDatabaseContainer">
-    <EntitySetMapping Name="IElementSet">
-      <EntityTypeMapping TypeName="IsTypeOf(BlogDatabase.IElement)">
-        <MappingFragment StoreEntitySet="IElementSet">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(BlogDatabase.Category)">
-        <MappingFragment StoreEntitySet="IElementSet_Category">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(BlogDatabase.Post)">
-        <MappingFragment StoreEntitySet="IElementSet_Post">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="Content" ColumnName="Content" />
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(BlogDatabase.Review)">
-        <MappingFragment StoreEntitySet="IElementSet_Review">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Content" ColumnName="Content" />
-        </MappingFragment>
-      </EntityTypeMapping>
+    <EntitySetMapping Name="UserSet">
       <EntityTypeMapping TypeName="IsTypeOf(BlogDatabase.User)">
-        <MappingFragment StoreEntitySet="IElementSet_User">
+        <MappingFragment StoreEntitySet="UserSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PostSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BlogDatabase.Post)">
+        <MappingFragment StoreEntitySet="PostSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CategorySet">
+      <EntityTypeMapping TypeName="IsTypeOf(BlogDatabase.Category)">
+        <MappingFragment StoreEntitySet="CategorySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReviewSet">
+      <EntityTypeMapping TypeName="IsTypeOf(BlogDatabase.Review)">
+        <MappingFragment StoreEntitySet="ReviewSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -296,7 +231,7 @@
         <ScalarProperty Name="Id" ColumnName="Post_Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ReviewPost" TypeName="BlogDatabase.ReviewPost" StoreEntitySet="IElementSet_Review">
+    <AssociationSetMapping Name="ReviewPost" TypeName="BlogDatabase.ReviewPost" StoreEntitySet="ReviewSet">
       <EndProperty Name="Post">
         <ScalarProperty Name="Id" ColumnName="Post_Id" />
       </EndProperty>
@@ -304,7 +239,7 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="UserReview" TypeName="BlogDatabase.UserReview" StoreEntitySet="IElementSet_Review">
+    <AssociationSetMapping Name="UserReview" TypeName="BlogDatabase.UserReview" StoreEntitySet="ReviewSet">
       <EndProperty Name="User">
         <ScalarProperty Name="Id" ColumnName="User_Id" />
       </EndProperty>

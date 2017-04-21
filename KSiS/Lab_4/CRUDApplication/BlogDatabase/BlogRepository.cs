@@ -21,29 +21,32 @@ namespace BlogDatabase
             BlogDatabase.SaveChanges();
         }
 
-        private ICollection<IElement> GetList<T>()
+        private IEnumerable<T> GetList<T>()
         {
-            return (ICollection<IElement>)BlogDatabase.GetType().GetField(typeof(T) + "Set").GetValue(null);
+            return (IEnumerable<T>)BlogDatabase.GetType().GetProperty("UserSet").GetValue(BlogDatabase, null);
         }
 
-        public void Create<T>(IElement element)
+        public IEnumerable<T> RetreiveAll<T>()
+        {
+            return GetList<T>();
+        }
+
+        public void Create<T>(T element)
         {
             var list = GetList<T>().ToList();
             list.Add(element);
             Save();
         }
+        /*
+        
 
-        public ICollection<IElement> RetreiveAll<T>()
-        {
-            return GetList<T>();
-        }
-
-        public IElement Retreive<T>(int id)
+        
+        public T Retreive<T>(int id)
         {
             var list = GetList<T>().ToList();
-            return list.Find(x => x.Id == id);
+            return list.Find(x => (int)x.GetType().GetField("Id").GetValue(x) == id);
         }
-
+        /*
         public void Update<T>(IElement newElement)
         {
             var list = GetList<T>().ToList();
@@ -68,6 +71,6 @@ namespace BlogDatabase
             var el = list.Find(x => x.Id == id);
             list.Remove(el);
             Save();
-        }
+        }*/
     }
 }
