@@ -12,7 +12,7 @@ namespace BlogDatabase
     using System;
     using System.Collections.Generic;
     
-    public partial class Post : IElement
+    public partial class Post
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Post()
@@ -21,6 +21,7 @@ namespace BlogDatabase
             this.Review = new HashSet<Review>();
         }
     
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
     

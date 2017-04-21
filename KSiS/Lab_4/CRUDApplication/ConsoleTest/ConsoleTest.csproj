@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ADDD443C-3A7F-48D3-ADC3-EF2FBBA64C3F}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{19013247-5FD5-444F-BE5D-41B70E9707DB}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BlogDatabase</RootNamespace>
-    <AssemblyName>BlogDatabase</AssemblyName>
+    <RootNamespace>ConsoleTest</RootNamespace>
+    <AssemblyName>ConsoleTest</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,8 +44,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,62 +52,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlogDatabase.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BlogDatabase.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BlogDatabase.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BlogDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BlogDatabase.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BlogDatabase.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="BlogRepository.cs" />
-    <Compile Include="Category.cs">
-      <DependentUpon>BlogDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Post.cs">
-      <DependentUpon>BlogDatabase.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Review.cs">
-      <DependentUpon>BlogDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User.cs">
-      <DependentUpon>BlogDatabase.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="BlogDatabase.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BlogDatabase.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="BlogDatabase.edmx.diagram">
-      <DependentUpon>BlogDatabase.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="BlogDatabase.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>BlogDatabase.Context.cs</LastGenOutput>
-      <DependentUpon>BlogDatabase.edmx</DependentUpon>
-    </Content>
-    <Content Include="BlogDatabase.edmx.sql" />
-    <Content Include="BlogDatabase.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>BlogDatabase.cs</LastGenOutput>
-      <DependentUpon>BlogDatabase.edmx</DependentUpon>
-    </Content>
+    <ProjectReference Include="..\BlogDatabase\BlogDatabase.csproj">
+      <Project>{addd443c-3a7f-48d3-adc3-ef2fbba64c3f}</Project>
+      <Name>BlogDatabase</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

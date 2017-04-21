@@ -13,12 +13,7 @@
         <AssociationConnector Association="BlogDatabase.ReviewPost" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="BlogDatabase.UserReview" />
-        <EntityTypeShape EntityType="BlogDatabase.IElement" Width="1.5" PointX="3.75" PointY="0.625" />
-        <InheritanceConnector EntityType="BlogDatabase.Post" />
-        <InheritanceConnector EntityType="BlogDatabase.Category" />
-        <InheritanceConnector EntityType="BlogDatabase.User" />
-        <InheritanceConnector EntityType="BlogDatabase.Review" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
