@@ -12,9 +12,8 @@ namespace BlogDatabase
     using System;
     using System.Collections.Generic;
     
-    public partial class Comment
+    public partial class Review : IElement
     {
-        public int Id { get; set; }
         public string Content { get; set; }
     
         public virtual Post Post { get; set; }
