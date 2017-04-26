@@ -10,15 +10,13 @@ namespace BlogDB
 {
     public class BlogContext : DbContext
     {
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        public BlogContext() : base("BlogContext")
         {
-            Configuration.LazyLoadingEnabled = true;
         }
 
         public DbSet<User> UserSet { get; set; }
         public DbSet<Category> CategorySet { get; set; }
         public DbSet<Review> ReviewSet { get; set; }
         public DbSet<Post> PostSet { get; set; }
-        //public DbSet<PostCategory> PostCategorySet { get; set; }
     }
 }

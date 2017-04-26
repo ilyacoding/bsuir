@@ -13,7 +13,6 @@ namespace ConsoleApplication1
     {
         private static void Main(string[] args)
         {
-
         }
     }
 }
