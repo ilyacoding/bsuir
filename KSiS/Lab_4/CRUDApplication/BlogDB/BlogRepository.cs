@@ -33,7 +33,7 @@ namespace BlogDB
             Save();
         }
 
-        public IEnumerable<T> ReadAll<T>() where T : class
+        public IQueryable<T> ReadAll<T>() where T : class
         {
             return GetList<T>();
         }
