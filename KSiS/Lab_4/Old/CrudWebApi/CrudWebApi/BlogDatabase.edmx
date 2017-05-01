@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BlogContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PostCategories">
+          <Key>
+            <PropertyRef Name="Post_Id" />
+            <PropertyRef Name="Category_Id" />
+          </Key>
+          <Property Name="Post_Id" Type="int" Nullable="false" />
+          <Property Name="Category_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="Content" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="Post_Id" Type="int" />
+          <Property Name="User_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_dbo_PostCategories_dbo_Categories_Category_Id">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PostCategories" Type="Self.PostCategories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostCategories">
+              <PropertyRef Name="Category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PostCategories_dbo_Posts_Post_Id">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PostCategories" Type="Self.PostCategories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostCategories">
+              <PropertyRef Name="Post_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Reviews_dbo_Posts_Post_Id">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="0..1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="Post_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Reviews_dbo_Users_User_Id">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BlogContextStoreContainer">
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PostCategories" EntityType="Self.PostCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_PostCategories_dbo_Categories_Category_Id" Association="Self.FK_dbo_PostCategories_dbo_Categories_Category_Id">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="PostCategories" EntitySet="PostCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PostCategories_dbo_Posts_Post_Id" Association="Self.FK_dbo_PostCategories_dbo_Posts_Post_Id">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="PostCategories" EntitySet="PostCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Reviews_dbo_Posts_Post_Id" Association="Self.FK_dbo_Reviews_dbo_Posts_Post_Id">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Reviews_dbo_Users_User_Id" Association="Self.FK_dbo_Reviews_dbo_Users_User_Id">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BlogContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Posts" Relationship="Self.PostCategories" FromRole="Categories" ToRole="Posts" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK_dbo_Reviews_dbo_Posts_Post_Id" FromRole="Posts" ToRole="Reviews" />
+          <NavigationProperty Name="Categories" Relationship="Self.PostCategories" FromRole="Posts" ToRole="Categories" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK_dbo_Reviews_dbo_Posts_Post_Id" FromRole="Reviews" ToRole="Posts" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_dbo_Reviews_dbo_Users_User_Id" FromRole="Reviews" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK_dbo_Reviews_dbo_Users_User_Id" FromRole="Users" ToRole="Reviews" />
+        </EntityType>
+        <Association Name="FK_dbo_Reviews_dbo_Posts_Post_Id">
+          <End Role="Posts" Type="BlogContext.Post" Multiplicity="0..1" />
+          <End Role="Reviews" Type="BlogContext.Review" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_dbo_Reviews_dbo_Users_User_Id">
+          <End Role="Users" Type="BlogContext.User" Multiplicity="0..1" />
+          <End Role="Reviews" Type="BlogContext.Review" Multiplicity="*" />
+        </Association>
+        <Association Name="PostCategories">
+          <End Role="Categories" Type="BlogContext.Category" Multiplicity="*" />
+          <End Role="Posts" Type="BlogContext.Post" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="BlogContextEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CategorySet" EntityType="BlogContext.Category" />
+          <EntitySet Name="PostSet" EntityType="BlogContext.Post" />
+          <EntitySet Name="ReviewSet" EntityType="BlogContext.Review" />
+          <EntitySet Name="UserSet" EntityType="BlogContext.User" />
+          <AssociationSet Name="FK_dbo_Reviews_dbo_Posts_Post_Id" Association="Self.FK_dbo_Reviews_dbo_Posts_Post_Id">
+            <End Role="Posts" EntitySet="PostSet" />
+            <End Role="Reviews" EntitySet="ReviewSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Reviews_dbo_Users_User_Id" Association="Self.FK_dbo_Reviews_dbo_Users_User_Id">
+            <End Role="Users" EntitySet="UserSet" />
+            <End Role="Reviews" EntitySet="ReviewSet" />
+          </AssociationSet>
+          <AssociationSet Name="PostCategories" Association="Self.PostCategories">
+            <End Role="Categories" EntitySet="CategorySet" />
+            <End Role="Posts" EntitySet="PostSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BlogContextStoreContainer" CdmEntityContainer="BlogContextEntities">
+          <EntitySetMapping Name="CategorySet">
+            <EntityTypeMapping TypeName="BlogContext.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostSet">
+            <EntityTypeMapping TypeName="BlogContext.Post">
+              <MappingFragment StoreEntitySet="Posts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReviewSet">
+            <EntityTypeMapping TypeName="BlogContext.Review">
+              <MappingFragment StoreEntitySet="Reviews">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSet">
+            <EntityTypeMapping TypeName="BlogContext.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_dbo_Reviews_dbo_Posts_Post_Id" TypeName="BlogContext.FK_dbo_Reviews_dbo_Posts_Post_Id" StoreEntitySet="Reviews">
+            <EndProperty Name="Posts">
+              <ScalarProperty Name="Id" ColumnName="Post_Id" />
+            </EndProperty>
+            <EndProperty Name="Reviews">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="Post_Id" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_dbo_Reviews_dbo_Users_User_Id" TypeName="BlogContext.FK_dbo_Reviews_dbo_Users_User_Id" StoreEntitySet="Reviews">
+            <EndProperty Name="Users">
+              <ScalarProperty Name="Id" ColumnName="User_Id" />
+            </EndProperty>
+            <EndProperty Name="Reviews">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="User_Id" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="PostCategories" TypeName="BlogContext.PostCategories" StoreEntitySet="PostCategories">
+            <EndProperty Name="Categories">
+              <ScalarProperty Name="Id" ColumnName="Category_Id" />
+            </EndProperty>
+            <EndProperty Name="Posts">
+              <ScalarProperty Name="Id" ColumnName="Post_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
