@@ -50,22 +50,27 @@ namespace CrudWebApi.Controllers
 
         // PUT: api/Reviews/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutReview(int id, Review review)
+        public IHttpActionResult PutReview(int id, Review newReview)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != review.Id)
+            if (id != newReview.Id)
             {
                 return BadRequest();
             }
-
-            db.Entry(review).State = EntityState.Modified;
-
+            
             try
             {
+                var review = db.Reviews.Include(x => x.Post).Include(x => x.User).Single(x => x.Id == id);
+
+                db.Entry(review).CurrentValues.SetValues(newReview);
+
+                review.Post = newReview.Post;
+                review.User = newReview.User;
+
                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)

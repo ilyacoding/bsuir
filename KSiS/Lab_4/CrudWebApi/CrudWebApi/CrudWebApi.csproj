@@ -135,6 +135,7 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\BlogContext.cs" />
     <Compile Include="Models\CategoryDto.cs" />
+    <Compile Include="Models\IDto.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\PostDto.cs" />
     <Compile Include="Models\Review.cs" />

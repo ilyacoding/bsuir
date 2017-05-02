@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -48,22 +49,40 @@ namespace CrudWebApi.Controllers
 
         // PUT: api/Categories/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCategory(int id, Category category)
+        public IHttpActionResult PutCategory(int id, Category newCategory)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != category.Id)
+            if (id != newCategory.Id)
             {
                 return BadRequest();
             }
-
-            db.Entry(category).State = EntityState.Modified;
-
+          
             try
             {
+                var category = db.Categories.Include(x => x.Posts).Single(x => x.Id == id);
+
+                db.Entry(category).CurrentValues.SetValues(newCategory);
+
+                foreach (var post in category.Posts.ToList())
+                {
+                    // ReSharper disable once SimplifyLinqExpression
+                    if (!newCategory.Posts.Any(x => x.Id == post.Id))
+                    {
+                        category.Posts.Remove(post);
+                    }
+                }
+
+                foreach (var post in newCategory.Posts)
+                {
+                    if (category.Posts.Any(x => x.Id == post.Id)) continue;
+                    db.Posts.AddOrUpdate(post);
+                    category.Posts.Add(post);
+                }
+
                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
