@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using CrudWebApi.Models;
@@ -16,6 +19,35 @@ namespace CrudWebApi.Controllers
     {
         private BlogContext db = new BlogContext();
 
+        private IList<IDto> Read<T>(DbSet<T> db) where T : class
+        {
+            var list = new List<IDto>();
+            var dtoType = Type.GetType(typeof(T) + "Dto");
+            foreach (var entry in db)
+            {
+                var dto = Activator.CreateInstance(dtoType);
+        
+                foreach (var entryProperty in entry.GetType().GetProperties())
+                {
+                    foreach (var dtoProperty in dto.GetType().GetProperties())
+                    {
+                        if (dtoProperty.Name != entryProperty.Name) continue;
+        
+                        if (dtoProperty.PropertyType.GetInterface("ICollection") != null)
+                        {
+                            
+                        }
+                        else
+                        {
+                            dtoProperty.SetValue(dto, entryProperty.GetValue(entry));
+                        }
+                    }
+                }
+                list.Add(dto as IDto);
+            }
+            return list;
+        }
+
         // GET: api/Users
         public IList<UserDto> GetUsers()
         {
@@ -25,6 +57,7 @@ namespace CrudWebApi.Controllers
                 Name = x.Name,
                 Reviews = x.Reviews.ToList()
             }).ToList();
+            //return Read(db.Users);
         }
 
         // GET: api/Users/5
@@ -37,12 +70,12 @@ namespace CrudWebApi.Controllers
                 Name = x.Name,
                 Reviews = x.Reviews.ToList()
             }).ToList().Find(x => x.Id == id);
-
+      
             if (user == null)
             {
                 return NotFound();
             }
-
+      
             return Ok(user);
         }
 
@@ -69,7 +102,7 @@ namespace CrudWebApi.Controllers
                 foreach (var review in user.Reviews.ToList())
                 {
                     // ReSharper disable once SimplifyLinqExpression
-                    if (!user.Reviews.Any(x => x.Id == review.Id))
+                    if (!newUser.Reviews.Any(x => x.Id == review.Id))
                     {
                         user.Reviews.Remove(review);
                     }
@@ -78,7 +111,7 @@ namespace CrudWebApi.Controllers
                 foreach (var review in newUser.Reviews)
                 {
                     if (user.Reviews.Any(x => x.Id == review.Id)) continue;
-                    db.Reviews.Attach(review);
+                    db.Reviews.AddOrUpdate(review);
                     user.Reviews.Add(review);
                 }
 
@@ -95,7 +128,6 @@ namespace CrudWebApi.Controllers
                     throw;
                 }
             }
-
             return StatusCode(HttpStatusCode.NoContent);
         }
 

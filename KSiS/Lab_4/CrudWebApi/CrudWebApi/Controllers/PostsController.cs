@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -52,22 +53,56 @@ namespace CrudWebApi.Controllers
 
         // PUT: api/Posts/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPost(int id, Post post)
+        public IHttpActionResult PutPost(int id, Post newPost)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != post.Id)
+            if (id != newPost.Id)
             {
                 return BadRequest();
             }
-
-            db.Entry(post).State = EntityState.Modified;
-
+            
             try
             {
+                var post = db.Posts.Include(x => x.Reviews).Include(x => x.Categories).Single(x => x.Id == id);
+
+                db.Entry(post).CurrentValues.SetValues(newPost);
+
+                foreach (var review in post.Reviews.ToList())
+                {
+                    // ReSharper disable once SimplifyLinqExpression
+                    if (!newPost.Reviews.Any(x => x.Id == review.Id))
+                    {
+                        post.Reviews.Remove(review);
+                    }
+                }
+
+                foreach (var category in post.Categories.ToList())
+                {
+                    // ReSharper disable once SimplifyLinqExpression
+                    if (!newPost.Categories.Any(x => x.Id == category.Id))
+                    {
+                        post.Categories.Remove(category);
+                    }
+                }
+
+                foreach (var review in newPost.Reviews)
+                {
+                    if (post.Reviews.Any(x => x.Id == review.Id)) continue;
+                    db.Reviews.AddOrUpdate(review);
+                    post.Reviews.Add(review);
+                }
+
+                foreach (var category in newPost.Categories)
+                {
+                    if (post.Reviews.Any(x => x.Id == category.Id)) continue;
+                    db.Categories.AddOrUpdate(category);
+                    post.Categories.Add(category);
+                }
+
                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)

@@ -5,15 +5,8 @@ using System.Web;
 
 namespace CrudWebApi.Models
 {
-    public class UserDto
+    public class UserDto : IDto
     {
-//        public UserDto(User user)
-//        {
-//            Id = user.Id;
-//            Name = user.Name;
-//            Reviews = user.Reviews.ToList();
-//        }
-
         public int Id { get; set; }
         
         public string Name { get; set; }
