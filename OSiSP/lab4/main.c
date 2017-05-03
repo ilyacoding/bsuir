@@ -13,7 +13,6 @@
 char* prog;
 char* TMP_PID_LIST = "tmp_pid_list";
 char* TMP_SIG = "tmp_sig";
-FILE* tmp_sig;
 int pid_list[10];
 
 int sig1_received = 0;
@@ -57,43 +56,6 @@ int wait_sig(long num)
 
     return 0;
 }
-
-//int get_sig()
-//{
-//    FILE* fp = fopen(TMP_SIG, "r");
-//
-//    if (errno != 0)
-//    {
-//        fprintf(stderr, "123%s: %s\n", prog, strerror(errno));
-//        return -1;
-//    }
-//
-//    fseek(fp, 0L, SEEK_END);
-//
-//    if (errno != 0)
-//    {
-//        fprintf(stderr, "%s: %s\n", prog, strerror(errno));
-//        return -1;
-//    }
-//
-//    long size = ftell(fp);
-//
-//    if (errno != 0)
-//    {
-//        fprintf(stderr, "%s: %s\n", prog, strerror(errno));
-//        return -1;
-//    }
-//
-//    fclose(fp);
-//
-//    if (errno != 0)
-//    {
-//        fprintf(stderr, "%s: %s\n", prog, strerror(errno));
-//        return -1;
-//    }
-//
-//    return size;
-//}
 
 void add_sig()
 {
@@ -229,7 +191,8 @@ void send_to_directly(int n, int signo, int silent)
 
 void print_result(int ps_num)
 {
-    printf("%d) %d %d завершил работу после %d-го сигнала SIGUSR1 и %d-го сигнала SIGUSR2 %lld\n", ps_num, getpid(), getppid(), sig1_received, sig2_received, curr_time());
+    printf("%d %d завершил работу после %d-го сигнала SIGUSR1 и %d-го сигнала SIGUSR2 %lld\n", getpid(), getppid(), sig1_received, sig2_received, curr_time());
+//    printf("%d) %d %d завершил работу после %d-го сигнала SIGUSR1 и %d-го сигнала SIGUSR2 %lld\n", ps_num, getpid(), getppid(), sig1_received, sig2_received, curr_time());
 }
 
 void *ps1_sig_handler(int signo)
@@ -724,6 +687,8 @@ int main(int argc, char *argv[])
             if (amount_of_lines(TMP_PID_LIST) == 7)
                 break;
         }
+
+        sleep(10);
 
         send_to(1, SIGUSR2, 0);
 
