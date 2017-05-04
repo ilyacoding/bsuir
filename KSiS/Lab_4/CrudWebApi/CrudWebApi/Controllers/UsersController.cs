@@ -111,7 +111,7 @@ namespace CrudWebApi.Controllers
                 foreach (var review in newUser.Reviews)
                 {
                     if (user.Reviews.Any(x => x.Id == review.Id)) continue;
-                    db.Reviews.AddOrUpdate(review);
+                    db.Reviews.Attach(review);
                     user.Reviews.Add(review);
                 }
 
@@ -150,11 +150,13 @@ namespace CrudWebApi.Controllers
         [ResponseType(typeof(User))]
         public IHttpActionResult DeleteUser(int id)
         {
-            User user = db.Users.Find(id);
+            var user = db.Users.Include(x => x.Reviews).Single(x => x.Id == id);
             if (user == null)
             {
                 return NotFound();
             }
+
+            user.Reviews = null;
 
             db.Users.Remove(user);
             db.SaveChanges();

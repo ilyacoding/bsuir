@@ -68,8 +68,47 @@ namespace CrudWebApi.Controllers
 
                 db.Entry(review).CurrentValues.SetValues(newReview);
 
-                review.Post = newReview.Post;
-                review.User = newReview.User;
+                if (newReview.Post != null)
+                {
+                    if (review.Post != null)
+                    {
+                        if (review.Post.Id != newReview.Post.Id)
+                        {
+                            db.Posts.Attach(newReview.Post);
+                            review.Post = newReview.Post;
+                        }
+                    }
+                    else
+                    {
+                        db.Posts.Attach(newReview.Post);
+                        review.Post = newReview.Post;
+                    }
+                }
+                else
+                {
+                    review.Post = null;
+                }
+
+                if (newReview.User != null)
+                {
+                    if (review.User != null)
+                    {
+                        if (review.User.Id != newReview.User.Id)
+                        {
+                            db.Users.Attach(newReview.User);
+                            review.User = newReview.User;
+                        }
+                    }
+                    else
+                    {
+                        db.Users.Attach(newReview.User);
+                        review.User = newReview.User;
+                    }
+                }
+                else
+                {
+                    review.User = null;
+                }
 
                 db.SaveChanges();
             }
@@ -107,11 +146,14 @@ namespace CrudWebApi.Controllers
         [ResponseType(typeof(Review))]
         public IHttpActionResult DeleteReview(int id)
         {
-            Review review = db.Reviews.Find(id);
+            var review = db.Reviews.Include(x => x.User).Include(x => x.Post).Single(x => x.Id == id);
             if (review == null)
             {
                 return NotFound();
             }
+
+            review.User = null;
+            review.Post = null;
 
             db.Reviews.Remove(review);
             db.SaveChanges();
