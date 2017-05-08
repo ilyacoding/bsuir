@@ -5,7 +5,7 @@ using System.Web;
 
 namespace CrudWebApi.Models
 {
-    public class ReviewDto :IDto
+    public class ReviewDto : IDto
     {
         public int Id { get; set; }
         
