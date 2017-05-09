@@ -48,17 +48,19 @@ namespace CrudTcp.Controllers
         // GET: api/Users
         public IHttpAction GetUsers()
         {
+            db = new BlogContext();
             return new Ok(db.Users.Select(x => new UserDto
             {
                 Id = x.Id,
                 Name = x.Name,
-                Reviews = x.Reviews.ToList()
+                Reviews = x.Reviews.ToList() 
             }).ToList());
         }
         
         // GET: api/Users/5
         public IHttpAction GetUser(int id)
         {
+            db = new BlogContext();
             var user = db.Users.Select(x => new UserDto
             {
                 Id = x.Id,
@@ -74,75 +76,67 @@ namespace CrudTcp.Controllers
             return new Ok(user);
         }
         
-        //// PUT: api/Users/5
-        //[ResponseType(typeof(void))]
-        //public IHttpActionResult PutUser(int id, User newUser)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-        //
-        //    if (id != newUser.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-        //
-        //    try
-        //    {
-        //        var user = db.Users.Include(x => x.Reviews).Single(x => x.Id == id);
-        //
-        //        db.Entry(user).CurrentValues.SetValues(newUser);
-        //
-        //        foreach (var review in user.Reviews.ToList())
-        //        {
-        //            // ReSharper disable once SimplifyLinqExpression
-        //            if (!newUser.Reviews.Any(x => x.Id == review.Id))
-        //            {
-        //                user.Reviews.Remove(review);
-        //            }
-        //        }
-        //
-        //        foreach (var review in newUser.Reviews)
-        //        {
-        //            if (user.Reviews.Any(x => x.Id == review.Id)) continue;
-        //            db.Reviews.Attach(review);
-        //            user.Reviews.Add(review);
-        //        }
-        //
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!UserExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
+        // PUT: api/Users/5
+        public IHttpAction PutUser(int id, User newUser)
+        {
+            db = new BlogContext();
+            if (id != newUser.Id)
+            {
+                return new BadRequest();
+            }
+        
+            try
+            {
+                var user = db.Users.Include(x => x.Reviews).Single(x => x.Id == id);
+        
+                db.Entry(user).CurrentValues.SetValues(newUser);
+        
+                foreach (var review in user.Reviews.ToList())
+                {
+                    // ReSharper disable once SimplifyLinqExpression
+                    if (!newUser.Reviews.Any(x => x.Id == review.Id))
+                    {
+                        user.Reviews.Remove(review);
+                    }
+                }
+        
+                foreach (var review in newUser.Reviews)
+                {
+                    if (user.Reviews.Any(x => x.Id == review.Id)) continue;
+                    db.Reviews.Attach(review);
+                    user.Reviews.Add(review);
+                }
+        
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(id))
+                {
+                    return new NotFound();
+                }
+                else
+                {
+                    return new BadRequest();
+                }
+            }
+            return new NoContent();
+        }
         
         // POST: api/Users
         public IHttpAction PostUser(User user)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
+            db = new BlogContext();
+            db.Users.Add(user);
+            db.SaveChanges();
         
-            //db.Users.Add(user);
-            //db.SaveChanges();
-        
-            return new Ok("123");//CreatedAtRoute("DefaultApi", new {id = user.Id}, user);
+            return new Created(user);//CreatedAtRoute("DefaultApi", new {id = user.Id}, user);
         }
         
         // DELETE: api/Users/5
         public IHttpAction DeleteUser(int id)
         {
+            db = new BlogContext();
             User user;
             if (UserExists(id))
             {

@@ -36,5 +36,10 @@ namespace CrudTcp.Serialization
 
             return (T) xmlSerializer.Deserialize(textReader);
         }
+
+        public object Deserialize(string str, Type type)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
