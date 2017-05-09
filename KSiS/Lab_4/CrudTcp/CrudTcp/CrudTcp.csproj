@@ -64,7 +64,10 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Core\ControllerHandler.cs" />
     <Compile Include="Core\ControllerRegistry.cs" />
+    <Compile Include="Core\Http\Action\BadRequest.cs" />
+    <Compile Include="Core\Http\Action\Created.cs" />
     <Compile Include="Core\Http\Action\IHttpAction.cs" />
+    <Compile Include="Core\Http\Action\NoContent.cs" />
     <Compile Include="Core\Http\Action\NotFound.cs" />
     <Compile Include="Core\Http\Action\NotImplemented.cs" />
     <Compile Include="Core\Http\Action\NotModified.cs" />

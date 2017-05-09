@@ -20,16 +20,21 @@ namespace CrudTcp.Serialization
         {
             return JsonConvert.SerializeObject(obj, new JsonSerializerSettings
             {
-                //TypeNameHandling = TypeNameHandling.All
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                //   TypeNameHandling = TypeNameHandling.All
             });
         }
 
-        public T Deserialize<T>(string str) where T : class
+        public object Deserialize(string str, Type type)
         {
-            return JsonConvert.DeserializeObject<T>(str, new JsonSerializerSettings
+            return JsonConvert.DeserializeObject(str, type, new JsonSerializerSettings()
             {
-                //TypeNameHandling = TypeNameHandling.All
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             });
+            //, new JsonSerializerSettings
+            //{
+            //    TypeNameHandling = TypeNameHandling.All
+            //}
         }
     }
 }

@@ -11,6 +11,6 @@ namespace CrudTcp.Serialization
     {
         string Mime { get; set; }
         string Serialize<T>(T obj) where T : class ;
-        T Deserialize<T>(string str) where T : class;
+        object Deserialize(string str, Type type);
     }
 }

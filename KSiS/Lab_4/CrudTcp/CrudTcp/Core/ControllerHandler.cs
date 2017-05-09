@@ -69,29 +69,19 @@ namespace CrudTcp.Core
             }
             else
             {
-                //if (controllerMethod.GetParameters().Length > 0)
-                //{
-                //    var parameterType = controllerMethod.GetParameters().Last().ParameterType;
-                //    request.ParseBody();
-                //}
+                if (controllerMethod.GetParameters().Length > 0)
+                {
+                    try
+                    {
+                        request.ParseBody(controllerMethod.GetParameters().Last().ParameterType);
+                    }
+                    catch (Exception)
+                    {
+                        responseObject = new BadRequest();
+                    }
+                }
                 responseObject = (IHttpAction)controllerMethod.Invoke(controller, request.Parameters);
             }
-
-            //foreach (var method in controllerMethods)
-            //{
-            //    try
-            //    {
-            //        
-            //
-            //        break;
-            //    }
-            //    catch (ArgumentException)
-            //    {
-            //    }
-            //    catch (TargetParameterCountException)
-            //    {
-            //    }
-            //}
 
             Response response;
             

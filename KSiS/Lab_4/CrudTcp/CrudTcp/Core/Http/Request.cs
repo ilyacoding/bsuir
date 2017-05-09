@@ -90,18 +90,18 @@ namespace CrudTcp.Core.Http
 
             if (Body.Length > 0)
             {
-                parameters.Add(Serializer.Deserialize<object>(Body));
+                parameters.Add(Body);
             }
 
             Parameters = parameters.Count > 0 ? parameters.ToArray() : null;
         }
 
-        //public void ParseBody()
-        //{
-        //    if (Body.Length > 0)
-        //    {
-        //        Parameters[Parameters.Length - 1] = Serializer.Deserialize<object>((string)Parameters.Last());
-        //    }
-        //}
+        public void ParseBody(Type type)
+        {
+            if (Body.Length > 0)
+            {
+                Parameters[Parameters.Length - 1] = Serializer.Deserialize(Body, type);
+            }
+        }
     }
 }
