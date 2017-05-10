@@ -16,12 +16,11 @@ namespace CrudTcp.Serialization
             Mime = "application/json";
         }
 
-        public string Serialize<T>(T obj) where T : class
+        public string Serialize(object obj, Type type)
         {
             return JsonConvert.SerializeObject(obj, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                //   TypeNameHandling = TypeNameHandling.All
             });
         }
 
@@ -31,10 +30,6 @@ namespace CrudTcp.Serialization
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             });
-            //, new JsonSerializerSettings
-            //{
-            //    TypeNameHandling = TypeNameHandling.All
-            //}
         }
     }
 }

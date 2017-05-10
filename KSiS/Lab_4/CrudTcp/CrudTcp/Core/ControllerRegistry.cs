@@ -18,13 +18,13 @@ namespace CrudTcp.Core
 
         public void Reg(string str, IController controller)
         {
-            Dictionary.Add(str.ToLower(), controller);
+            Dictionary.Add(str, controller);
         }
 
         public IController Get(string str)
         {
-            str = str.Trim().ToLower();
-            if (!Dictionary.ContainsKey(str)) throw new Exception("404");
+            str = str.Trim();
+            if (!Dictionary.ContainsKey(str)) throw new Exception();
             return Dictionary[str];
         }
     }

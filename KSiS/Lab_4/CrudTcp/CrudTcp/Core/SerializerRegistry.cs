@@ -31,7 +31,7 @@ namespace CrudTcp.Core
         {
             foreach (var entry in Dictionary)
             {
-                if (entry.Key.Contains(str))
+                if (entry.Key.Any(key => key == str))
                 {
                     return entry.Value;
                 }

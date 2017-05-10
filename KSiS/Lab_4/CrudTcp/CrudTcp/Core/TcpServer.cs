@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using CrudTcp.Core.Http;
 
 namespace CrudTcp.Core
 {
@@ -14,13 +15,17 @@ namespace CrudTcp.Core
 
         private TcpListener Server { get; }
         private Task Task { get; }
-        private ControllerHandler ControllerHandler { get; }
 
-        public TcpServer(string ip, int port, ControllerHandler controllerHandler)
+        private ControllersRegistry ControllersRegistry { get; set; }
+        private SerializerRegistry SerializerRegistry { get; set; }
+
+        public TcpServer(string ip, int port, SerializerRegistry serializerRegistry, ControllersRegistry controllersRegistry)
         {
-            ControllerHandler = controllerHandler;
             Server = new TcpListener(IPAddress.Parse(ip), port);
             Task = new Task(AcceptBackground);
+
+            SerializerRegistry = serializerRegistry;
+            ControllersRegistry = controllersRegistry;
         }
 
         public void Start()
@@ -40,7 +45,7 @@ namespace CrudTcp.Core
             while (true)
             {
                 var client = Server.AcceptTcpClient();
-                Console.WriteLine("-> Client" + client.Client.RemoteEndPoint + " connected.");
+                Console.WriteLine("-> Request from " + client.Client.RemoteEndPoint);
                 Task.Factory.StartNew(() => HandleClient(client));
             }
         }
@@ -53,8 +58,11 @@ namespace CrudTcp.Core
                 try
                 {
                     var strRequest = Receive(stream);
-                    var response = ControllerHandler.Execute(strRequest);
-                    //Console.WriteLine(Encoding.UTF8.GetString(response));
+
+                    var httpServer = new HttpServer(ControllersRegistry, SerializerRegistry);
+                    var httpResponse = httpServer.Execute(strRequest);
+                    var response = httpServer.GetResponse(httpResponse);
+
                     Send(stream, response);
                     client.Close();
                     break;

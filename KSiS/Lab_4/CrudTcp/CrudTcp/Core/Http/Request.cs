@@ -54,7 +54,9 @@ namespace CrudTcp.Core.Http
 
             Fields = headers.Select(p => p.Split(new[] { ':' }, 2)).Where(f => f.Count() > 1).ToDictionary(f => f[0].Trim(), f => f[1].Trim());
 
-            Serializer = SerializerRegistry.Get(GetField("Content-type"));
+            var field = GetField("Content-Type");
+
+            Serializer = SerializerRegistry.Get(field);
 
             ParseParameters();
         }

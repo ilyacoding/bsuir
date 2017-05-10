@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace CrudTcp.Models
 {
+    [Serializable]
     public class Category
     {
         public int Id { get; set; }

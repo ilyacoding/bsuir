@@ -4,7 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
+using CrudTcp.Models;
+using Newtonsoft.Json;
+using Formatting = Newtonsoft.Json.Formatting;
 
 namespace CrudTcp.Serialization
 {
@@ -22,24 +26,67 @@ namespace CrudTcp.Serialization
             var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
 
             var textWriter = new StringWriter();
-            
+
             xmlSerializer.Serialize(textWriter, obj);
 
             return textWriter.ToString();
         }
 
-        public T Deserialize<T>(string str) where T : class
+        public string Serialize(object obj, Type type)
         {
-            var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
+            var json = JsonConvert.SerializeObject(obj, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
 
-            var textReader = new StringReader(str);
+            return JsonConvert.DeserializeXmlNode("{\"Row\":" + json + "}", type.Name, true).InnerXml;
 
-            return (T) xmlSerializer.Deserialize(textReader);
+            //var xmlSerializer = new System.Xml.Serialization.XmlSerializer(type);
+            //
+            //var textWriter = new StringWriter();
+            //
+            //xmlSerializer.Serialize(textWriter, obj);
+            //
+            //return textWriter.ToString();
         }
+
+        //public T Deserialize<T>(string str) where T : class
+        //{
+        //    var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
+        //
+        //    var textReader = new StringReader(str);
+        //
+        //    return (T) xmlSerializer.Deserialize(textReader);
+        //}
 
         public object Deserialize(string str, Type type)
         {
-            throw new NotImplementedException();
+            //var xmlSerializer = new System.Xml.Serialization.XmlSerializer(type);
+            //
+            //var textReader = new StringReader(str);
+            //
+            //return xmlSerializer.Deserialize(textReader);
+
+            // To convert an XML node contained in string xml into a JSON string   
+            string json = "";
+            try
+            {
+                var xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(str);
+                json = JsonConvert.SerializeXmlNode(xmlDoc, Formatting.None, true);
+
+                return JsonConvert.DeserializeObject(json, type, new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("SPECIAL===============================");
+                Console.WriteLine(json);
+                throw;
+            }
         }
     }
 }

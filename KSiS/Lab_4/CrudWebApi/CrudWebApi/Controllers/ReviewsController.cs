@@ -120,8 +120,12 @@ namespace CrudWebApi.Controllers
                 }
                 else
                 {
-                    throw;
+                    return BadRequest();
                 }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
             }
 
             return StatusCode(HttpStatusCode.NoContent);

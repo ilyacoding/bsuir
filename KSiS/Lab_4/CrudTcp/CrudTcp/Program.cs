@@ -9,19 +9,19 @@ using CrudTcp.Serialization;
 
 namespace CrudTcp
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var controllerRegistry = new ControllersRegistry();
-            controllerRegistry.Reg("users", new UsersController());
+            controllerRegistry.Reg("Users", new UsersController());
 
             var serializerRegistry = new SerializerRegistry();
             serializerRegistry.RegDefault(new JsonSerializer());
-            serializerRegistry.Reg(new List<string>() {"application/json"}, new JsonSerializer());
-            serializerRegistry.Reg(new List<string>() {"application/xml"}, new XmlSerializer());
+            serializerRegistry.Reg(new List<string> {"application/json"}, new JsonSerializer());
+            serializerRegistry.Reg(new List<string> {"application/xml"}, new XmlSerializer());
 
-            var serv = new TcpServer("127.0.0.1", 8000, new ControllerHandler(controllerRegistry, serializerRegistry));
+            var serv = new TcpServer("127.0.0.1", 8000, serializerRegistry, controllerRegistry);
             serv.Start();
             Console.ReadKey();
         }
