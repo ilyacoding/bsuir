@@ -10,7 +10,7 @@ namespace CrudTcp.Serialization
     public interface ISerializer
     {
         string Mime { get; set; }
-        string Serialize<T>(T obj) where T : class ;
+        string Serialize(object obj, Type type);
         object Deserialize(string str, Type type);
     }
 }

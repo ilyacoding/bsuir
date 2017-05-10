@@ -62,7 +62,6 @@
     <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Core\ControllerHandler.cs" />
     <Compile Include="Core\ControllerRegistry.cs" />
     <Compile Include="Core\Http\Action\BadRequest.cs" />
     <Compile Include="Core\Http\Action\Created.cs" />
@@ -72,6 +71,7 @@
     <Compile Include="Core\Http\Action\NotImplemented.cs" />
     <Compile Include="Core\Http\Action\NotModified.cs" />
     <Compile Include="Core\Http\Action\Ok.cs" />
+    <Compile Include="Core\Http\HttpServer.cs" />
     <Compile Include="Core\Http\Request.cs" />
     <Compile Include="Core\Http\Response.cs" />
     <Compile Include="Core\Http\ResponseStatus.cs" />
@@ -93,7 +93,6 @@
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\JsonSerializer.cs" />
     <Compile Include="Serialization\XmlSerializer.cs" />
-    <Compile Include="View\ResponseView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
