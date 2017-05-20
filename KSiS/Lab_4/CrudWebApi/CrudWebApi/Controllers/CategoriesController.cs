@@ -60,7 +60,7 @@ namespace CrudWebApi.Controllers
             {
                 return BadRequest();
             }
-          
+
             try
             {
                 var category = db.Categories.Include(x => x.Posts).Single(x => x.Id == id);
@@ -79,10 +79,10 @@ namespace CrudWebApi.Controllers
                 foreach (var post in newCategory.Posts)
                 {
                     if (category.Posts.Any(x => x.Id == post.Id)) continue;
-                    db.Posts.AddOrUpdate(post);
+                    db.Posts.Attach(post);
                     category.Posts.Add(post);
                 }
-
+                
                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
@@ -93,8 +93,12 @@ namespace CrudWebApi.Controllers
                 }
                 else
                 {
-                    throw;
+                    return BadRequest();
                 }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -119,11 +123,13 @@ namespace CrudWebApi.Controllers
         [ResponseType(typeof(Category))]
         public IHttpActionResult DeleteCategory(int id)
         {
-            Category category = db.Categories.Find(id);
+            var category = db.Categories.Include(x => x.Posts).Single(x => x.Id == id);
             if (category == null)
             {
                 return NotFound();
             }
+            
+            category.Posts = null;
 
             db.Categories.Remove(category);
             db.SaveChanges();

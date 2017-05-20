@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web;
-using System.Web.Http;
-using System.Web.Http.Description;
-using CrudWebApi.Models;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web.ModelBinding;
+using CrudTcp.Core.Http.Action;
+using CrudTcp.Models;
 
-namespace CrudWebApi.Controllers
+namespace CrudTcp.Controllers
 {
-    public class UsersController : ApiController
+    public class UsersController : IController
     {
-        private BlogContext db = new BlogContext();
+        private BlogContext db { get; set; }
 
         //private IList<IDto> Read<T>(DbSet<T> db) where T : class
         //{
@@ -35,7 +32,7 @@ namespace CrudWebApi.Controllers
         //
         //                if (dtoProperty.PropertyType.GetInterface("ICollection") != null)
         //                {
-        //                    
+        //
         //                }
         //                else
         //                {
@@ -49,48 +46,51 @@ namespace CrudWebApi.Controllers
         //}
 
         // GET: api/Users
-        public IList<User> GetUsers()
+        public IHttpAction GetUsers()
         {
-            return db.Users.Select(x => new User
+            db = new BlogContext();
+            return new Ok(db.Users.Select(x => new UserDto()
             {
                 Id = x.Id,
                 Name = x.Name,
-                Reviews = x.Reviews.ToList()
-            }).ToList();
-            //return Read(db.Users);
+                Reviews = x.Reviews.Select(y => new ReviewDto()
+                {
+                    Id = y.Id,
+                    Content = y.Content
+                }).ToList()
+            }).ToList());
         }
-
+        
         // GET: api/Users/5
-        [ResponseType(typeof(User))]
-        public IHttpActionResult GetUser(int id)
+        public IHttpAction GetUser(int id)
         {
-            var user = db.Users.Select(x => new UserDto
+            db = new BlogContext();
+            var user = db.Users.Select(x => new UserDto()
             {
                 Id = x.Id,
                 Name = x.Name,
-                Reviews = x.Reviews.ToList()
+                Reviews = x.Reviews.Select(y => new ReviewDto()
+                {
+                    Id = y.Id,
+                    Content = y.Content
+                }).ToList()
             }).ToList().Find(x => x.Id == id);
-      
+        
             if (user == null)
             {
-                return NotFound();
+                return new NotFound();
             }
-      
-            return Ok(user);
+        
+            return new Ok(user);
         }
-
+        
         // PUT: api/Users/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(int id, UserDto newUser)
+        public IHttpAction PutUser(int id, User newUser)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
+            db = new BlogContext();
             if (id != newUser.Id)
             {
-                return BadRequest();
+                return new BadRequest();
             }
 
             try
@@ -121,60 +121,51 @@ namespace CrudWebApi.Controllers
             {
                 if (!UserExists(id))
                 {
-                    return NotFound();
+                    return new NotFound();
                 }
                 else
                 {
-                    return BadRequest();
+                    return new BadRequest();
                 }
             }
             catch (Exception)
             {
-                return BadRequest();
+                return new BadRequest();
             }
-            return StatusCode(HttpStatusCode.NoContent);
+            return new NoContent();
         }
-
+        
         // POST: api/Users
-        [ResponseType(typeof(User))]
-        public IHttpActionResult PostUser(User user)
+        public IHttpAction PostUser(User user)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            db = new BlogContext();
 
             db.Users.Add(user);
             db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
+        
+            return new Created(user);
         }
-
+        
         // DELETE: api/Users/5
-        [ResponseType(typeof(User))]
-        public IHttpActionResult DeleteUser(int id)
+        public IHttpAction DeleteUser(int id)
         {
-            var user = db.Users.Include(x => x.Reviews).Single(x => x.Id == id);
-            if (user == null)
+            db = new BlogContext();
+            User user;
+            if (UserExists(id))
             {
-                return NotFound();
+                user = db.Users.Include(x => x.Reviews).Single(x => x.Id == id);
+            }
+            else
+            {
+                return new NotFound();
             }
 
             user.Reviews = null;
-
+        
             db.Users.Remove(user);
             db.SaveChanges();
-
-            return Ok(user);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+        
+            return new Ok(user);
         }
 
         private bool UserExists(int id)

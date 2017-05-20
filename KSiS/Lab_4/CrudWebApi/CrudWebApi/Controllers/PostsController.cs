@@ -92,14 +92,14 @@ namespace CrudWebApi.Controllers
                 foreach (var review in newPost.Reviews)
                 {
                     if (post.Reviews.Any(x => x.Id == review.Id)) continue;
-                    db.Reviews.AddOrUpdate(review);
+                    db.Reviews.Attach(review);
                     post.Reviews.Add(review);
                 }
 
                 foreach (var category in newPost.Categories)
                 {
-                    if (post.Reviews.Any(x => x.Id == category.Id)) continue;
-                    db.Categories.AddOrUpdate(category);
+                    if (post.Categories.Any(x => x.Id == category.Id)) continue;
+                    db.Categories.Attach(category);
                     post.Categories.Add(category);
                 }
 
@@ -113,8 +113,12 @@ namespace CrudWebApi.Controllers
                 }
                 else
                 {
-                    throw;
+                    return BadRequest();
                 }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -139,11 +143,14 @@ namespace CrudWebApi.Controllers
         [ResponseType(typeof(Post))]
         public IHttpActionResult DeletePost(int id)
         {
-            Post post = db.Posts.Find(id);
+            var post = db.Posts.Include(x => x.Categories).Include(x => x.Reviews).Single(x => x.Id == id);
             if (post == null)
             {
                 return NotFound();
             }
+
+            post.Categories = null;
+            post.Reviews = null;
 
             db.Posts.Remove(post);
             db.SaveChanges();
