@@ -19,39 +19,39 @@ namespace CrudWebApi.Controllers
     {
         private BlogContext db = new BlogContext();
 
-        private IList<IDto> Read<T>(DbSet<T> db) where T : class
-        {
-            var list = new List<IDto>();
-            var dtoType = Type.GetType(typeof(T) + "Dto");
-            foreach (var entry in db)
-            {
-                var dto = Activator.CreateInstance(dtoType);
-        
-                foreach (var entryProperty in entry.GetType().GetProperties())
-                {
-                    foreach (var dtoProperty in dto.GetType().GetProperties())
-                    {
-                        if (dtoProperty.Name != entryProperty.Name) continue;
-        
-                        if (dtoProperty.PropertyType.GetInterface("ICollection") != null)
-                        {
-                            
-                        }
-                        else
-                        {
-                            dtoProperty.SetValue(dto, entryProperty.GetValue(entry));
-                        }
-                    }
-                }
-                list.Add(dto as IDto);
-            }
-            return list;
-        }
+        //private IList<IDto> Read<T>(DbSet<T> db) where T : class
+        //{
+        //    var list = new List<IDto>();
+        //    var dtoType = Type.GetType(typeof(T) + "Dto");
+        //    foreach (var entry in db)
+        //    {
+        //        var dto = Activator.CreateInstance(dtoType);
+        //
+        //        foreach (var entryProperty in entry.GetType().GetProperties())
+        //        {
+        //            foreach (var dtoProperty in dto.GetType().GetProperties())
+        //            {
+        //                if (dtoProperty.Name != entryProperty.Name) continue;
+        //
+        //                if (dtoProperty.PropertyType.GetInterface("ICollection") != null)
+        //                {
+        //                    
+        //                }
+        //                else
+        //                {
+        //                    dtoProperty.SetValue(dto, entryProperty.GetValue(entry));
+        //                }
+        //            }
+        //        }
+        //        list.Add(dto as IDto);
+        //    }
+        //    return list;
+        //}
 
         // GET: api/Users
-        public IList<UserDto> GetUsers()
+        public IList<User> GetUsers()
         {
-            return db.Users.Select(x => new UserDto
+            return db.Users.Select(x => new User
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -81,7 +81,7 @@ namespace CrudWebApi.Controllers
 
         // PUT: api/Users/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(int id, User newUser)
+        public IHttpActionResult PutUser(int id, UserDto newUser)
         {
             if (!ModelState.IsValid)
             {
@@ -111,7 +111,7 @@ namespace CrudWebApi.Controllers
                 foreach (var review in newUser.Reviews)
                 {
                     if (user.Reviews.Any(x => x.Id == review.Id)) continue;
-                    db.Reviews.AddOrUpdate(review);
+                    db.Reviews.Attach(review);
                     user.Reviews.Add(review);
                 }
 
@@ -125,8 +125,12 @@ namespace CrudWebApi.Controllers
                 }
                 else
                 {
-                    throw;
+                    return BadRequest();
                 }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
             }
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -150,11 +154,13 @@ namespace CrudWebApi.Controllers
         [ResponseType(typeof(User))]
         public IHttpActionResult DeleteUser(int id)
         {
-            User user = db.Users.Find(id);
+            var user = db.Users.Include(x => x.Reviews).Single(x => x.Id == id);
             if (user == null)
             {
                 return NotFound();
             }
+
+            user.Reviews = null;
 
             db.Users.Remove(user);
             db.SaveChanges();
