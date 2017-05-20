@@ -97,7 +97,7 @@ double get_sum(int i)
         sum += strtod(buf_ptr, NULL);
     }
 
-    fprintf(tmp_file_result, "y[%d] = %.20f\n", i, sum);
+    fprintf(tmp_file_result, "y[%d]       = %.20f\n", i, sum);
 //    fprintf(tmp_file_result, "y[%d] CHECK = %.20f\n", i, sin(x(i)));
 
     free(buf);
@@ -121,14 +121,16 @@ int main(int argc, char *argv[])
     prog = basename(argv[0]);
 
 
-    if (argc < 3)
+    if (argc < 4)
     {
-        fprintf(stderr, "%s: %s\n", prog, "Too few arguments. \nRight syntax: N n");
+        fprintf(stderr, "%s: %s\n", prog, "Too few arguments. \nRight syntax: N n file_result");
         return -1;
     }
 
     N = atoi(argv[1]);
     n = atoi(argv[2]);
+
+    tmp_filename_result = argv[3];
 
     if (N < 1)
     {
@@ -161,9 +163,9 @@ int main(int argc, char *argv[])
         }
 
         pthread_array = (pthread_t**)malloc(sizeof(pthread_t*) * n);
-        for (int k = 0; k < n; k++)
+        for (int j = 0; j < n; j++)
         {
-            pthread_array[k] = (pthread_t*)malloc(sizeof(pthread_t));
+            pthread_array[j] = (pthread_t*)malloc(sizeof(pthread_t));
         }
 
         k = 0;
@@ -188,8 +190,6 @@ int main(int argc, char *argv[])
             }
         }
 
-        printf("NEXT\n\n");
-
         fclose(tmp_file);
 
         if (errno != 0)
@@ -199,6 +199,12 @@ int main(int argc, char *argv[])
         }
 
         get_sum(i);
+
+        for (int j = 0; j < n; j++)
+        {
+            free(pthread_array[j]);
+        }
+
         free(pthread_array);
     }
 
