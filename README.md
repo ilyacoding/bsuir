@@ -1,2 +1,2 @@
 # bsuir-labs
-Лабораторные работы БГУИР ПОИТ
+BSUIR Labs [Term 4]
