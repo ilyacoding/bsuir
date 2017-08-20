@@ -49,16 +49,7 @@ namespace CrudTcp.Serialization
             //
             //return textWriter.ToString();
         }
-
-        //public T Deserialize<T>(string str) where T : class
-        //{
-        //    var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
-        //
-        //    var textReader = new StringReader(str);
-        //
-        //    return (T) xmlSerializer.Deserialize(textReader);
-        //}
-
+        
         public object Deserialize(string str, Type type)
         {
             //var xmlSerializer = new System.Xml.Serialization.XmlSerializer(type);
@@ -66,27 +57,15 @@ namespace CrudTcp.Serialization
             //var textReader = new StringReader(str);
             //
             //return xmlSerializer.Deserialize(textReader);
+ 
+            var xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(str);
+            var json = JsonConvert.SerializeXmlNode(xmlDoc, Formatting.None, true);
 
-            // To convert an XML node contained in string xml into a JSON string   
-            string json = "";
-            try
+            return JsonConvert.DeserializeObject(json, type, new JsonSerializerSettings()
             {
-                var xmlDoc = new XmlDocument();
-                xmlDoc.LoadXml(str);
-                json = JsonConvert.SerializeXmlNode(xmlDoc, Formatting.None, true);
-
-                return JsonConvert.DeserializeObject(json, type, new JsonSerializerSettings()
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                });
-            }
-            catch (Exception e)
-            {
-
-                Console.WriteLine("SPECIAL===============================");
-                Console.WriteLine(json);
-                throw;
-            }
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
         }
     }
 }

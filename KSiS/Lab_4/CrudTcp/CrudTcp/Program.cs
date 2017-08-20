@@ -15,11 +15,14 @@ namespace CrudTcp
         {
             var controllerRegistry = new ControllersRegistry();
             controllerRegistry.Reg("Users", new UsersController());
+            controllerRegistry.Reg("Categories", new CategoriesController());
+            controllerRegistry.Reg("Posts", new PostsController());
+            controllerRegistry.Reg("Reviews", new ReviewsController());
 
             var serializerRegistry = new SerializerRegistry();
             serializerRegistry.RegDefault(new JsonSerializer());
-            serializerRegistry.Reg(new List<string> {"application/json"}, new JsonSerializer());
-            serializerRegistry.Reg(new List<string> {"application/xml"}, new XmlSerializer());
+            serializerRegistry.Reg(new List<string> {"application/json", "text/json"}, new JsonSerializer());
+            serializerRegistry.Reg(new List<string> {"application/xml", "text/xml"}, new XmlSerializer());
 
             var serv = new TcpServer("127.0.0.1", 8000, serializerRegistry, controllerRegistry);
             serv.Start();

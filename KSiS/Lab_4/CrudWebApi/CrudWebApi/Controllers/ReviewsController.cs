@@ -150,8 +150,12 @@ namespace CrudWebApi.Controllers
         [ResponseType(typeof(Review))]
         public IHttpActionResult DeleteReview(int id)
         {
-            var review = db.Reviews.Include(x => x.User).Include(x => x.Post).Single(x => x.Id == id);
-            if (review == null)
+            Review review;
+            if (ReviewExists(id))
+            {
+                review = db.Reviews.Include(x => x.User).Include(x => x.Post).Single(x => x.Id == id);
+            }
+            else
             {
                 return NotFound();
             }

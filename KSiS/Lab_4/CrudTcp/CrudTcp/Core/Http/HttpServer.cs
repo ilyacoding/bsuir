@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using CrudTcp.Controllers;
 using CrudTcp.Core.Http.Action;
+using CrudTcp.Serialization;
 
 namespace CrudTcp.Core.Http
 {
@@ -16,6 +18,7 @@ namespace CrudTcp.Core.Http
         
         private Request Request { get; set; }
         private Response Response { get; set; }
+        private List<object> Parameters { get; set; }
 
         private IController Controller { get; set; }
         private MethodInfo ControllerMethod { get; set; }
@@ -30,16 +33,27 @@ namespace CrudTcp.Core.Http
         {
             try
             {
-                Request = new Request(SerializerRegistry);
-                Request.Parse(str);
+                Request = new Request(str);
+                Parameters = GetParameters();
 
                 Controller = ControllerRegistry.Get(Request.Uri.Controller);
-                ControllerMethod = GetControllerMethod();
 
-                if (ControllerMethod.GetParameters().Length > 0)
+                try
                 {
-                    Request.ParseBody(ControllerMethod.GetParameters().Last().ParameterType);
+                    ControllerMethod = GetControllerMethod();
                 }
+                catch (Exception)
+                {
+                    return new MethodNotAllowed();
+                }
+
+                if (ControllerMethod.GetParameters().Length > 0 && Request.Body.Length > 0)
+                {
+                    var serializer = SerializerRegistry.Get(Request.GetField("Content-Type"));
+                    var bodyType = ControllerMethod.GetParameters().Last().ParameterType;
+                    Parameters[Parameters.Count - 1] = serializer.Deserialize((string)Parameters[Parameters.Count - 1], bodyType);
+                }
+
                 return (IHttpAction)ControllerMethod.Invoke(Controller, Request.Parameters);
             }
             catch (Exception ex)
@@ -58,7 +72,7 @@ namespace CrudTcp.Core.Http
                 var datareq = Encoding.UTF8.GetBytes(serializer.Serialize(httpAction.Object, httpAction.Object.GetType()));
 
                 Response = new Response(ResponseStatus.Get(httpAction.Code), datareq);
-                Response.Fields.Add("Content-type", serializer.Mime);
+                Response.Fields.Add("Content-Type", serializer.Mime);
             }
             else
             {
@@ -71,7 +85,7 @@ namespace CrudTcp.Core.Http
         private MethodInfo GetControllerMethod()
         {
             var httpMethod = Request.Method.ToLower();
-            var argumentCount = Request.Parameters?.Length ?? 0;
+            var argumentCount = Parameters.Count;
 
             foreach (var method in Controller.GetType().GetMethods())
             {
@@ -82,6 +96,31 @@ namespace CrudTcp.Core.Http
             }
 
             throw new Exception();
+        }
+
+        private List<object> GetParameters()
+        {
+            var parameters = new List<object>();
+
+            foreach (var parameter in Request.Uri.UrlParams)
+            {
+                try
+                {
+                    var par = Convert.ToInt32(parameter);
+                    parameters.Add(par);
+                }
+                catch (Exception)
+                {
+                    parameters.Add(parameter);
+                }
+            }
+
+            if (Request.Body.Length > 0)
+            {
+                parameters.Add(Request.Body);
+            }
+
+            return parameters;
         }
 
         private byte[] CreateByteResponse()

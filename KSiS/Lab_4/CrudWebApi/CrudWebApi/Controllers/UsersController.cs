@@ -49,9 +49,9 @@ namespace CrudWebApi.Controllers
         //}
 
         // GET: api/Users
-        public IList<User> GetUsers()
+        public IList<UserDto> GetUsers()
         {
-            return db.Users.Select(x => new User
+            return db.Users.Select(x => new UserDto
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -153,9 +153,13 @@ namespace CrudWebApi.Controllers
         // DELETE: api/Users/5
         [ResponseType(typeof(User))]
         public IHttpActionResult DeleteUser(int id)
-        {
-            var user = db.Users.Include(x => x.Reviews).Single(x => x.Id == id);
-            if (user == null)
+        {   
+            User user;
+            if (UserExists(id))
+            {
+                user = db.Users.Include(x => x.Reviews).Single(x => x.Id == id);
+            }
+            else
             {
                 return NotFound();
             }

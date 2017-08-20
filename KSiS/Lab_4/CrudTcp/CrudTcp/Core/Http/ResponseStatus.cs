@@ -13,6 +13,7 @@ namespace CrudTcp.Core.Http
             { 501, "Not implemented" },
 
             { 200, "OK" },
+            { 201, "Created" },
             { 204, "No content" },
             { 400, "Bad request" },
             { 401, "Unauthorized" },
