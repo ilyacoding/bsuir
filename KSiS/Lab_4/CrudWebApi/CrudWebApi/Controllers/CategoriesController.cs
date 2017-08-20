@@ -123,12 +123,16 @@ namespace CrudWebApi.Controllers
         [ResponseType(typeof(Category))]
         public IHttpActionResult DeleteCategory(int id)
         {
-            var category = db.Categories.Include(x => x.Posts).Single(x => x.Id == id);
-            if (category == null)
+            Category category;
+            if (CategoryExists(id))
+            {
+                category = db.Categories.Include(x => x.Posts).Single(x => x.Id == id);
+            }
+            else
             {
                 return NotFound();
             }
-            
+
             category.Posts = null;
 
             db.Categories.Remove(category);

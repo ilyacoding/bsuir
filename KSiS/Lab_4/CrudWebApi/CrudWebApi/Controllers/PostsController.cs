@@ -143,8 +143,12 @@ namespace CrudWebApi.Controllers
         [ResponseType(typeof(Post))]
         public IHttpActionResult DeletePost(int id)
         {
-            var post = db.Posts.Include(x => x.Categories).Include(x => x.Reviews).Single(x => x.Id == id);
-            if (post == null)
+            Post post;
+            if (PostExists(id))
+            {
+                post = db.Posts.Include(x => x.Categories).Include(x => x.Reviews).Single(x => x.Id == id);
+            }
+            else
             {
                 return NotFound();
             }
