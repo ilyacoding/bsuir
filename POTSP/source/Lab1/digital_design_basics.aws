@@ -1,0 +1,12 @@
+[Version]
+Version=9.1
+[Designs]
+digital_design_basics=.\digital_design_basics\digital_design_basics.adf
+[Browser]
+sort=order
+mode=none
+[Order]
+order=1
+macro=
+[Expand]
+digital_design_basics=1

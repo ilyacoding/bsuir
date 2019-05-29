@@ -1,0 +1,149 @@
+[Project]
+Current Flow=Generic
+VCS=0
+version=3
+Current Config=compile
+
+[Configurations]
+compile=memory_elements
+
+[Library]
+memory_elements=.\memory_elements.LIB
+
+[Settings]
+AccessRead=0
+AccessReadWrite=0
+AccessACCB=0
+AccessACCR=0
+AccessReadWriteSLP=0
+AccessReadTopLevel=1
+DisableC=1
+ENABLE_ADV_DATAFLOW=0
+FLOW_TYPE=HDL
+LANGUAGE=VHDL
+REFRESH_FLOW=1
+FLOWTOOLS=NONE
+FAMILY=
+IMPL_TOOL=
+SYNTH_TOOL=
+fileopenfolder=D:\Programming\VHDL\structural_modeling\structural_modeling\src\basic
+
+[LocalVerilogSets]
+EnableSLP=1
+EnableDebug=0
+
+[LocalVhdlSets]
+CompileWithDebug=0
+
+[$LibMap$]
+memory_elements=.
+Active_lib=
+
+[HierarchyViewer]
+SortInfo=u
+HierarchyInformation=fdcpe_tb|TB_ARCHITECTURE|0
+ShowHide=ShowTopLevel
+Selected=
+
+[Folders]
+Name3=Makefiles
+Directory3=D:\Programming\VHDL\memory-elements\memory_elements\
+Extension3=mak
+Name4=Memory
+Directory4=D:\Programming\VHDL\memory-elements\memory_elements\src
+Extension4=mem;mif;hex
+Name5=Dll Libraries
+Directory5=D:\Programming\VHDL\memory-elements\memory_elements\
+Extension5=dll
+Name6=PDF
+Directory6=D:\Programming\VHDL\memory-elements\memory_elements\
+Extension6=pdf
+Name7=HTML
+Directory7=D:\Programming\VHDL\memory-elements\memory_elements\
+Extension7=
+
+[Groups]
+task 1=1
+task 1\test-bench=1
+basic=1
+task 2=1
+task 2\test-bench=1
+task 3=1
+task 3\test-bench=1
+task 4=1
+task 4\test-bench=1
+task 5.3=1
+task 5.3\test-bench=1
+task 5.4-6=1
+task 5.4-6\test-bench=1
+task 5.7=1
+task 5.7\test-bench=1
+task 5.8=1
+task 5.8\test-bench=1
+task 5.9=1
+task 5.9\test-bench=1
+
+[Files]
+task 1/bistable_element.vhd=-1
+task 1\test-bench/bistable_element_TB.vhd=-1
+task 1\test-bench/bistable_element_TB_runtest.do=-1
+basic/inv.vhd=-1
+basic/nor2.vhd=-1
+basic/and2.vhd=-1
+task 2/RS_Latch.vhd=-1
+task 2\test-bench/rs_latch_TB.vhd=-1
+task 2\test-bench/rs_latch_TB_runtest.do=-1
+task 3/D_Latch.vhd=-1
+task 3\test-bench/d_latch_TB.vhd=-1
+task 3\test-bench/d_latch_TB_runtest.do=-1
+task 4/D_Enable_Latch.vhd=-1
+task 4\test-bench/d_enable_latch_TB.vhd=-1
+task 4\test-bench/d_enable_latch_TB_runtest.do=-1
+task 5.3/D_FlipFlop.vhd=-1
+task 5.3\test-bench/d_flipflop_TB.vhd=-1
+task 5.3\test-bench/d_flipflop_TB_runtest.do=-1
+task 5.4-6/FDCPE.vhd=-1
+task 5.4-6\test-bench/FDCPE_TB.vhd=-1
+task 5.4-6\test-bench/FDCPE_TB_runtest.do=-1
+task 5.7/RSFF.vhd=-1
+task 5.7\test-bench/rsff_TB.vhd=-1
+task 5.7\test-bench/rsff_TB_runtest.do=-1
+task 5.8/JKFF.vhd=-1
+task 5.8\test-bench/jkff_TB.vhd=-1
+task 5.8\test-bench/jkff_TB_runtest.do=-1
+task 5.9/TFF.vhd=-1
+task 5.9\test-bench/tff_TB.vhd=-1
+task 5.9\test-bench/tff_TB_runtest.do=-1
+
+[Files.Data]
+.\src\task 1\bistable_element.vhd=VHDL Source Code
+.\src\task 1\test-bench\bistable_element_TB.vhd=VHDL Test Bench
+.\src\task 1\test-bench\bistable_element_TB_runtest.do=Macro
+.\src\basic\inv.vhd=VHDL Source Code
+.\src\basic\nor2.vhd=VHDL Source Code
+.\src\basic\and2.vhd=VHDL Source Code
+.\src\task 2\RS_Latch.vhd=VHDL Source Code
+.\src\task 2\test-bench\rs_latch_TB.vhd=VHDL Source Code
+.\src\task 2\test-bench\rs_latch_TB_runtest.do=Macro
+.\src\task 3\D_Latch.vhd=VHDL Source Code
+.\src\task 3\test-bench\d_latch_TB.vhd=VHDL Source Code
+.\src\task 3\test-bench\d_latch_TB_runtest.do=Macro
+.\src\task 4\D_Enable_Latch.vhd=VHDL Source Code
+.\src\task 4\test-bench\d_enable_latch_TB.vhd=VHDL Source Code
+.\src\task 4\test-bench\d_enable_latch_TB_runtest.do=Macro
+.\src\task 5.3\D_FlipFlop.vhd=VHDL Source Code
+.\src\task 5.3\test-bench\d_flipflop_TB.vhd=VHDL Source Code
+.\src\task 5.3\test-bench\d_flipflop_TB_runtest.do=Macro
+.\src\task 5.4-6\FDCPE.vhd=VHDL Source Code
+.\src\task 5.4-6\test-bench\FDCPE_TB.vhd=VHDL Source Code
+.\src\task 5.4-6\test-bench\FDCPE_TB_runtest.do=Macro
+.\src\task 5.7\RSFF.vhd=VHDL Source Code
+.\src\task 5.7\test-bench\rsff_TB.vhd=VHDL Source Code
+.\src\task 5.7\test-bench\rsff_TB_runtest.do=Macro
+.\src\task 5.8\JKFF.vhd=VHDL Source Code
+.\src\task 5.8\test-bench\jkff_TB.vhd=VHDL Source Code
+.\src\task 5.8\test-bench\jkff_TB_runtest.do=Macro
+.\src\task 5.9\TFF.vhd=VHDL Source Code
+.\src\task 5.9\test-bench\tff_TB.vhd=VHDL Source Code
+.\src\task 5.9\test-bench\tff_TB_runtest.do=Macro
+

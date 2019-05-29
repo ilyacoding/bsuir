@@ -1,0 +1,119 @@
+[Project]
+Current Flow=Generic
+VCS=0
+version=3
+Current Config=compile
+
+[Configurations]
+compile=microprogram_control_devices
+
+[Library]
+microprogram_control_devices=.\microprogram_control_devices.LIB
+
+[Settings]
+AccessRead=0
+AccessReadWrite=0
+AccessACCB=0
+AccessACCR=0
+AccessReadWriteSLP=0
+AccessReadTopLevel=1
+DisableC=1
+ENABLE_ADV_DATAFLOW=0
+FLOW_TYPE=HDL
+LANGUAGE=VHDL
+REFRESH_FLOW=1
+FLOWTOOLS=NONE
+FAMILY=
+fileopenfolder=C:\Users\Asus\Source\VHDL\storage-devices\source\storage_devices\src\task 2.1
+VerilogDirsChanged=1
+
+[LocalVerilogSets]
+EnableSLP=1
+EnableDebug=0
+VerilogLanguage=4
+Strict=0
+VerilogNoSpecify=0
+WarningPrnLevel=1
+ErrorOutputLimit=0
+OptimizationLevel=2
+ProtectLevel=0
+AdditionalOptions=
+
+[LocalVhdlSets]
+CompileWithDebug=0
+DisableVHDL87Key=0
+EnableVHDL93Key=0
+EnableVHDL2002Key=0
+EnableVHDL2006Key=0
+EnableVHDL2008Key=1
+NetlistCompilation=1
+Syntax RelaxLRM=0
+MaxErrorsKey=100
+OptimizationLevel=3
+DisableRangeChecks=0
+ProtectLevel=0
+AdditionalOptions=
+IncrementalCompilation=0
+
+[$LibMap$]
+microprogram_control_devices=.
+Active_lib=
+
+[HierarchyViewer]
+SortInfo=u
+HierarchyInformation=count_zeros|beh|0 find_max|beh|0 ram|beh|0 sort|beh|0 
+ShowHide=ShowTopLevel
+Selected=
+
+[DefineMacro]
+Global=
+
+[Groups]
+task 1=1
+test-bench=1
+test-bench\task 1=1
+test-bench\task 2=1
+test-bench\task 2\find_max=1
+test-bench\task 2\sort=1
+test-bench\task 2\count_zeros=1
+task 2=1
+
+[Files]
+task 1/TrafficLight.vhd=-1
+test-bench\task 1/trafficlight_TB.vhd=-1
+test-bench\task 1/trafficlight_TB_runtest.do=-1
+test-bench\task 2\find_max/find_max.vhd=-1
+test-bench\task 2\find_max/find_max.do=-1
+test-bench\task 2\sort/sort.do=-1
+test-bench\task 2\sort/sort.vhd=-1
+test-bench\task 2\count_zeros/count_zeros.do=-1
+test-bench\task 2\count_zeros/count_zeros.vhd=-1
+task 2/parameters.vhd=-1
+task 2/opcodes.vhd=-1
+task 2/controller_device.vhd=-1
+task 2/util.vhd=-1
+task 2/types.vhd=-1
+task 2/CTRL.vhd=-1
+task 2/ALU.vhd=-1
+task 2/ROM.vhd=-1
+task 2/RAM.vhd=-1
+
+[Files.Data]
+.\src\task 1\TrafficLight.vhd=VHDL Source Code
+.\src\test-bench\task 1\trafficlight_TB.vhd=VHDL Test Bench
+.\src\test-bench\task 1\trafficlight_TB_runtest.do=Macro
+.\src\test-bench\task 2\find_max\find_max.vhd=VHDL Source Code
+.\src\test-bench\task 2\find_max\find_max.do=Macro
+.\src\test-bench\task 2\sort\sort.do=Macro
+.\src\test-bench\task 2\sort\sort.vhd=VHDL Source Code
+.\src\test-bench\task 2\count_zeros\count_zeros.do=Macro
+.\src\test-bench\task 2\count_zeros\count_zeros.vhd=VHDL Source Code
+.\src\task 2\parameters.vhd=VHDL Source Code
+.\src\task 2\opcodes.vhd=VHDL Source Code
+.\src\task 2\controller_device.vhd=VHDL Source Code
+.\src\task 2\util.vhd=VHDL Source Code
+.\src\task 2\types.vhd=VHDL Source Code
+.\src\task 2\CTRL.vhd=VHDL Source Code
+.\src\task 2\ALU.vhd=VHDL Source Code
+.\src\task 2\ROM.vhd=VHDL Source Code
+.\src\task 2\RAM.vhd=VHDL Source Code

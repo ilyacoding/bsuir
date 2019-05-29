@@ -1,0 +1,15 @@
+[Version]
+Version=9.1
+[Designs]
+memory_elements=.\memory_elements\memory_elements.adf
+[Browser]
+sort=order
+mode=none
+[Order]
+order=1
+macro=
+[Expand]
+memory_elements=1
+primitives=0
+[Settings]
+Active=memory_elements

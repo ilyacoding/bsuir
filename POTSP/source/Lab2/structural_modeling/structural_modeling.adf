@@ -1,0 +1,118 @@
+[Project]
+Current Flow=Multivendor
+VCS=0
+version=3
+Current Config=compile
+
+[Configurations]
+compile=structural_modeling
+
+[Library]
+structural_modeling=.\structural_modeling.LIB
+
+[Settings]
+AccessRead=0
+AccessReadWrite=0
+AccessACCB=0
+AccessACCR=0
+AccessReadWriteSLP=0
+AccessReadTopLevel=1
+DisableC=1
+ENABLE_ADV_DATAFLOW=0
+FLOW_TYPE=HDL
+LANGUAGE=VHDL
+REFRESH_FLOW=1
+SYNTH_TOOL=<none>
+IMPL_TOOL=<none>
+CSYNTH_TOOL=<none>
+PHYSSYNTH_TOOL=<none>
+FLOWTOOLS=ONLY_IMPL
+ON_SERVERFARM_SYNTH=0
+ON_SERVERFARM_IMPL=0
+ON_SERVERFARM_SIM=0
+DVM_DISPLAY=NO
+FAMILY=<none>
+FUNC_LIB=structural_modeling
+POST_LIB=structural_modeling_post_synthesis
+TIM_LIB=structural_modeling_timing
+SYNTH_STATUS=none
+IMPL_STATUS=none
+PHYSSYNTH_STATUS=none
+
+[LocalVerilogSets]
+EnableSLP=1
+EnableDebug=0
+
+[LocalVhdlSets]
+CompileWithDebug=0
+
+[$LibMap$]
+structural_modeling=.
+Active_lib=
+
+[IMPLEMENTATION]
+UCF=
+
+[HierarchyViewer]
+SortInfo=u
+HierarchyInformation=and2|beh|0 sum2_tb|testbench_for_sum2|1 
+ShowHide=ShowTopLevel
+Selected=
+
+[Groups]
+basic=1
+test-bench=1
+test-bench\task3_1=1
+test-bench\task3_2=1
+test-bench\task3_3=1
+test-bench\task4=1
+
+[Files]
+/task1.vhd=-1
+/task2.vhd=-1
+/task3_1.vhd=-1
+/task3_2.vhd=-1
+/task3_3.vhd=-1
+/task4.vhd=-1
+basic/sum1.vhd=-1
+basic/xor2.vhd=-1
+basic/half_sum.vhd=-1
+basic/or3.vhd=-1
+basic/nand3.vhd=-1
+basic/and3.vhd=-1
+basic/and2.vhd=-1
+basic/inv.vhd=-1
+basic/or2.vhd=-1
+test-bench\task3_1/task3_1_TB.vhd=-1
+test-bench\task3_1/task3_1_TB_runtest.do=-1
+test-bench\task3_2/task3_2_TB.vhd=-1
+test-bench\task3_2/task3_2_TB_runtest.do=-1
+test-bench\task3_3/task3_3_TB.vhd=-1
+test-bench\task3_3/task3_3_TB_runtest.do=-1
+test-bench\task4/sum2_TB.vhd=-1
+test-bench\task4/sum2_TB_runtest.do=-1
+
+[Files.Data]
+.\src\task1.vhd=VHDL Source Code
+.\src\task2.vhd=VHDL Source Code
+.\src\task3_1.vhd=VHDL Source Code
+.\src\task3_2.vhd=VHDL Source Code
+.\src\task3_3.vhd=VHDL Source Code
+.\src\task4.vhd=VHDL Source Code
+.\src\basic\sum1.vhd=VHDL Source Code
+.\src\basic\xor2.vhd=VHDL Source Code
+.\src\basic\half_sum.vhd=VHDL Source Code
+.\src\basic\or3.vhd=VHDL Source Code
+.\src\basic\nand3.vhd=VHDL Source Code
+.\src\basic\and3.vhd=VHDL Source Code
+.\src\basic\and2.vhd=VHDL Source Code
+.\src\basic\inv.vhd=VHDL Source Code
+.\src\basic\or2.vhd=VHDL Source Code
+.\src\test-bench\task3_1\task3_1_TB.vhd=VHDL Test Bench
+.\src\test-bench\task3_1\task3_1_TB_runtest.do=Macro
+.\src\test-bench\task3_2\task3_2_TB.vhd=VHDL Test Bench
+.\src\test-bench\task3_2\task3_2_TB_runtest.do=Macro
+.\src\test-bench\task3_3\task3_3_TB.vhd=VHDL Test Bench
+.\src\test-bench\task3_3\task3_3_TB_runtest.do=Macro
+.\src\test-bench\task4\sum2_TB.vhd=VHDL Test Bench
+.\src\test-bench\task4\sum2_TB_runtest.do=Macro
