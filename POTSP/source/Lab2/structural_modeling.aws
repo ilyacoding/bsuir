@@ -1,0 +1,12 @@
+[Version]
+Version=9.1
+[Designs]
+structural_modeling=.\structural_modeling\structural_modeling.adf
+[Browser]
+sort=order
+mode=none
+[Order]
+order=1
+macro=
+[Expand]
+structural_modeling=1

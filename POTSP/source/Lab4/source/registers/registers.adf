@@ -1,0 +1,133 @@
+[Project]
+Current Flow=Generic
+VCS=0
+version=3
+Current Config=compile
+
+[Configurations]
+compile=registers
+
+[Library]
+registers=.\registers.LIB
+
+[Settings]
+AccessRead=0
+AccessReadWrite=0
+AccessACCB=0
+AccessACCR=0
+AccessReadWriteSLP=0
+AccessReadTopLevel=1
+DisableC=1
+ENABLE_ADV_DATAFLOW=0
+FLOW_TYPE=HDL
+LANGUAGE=VHDL
+REFRESH_FLOW=1
+FLOWTOOLS=NONE
+FAMILY=
+
+[LocalVerilogSets]
+EnableSLP=1
+EnableDebug=0
+
+[LocalVhdlSets]
+CompileWithDebug=0
+DisableVHDL87Key=0
+EnableVHDL93Key=0
+EnableVHDL2002Key=1
+EnableVHDL2006Key=0
+EnableVHDL2008Key=0
+NetlistCompilation=1
+Syntax RelaxLRM=0
+MaxErrorsKey=100
+OptimizationLevel=3
+DisableRangeChecks=0
+ProtectLevel=0
+AdditionalOptions=
+IncrementalCompilation=0
+
+[$LibMap$]
+registers=.
+Active_lib=
+
+[HierarchyViewer]
+SortInfo=u
+HierarchyInformation=johnsoncounter_tb|TESTBENCH|0 shiftregister_tb|TB_ARCHITECTURE|0 synchronousregister_tb|TB_ARCHITECTURE|0 
+ShowHide=ShowTopLevel
+Selected=
+
+[Groups]
+task 1=1
+task 1\asynchronous=1
+task 1\asynchronous\test-bench=1
+task 1\synchronous=1
+task 1\synchronous\test-bench=1
+basic=1
+task 2=1
+task 2\test-bench=1
+task 3.a=1
+task 3.a\test-bench=1
+task 3.c=1
+task 3.c\test-bench=1
+task 3.b=1
+task 3.b\test-bench=1
+task 3.d=1
+task 3.d\test-bench=1
+
+[Files]
+task 1\asynchronous/AsynchronousRegister.vhd=-1
+task 1\asynchronous\test-bench/asynchronousregister_TB.vhd=-1
+task 1\asynchronous\test-bench/asynchronousregister_TB_runtest.do=-1
+task 1\synchronous/SynchronousRegister.vhd=-1
+task 1\synchronous\test-bench/synchronousregister_TB.vhd=-1
+task 1\synchronous\test-bench/synchronousregister_TB_runtest.do=-1
+basic/and2.vhd=-1
+basic/D_Enable_Latch.vhd=-1
+basic/inv.vhd=-1
+basic/nor2.vhd=-1
+basic/D_FlipFlop.vhd=-1
+basic/FDCE.vhd=-1
+task 2/ShiftRegister.vhd=-1
+task 2\test-bench/shiftregister_TB.vhd=-1
+task 2\test-bench/shiftregister_TB_runtest.do=-1
+task 3.a/JohnsonCounter.vhd=-1
+task 3.a\test-bench/JohnsonCounter_tb.do=-1
+task 3.a\test-bench/JohnsonCounter_tb.vhd=-1
+task 3.c/LFSR_Out.vhd=-1
+task 3.c\test-bench/LFSR_Out_tb.do=-1
+task 3.c\test-bench/LFSR_Out_tb.vhd=-1
+task 3.b/LFSR_In.vhd=-1
+task 3.b\test-bench/LFSR_In_tb.do=-1
+task 3.b\test-bench/LFSR_In_tb.vhd=-1
+task 3.d/Signature.vhd=-1
+task 3.d\test-bench/Signature_tb.do=-1
+task 3.d\test-bench/Signature_tb.vhd=-1
+
+[Files.Data]
+.\src\task 1\asynchronous\AsynchronousRegister.vhd=VHDL Source Code
+.\src\task 1\asynchronous\test-bench\asynchronousregister_TB.vhd=VHDL Test Bench
+.\src\task 1\asynchronous\test-bench\asynchronousregister_TB_runtest.do=Macro
+.\src\task 1\synchronous\SynchronousRegister.vhd=VHDL Source Code
+.\src\task 1\synchronous\test-bench\synchronousregister_TB.vhd=VHDL Source Code
+.\src\task 1\synchronous\test-bench\synchronousregister_TB_runtest.do=Macro
+.\src\basic\and2.vhd=VHDL Source Code
+.\src\basic\D_Enable_Latch.vhd=VHDL Source Code
+.\src\basic\inv.vhd=VHDL Source Code
+.\src\basic\nor2.vhd=VHDL Source Code
+.\src\basic\D_FlipFlop.vhd=VHDL Source Code
+.\src\basic\FDCE.vhd=VHDL Source Code
+.\src\task 2\ShiftRegister.vhd=VHDL Source Code
+.\src\task 2\test-bench\shiftregister_TB.vhd=VHDL Source Code
+.\src\task 2\test-bench\shiftregister_TB_runtest.do=Macro
+.\src\task 3.a\JohnsonCounter.vhd=VHDL Source Code
+.\src\task 3.a\test-bench\JohnsonCounter_tb.do=Macro
+.\src\task 3.a\test-bench\JohnsonCounter_tb.vhd=VHDL Source Code
+.\src\task 3.c\LFSR_Out.vhd=VHDL Source Code
+.\src\task 3.c\test-bench\LFSR_Out_tb.do=Macro
+.\src\task 3.c\test-bench\LFSR_Out_tb.vhd=VHDL Source Code
+.\src\task 3.b\LFSR_In.vhd=VHDL Source Code
+.\src\task 3.b\test-bench\LFSR_In_tb.do=Macro
+.\src\task 3.b\test-bench\LFSR_In_tb.vhd=VHDL Source Code
+.\src\task 3.d\Signature.vhd=VHDL Source Code
+.\src\task 3.d\test-bench\Signature_tb.do=Macro
+.\src\task 3.d\test-bench\Signature_tb.vhd=VHDL Source Code
+

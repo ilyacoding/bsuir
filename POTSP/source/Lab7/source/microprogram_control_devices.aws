@@ -1,0 +1,12 @@
+[Version]
+Version=9.1
+[Designs]
+microprogram_control_devices=.\microprogram_control_devices\microprogram_control_devices.adf
+[Browser]
+sort=order
+mode=none
+[Order]
+order=1
+macro=
+[Expand]
+microprogram_control_devices=1
